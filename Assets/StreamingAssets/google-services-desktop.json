@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "26577513611",
+    "firebase_url": "https://userprofilemodule.firebaseio.com",
+    "project_id": "userprofilemodule",
+    "storage_bucket": "userprofilemodule.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:26577513611:android:ce823d63ef44b97a",
+        "android_client_info": {
+          "package_name": "com.glongo.authModule"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "26577513611-cteejqb697qiou9kgtbau8jh02dd9mhq.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBiAq7yuwUzfifyUMw5SvrOsEi9DSuzyqc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "26577513611-cteejqb697qiou9kgtbau8jh02dd9mhq.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
