@@ -2,7 +2,7 @@
 using System.Collections;
 using System;
 
-namespace RemoteDataTypes
+namespace RemoteDataModule.RemoteDataTypes
 {
     [Serializable]
     public class RemoteUserProfile : UserReference

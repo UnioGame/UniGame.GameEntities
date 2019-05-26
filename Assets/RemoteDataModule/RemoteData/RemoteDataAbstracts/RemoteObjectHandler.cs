@@ -3,9 +3,9 @@ using System.Collections;
 using System.Threading.Tasks;
 using System;
 
-namespace RemoteDataAbstracts
+namespace RemoteDataModule.RemoteDataAbstracts
 {
-    public abstract class RemoteObjectHandler<T> : IDisposable where T:class
+    public abstract class RemoteObjectHandler<T> : IDisposable where T : class
     {
         public T Object { get; protected set; }
 
@@ -17,6 +17,22 @@ namespace RemoteDataAbstracts
 
         public abstract event Action<RemoteObjectHandler<T>> ValueChanged;
 
-        public abstract RemoteObjectHandler<TChild> GetChild<TChild>(string path) where TChild:class;
+        public abstract RemoteObjectHandler<TChild> GetChild<TChild>(string path) where TChild : class;
+
+        public abstract RemoteDataChange CreateChange(string fieldName, object fieldValue);
+
+        public async Task ApplyChange(RemoteDataChange change)
+        {
+            ApplyChangeLocal(change);
+            await ApplyChangeRemote(change);
+        }
+
+        public void ApplyChangeLocal(RemoteDataChange change)
+        {
+            var fieldInfo = typeof(T).GetField(change.FieldName);
+            fieldInfo.SetValue(Object, change.FieldValue);
+        }
+
+        protected abstract Task ApplyChangeRemote(RemoteDataChange change);
     }
 }

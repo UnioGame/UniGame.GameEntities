@@ -1,5 +1,5 @@
 ﻿using Firebase.Database;
-using RemoteDataAbstracts;
+using RemoteDataModule.RemoteDataAbstracts;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -8,7 +8,7 @@ using UnityEngine;
 
 namespace RemoteDataImpl
 {
-    public class FirebaseRemoteObjectHandler<T> : RemoteObjectHandler<T> where T:class
+    public class FirebaseRemoteObjectHandler<T> : RemoteObjectHandler<T> where T : class
     {
         DatabaseReference _reference;
 
@@ -43,6 +43,41 @@ namespace RemoteDataImpl
             return task;
         }
 
+        public override Task UpdateRemoteData(T newObject)
+        {
+            var jsonValue = JsonUtility.ToJson(newObject);
+            return _reference.SetRawJsonValueAsync(jsonValue);
+        }
+
+        public override RemoteObjectHandler<TChild> GetChild<TChild>(string path)
+        {
+            var childRef = _reference.Child(path);
+            return new FirebaseRemoteObjectHandler<TChild>(childRef);
+        }
+
+        protected void EnsureLoadSuccess(Task<DataSnapshot> task)
+        {
+            if (task.IsCanceled) throw new TaskCanceledException();
+            if (task.Exception != null) throw task.Exception;
+            if (task.IsFaulted) throw new AggregateException("Task faulted");
+        }
+
+        public override RemoteDataChange CreateChange(string fieldName, object fieldValue)
+        {
+            return new RemoteDataChange()
+            {
+                FieldName = fieldName,
+                FieldValue = fieldValue,
+                FullPath = _reference.ToString().Substring(_reference.Root.ToString().Length - 1)
+            };
+        }
+        
+        protected override async void ApplyChangeRemote(RemoteDataChange change)
+        {
+            Debug.LogError("NOT IMPLEMENTED");
+            await _reference.Child(change.FieldName).SetRawJsonValueAsync(JsonUtility.ToJson(change.FieldValue));
+        }
+        
         private void RemoteValueChanged(object sender, ValueChangedEventArgs e)
         {
             ParseResult(e.Snapshot);
@@ -72,25 +107,6 @@ namespace RemoteDataImpl
                 Debug.LogException(e);
             }
             ValueChanged?.Invoke(this);
-        }
-
-        protected void EnsureLoadSuccess(Task<DataSnapshot> task)
-        {
-            if (task.IsCanceled) throw new TaskCanceledException();
-            if (task.Exception != null) throw task.Exception;
-            if (task.IsFaulted) throw new AggregateException("Task faulted");
-        }
-
-        public override Task UpdateRemoteData(T newObject)
-        {
-            var jsonValue = JsonUtility.ToJson(newObject);
-            return _reference.SetRawJsonValueAsync(jsonValue);
-        }
-
-        public override RemoteObjectHandler<TChild> GetChild<TChild>(string path)
-        {
-            var childRef = _reference.Child(path);
-            return new FirebaseRemoteObjectHandler<TChild>(childRef);
         }
     }
 }

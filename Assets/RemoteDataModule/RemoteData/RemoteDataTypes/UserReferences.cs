@@ -1,7 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System;
-namespace RemoteDataTypes
+
+namespace RemoteDataModule.RemoteDataTypes
 {
     [Serializable]
     public class UserReference
