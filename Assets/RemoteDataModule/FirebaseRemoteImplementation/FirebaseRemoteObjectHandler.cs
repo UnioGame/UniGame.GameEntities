@@ -72,7 +72,7 @@ namespace RemoteDataImpl
             };
         }
         
-        protected override async void ApplyChangeRemote(RemoteDataChange change)
+        protected override async Task ApplyChangeRemote(RemoteDataChange change)
         {
             Debug.LogError("NOT IMPLEMENTED");
             await _reference.Child(change.FieldName).SetRawJsonValueAsync(JsonUtility.ToJson(change.FieldValue));
