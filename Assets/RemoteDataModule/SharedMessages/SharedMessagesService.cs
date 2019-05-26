@@ -12,12 +12,12 @@ namespace RemoteDataModule.SharedMessages
     {
         private Dictionary<Type, ISharedMessageProcessor> _processors = new Dictionary<Type, ISharedMessageProcessor>();
 
-        private string _ownerUserId;
+        private FirebaseAuthModule _authModule;
         private BaseSharedMessagesStorage _storage;
 
-        public void Init(string ownerUserId, BaseSharedMessagesStorage storage)
+        public void Init(FirebaseAuthModule authModule, BaseSharedMessagesStorage storage)
         {
-            this._ownerUserId = ownerUserId;
+            this._authModule = authModule;
             this._storage = storage;
             _storage.SelfMessagesUpdated += SelfMessagesUpdated;
         }

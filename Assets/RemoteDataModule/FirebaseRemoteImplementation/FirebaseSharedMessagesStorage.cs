@@ -11,18 +11,17 @@ namespace RemoteDataModule.FirebaseImplementation.SharedMessages
 {
     public sealed class FirebaseSharedMessagesStorage : BaseSharedMessagesStorage
     {
-        private string _ownerUserId = null;
+        private FirebaseAuthModule _auth;
 
         public override event Action<List<AbstractSharedMessage>> SelfMessagesUpdated;
 
-        public void Init(string ownerId)
+        public void Init(FirebaseAuthModule auth)
         {
-            _ownerUserId = ownerId;
+            _auth = auth;
         }
 
         public override async Task CommitMessage(string userId, AbstractSharedMessage message)
         {
-            EnsureInitialized();
             var serializedData = JsonUtility.ToJson(message);
             var reference = FirebaseDatabase.DefaultInstance.RootReference.Child(string.Format("SharedMessages/{0}/", userId));
             var newKey = reference.Push().Key;
@@ -31,8 +30,7 @@ namespace RemoteDataModule.FirebaseImplementation.SharedMessages
 
         public override async Task<List<AbstractSharedMessage>> FetchAllMessages()
         {
-            EnsureInitialized();
-            var reference = FirebaseDatabase.DefaultInstance.RootReference.Child(string.Format("SharedMessages/{0}/", _ownerUserId));
+            var reference = FirebaseDatabase.DefaultInstance.RootReference.Child(string.Format("SharedMessages/{0}/", _auth.CurrentUserId));
             var data = await reference.GetValueAsync();
             List<AbstractSharedMessage> result = new List<AbstractSharedMessage>();
             foreach(var messageData in data.Children)
@@ -44,10 +42,5 @@ namespace RemoteDataModule.FirebaseImplementation.SharedMessages
             return result;
         }
 
-        private void EnsureInitialized()
-        {
-            if (_ownerUserId == null)
-                throw new InvalidOperationException(nameof(FirebaseSharedMessagesStorage) + " not initialized");
-        }
     }
 }

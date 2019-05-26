@@ -9,6 +9,8 @@ public class LoginControls : MonoBehaviour
     [SerializeField]
     private Text _loginInfoText;
 
+    private string _loginInfoString;
+
     private FirebaseAuthModule _auth;
 
     private void Start()
@@ -19,6 +21,11 @@ public class LoginControls : MonoBehaviour
     public void Init(FirebaseAuthModule auth)
     {
         this._auth = auth;
+    }
+
+    public void Update()
+    {
+        _loginInfoText.text = _loginInfoString; 
     }
 
     public void OnLoginFb()
@@ -56,6 +63,6 @@ public class LoginControls : MonoBehaviour
 
     private void SetInfoText(string text)
     {
-        _loginInfoText.text = text;
+        _loginInfoString = text;
     }
 }
