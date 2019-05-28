@@ -1,4 +1,5 @@
-﻿using RemoteDataModule.SharedMessages;
+﻿using RemoteDataModule.Authorization;
+using RemoteDataModule.SharedMessages;
 using RemoteDataModule.SharedMessages.MessageData;
 using System.Collections;
 using System.Collections.Generic;
@@ -8,14 +9,14 @@ using UnityEngine.UI;
 public class MessageControls : MonoBehaviour
 {
     private SharedMessagesService _service;
-    private FirebaseAuthModule _authModule;
+    private IAuthModule _authModule;
 
     [SerializeField]
     private InputField _userIdField;
     [SerializeField]
     private InputField _messageField;
 
-    public void Init(SharedMessagesService service, FirebaseAuthModule authModule)
+    public void Init(SharedMessagesService service, IAuthModule authModule)
     {
         this._service = service;
         this._authModule = authModule;

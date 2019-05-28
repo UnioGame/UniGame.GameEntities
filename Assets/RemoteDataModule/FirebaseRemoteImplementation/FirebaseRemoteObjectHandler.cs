@@ -24,23 +24,26 @@ namespace RemoteDataImpl
             _reference.KeepSynced(false);
         }
 
-        public override Task<RemoteObjectHandler<T>> LoadData(bool keepSynched)
+        public async override Task<RemoteObjectHandler<T>> LoadData(bool keepSynched, Func<T> initialDataProvider)
         {
             if (keepSynched)
             {
                 _reference.KeepSynced(keepSynched);
+                _reference.ValueChanged -= RemoteValueChanged;
                 _reference.ValueChanged += RemoteValueChanged;
             }
             Debug.Log("Requesting data on path :: " + _reference.ToString());
-            var task = _reference.GetValueAsync().ContinueWith<RemoteObjectHandler<T>>((loadTask) =>
+            var data = await _reference.GetValueAsync();
+            Debug.Log("RAW DATA :: " + data.GetRawJsonValue());
+            if (!data.Exists && initialDataProvider != null)
             {
-                Debug.Log("RAW DATA :: " + loadTask.Result.GetRawJsonValue());
-                EnsureLoadSuccess(loadTask);
-                var data = loadTask.Result;
+                var initialData = initialDataProvider();
+                await UpdateRemoteData(initialData);
+                Object = initialData;
+            }
+            else
                 ParseResult(data);
-                return this;
-            });
-            return task;
+            return this;
         }
 
         public override Task UpdateRemoteData(T newObject)
@@ -55,11 +58,9 @@ namespace RemoteDataImpl
             return new FirebaseRemoteObjectHandler<TChild>(childRef);
         }
 
-        protected void EnsureLoadSuccess(Task<DataSnapshot> task)
+        public override string GetDataId()
         {
-            if (task.IsCanceled) throw new TaskCanceledException();
-            if (task.Exception != null) throw task.Exception;
-            if (task.IsFaulted) throw new AggregateException("Task faulted");
+            return _reference.Key;
         }
 
         public override RemoteDataChange CreateChange(string fieldName, object fieldValue)
@@ -71,13 +72,23 @@ namespace RemoteDataImpl
                 FullPath = _reference.ToString().Substring(_reference.Root.ToString().Length - 1)
             };
         }
-        
+
+        protected void EnsureLoadSuccess(Task<DataSnapshot> task)
+        {
+            if (task.IsCanceled) throw new TaskCanceledException();
+            if (task.Exception != null) throw task.Exception;
+            if (task.IsFaulted) throw new AggregateException("Task faulted");
+        }
+
         protected override async Task ApplyChangeRemote(RemoteDataChange change)
         {
-            Debug.LogError("NOT IMPLEMENTED");
-            await _reference.Child(change.FieldName).SetRawJsonValueAsync(JsonUtility.ToJson(change.FieldValue));
+            var changeType = change.FieldValue.GetType();
+            if (changeType.IsValueType || change.FieldValue is String)
+                await _reference.Child(change.FieldName).SetValueAsync(change.FieldValue);
+            else
+                await _reference.Child(change.FieldName).SetRawJsonValueAsync(JsonUtility.ToJson(change.FieldValue));
         }
-        
+
         private void RemoteValueChanged(object sender, ValueChangedEventArgs e)
         {
             ParseResult(e.Snapshot);
@@ -86,27 +97,9 @@ namespace RemoteDataImpl
 
         private void ParseResult(DataSnapshot dataSnapshot)
         {
-            try
-            {
-                // Списки не парсятся в качестве корневого объекта потому
-                if (typeof(T) == typeof(string[]))
-                {
-                    List<string> list = new List<string>();
-                    foreach(var child in dataSnapshot.Children)
-                    {
-                        list.Add(child.Value.ToString());
-                    }
-                    Object = list.ToArray() as T;
-                }
-                else
-                    Object = JsonUtility.FromJson<T>(dataSnapshot.GetRawJsonValue());
-
-            }
-            catch (Exception e)
-            {
-                Debug.LogException(e);
-            }
+            Object = JsonUtility.FromJson<T>(dataSnapshot.GetRawJsonValue());
             ValueChanged?.Invoke(this);
         }
+
     }
 }

@@ -6,16 +6,17 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Firebase.Database;
+using RemoteDataModule.Authorization;
 
 namespace RemoteDataModule.FirebaseImplementation.SharedMessages
 {
     public sealed class FirebaseSharedMessagesStorage : BaseSharedMessagesStorage
     {
-        private FirebaseAuthModule _auth;
+        private IAuthModule _auth;
 
         public override event Action<List<AbstractSharedMessage>> SelfMessagesUpdated;
 
-        public void Init(FirebaseAuthModule auth)
+        public void Init(IAuthModule auth)
         {
             _auth = auth;
         }

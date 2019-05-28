@@ -1,5 +1,9 @@
 ﻿using Facebook.Unity;
+using GOIFirebase.RemoteDataImpl;
+using RemoteDataModule.Authorization;
+using RemoteDataModule.FirebaseImplementation;
 using RemoteDataModule.FirebaseImplementation.SharedMessages;
+using RemoteDataModule.RemoteDataAbstracts;
 using RemoteDataModule.SharedMessages;
 using RemoteDataModule.SharedMessages.MessageData;
 using System.Collections;
@@ -14,11 +18,15 @@ namespace Samples
         private LoginControls _loginControls;
         [SerializeField]
         private MessageControls _messageControls;
+        [SerializeField]
+        private UserProfileControls _profileControls;
 
-        private FirebaseAuthModule _authModule;
+        private IAuthModule _authModule;
         private SharedMessagesService _messagesService;
         private BaseSharedMessagesStorage _messageStorage;
         private TextSharedMessageProcessor _textProcessor;
+        private RemoteObjectsProvider _remoteObjectsProvider;
+        private MutableObjectFactory _mutableObjectFactory;
 
         void Start()
         {
@@ -31,12 +39,18 @@ namespace Samples
             _textProcessor = new TextSharedMessageProcessor();
             _messagesService.RegisterProcessor<TextSharedMessage>(_textProcessor);
             _messagesService.Init(_authModule, _messageStorage);
-            _loginControls.Init(_authModule);
             _messageControls.Init(_messagesService, _authModule);
+
+            _loginControls.Init(_authModule);
+
+            _remoteObjectsProvider = new FirebaseRemoteDataProvider();
+            _mutableObjectFactory = new MutableObjectFactory(_remoteObjectsProvider);
+            _profileControls.Init(_mutableObjectFactory, _authModule);
+
         }
 
 
-        public void Auth(FirebaseAuthModule.AuthType authType)
+        public void Auth(AuthType authType)
         {
             var task = _authModule.Login(authType);
         }

@@ -3,12 +3,16 @@ using System.Collections;
 using RemoteDataModule.RemoteDataAbstracts;
 using System.Threading.Tasks;
 using System.Collections.Generic;
+using System;
+using UniRx;
+using System.Threading;
+using UniRx.Async;
 
-namespace RemoteDataModule.RemoteUserProfile
+namespace RemoteDataModule.MutableRemoteObjects
 {
     public class BaseMutableRemoteObjectFacade<T> where T : class
     {
-        private RemoteObjectHandler<T> _objectHandler;
+        protected RemoteObjectHandler<T> _objectHandler;
 
         private List<RemoteDataChange> _pendingChanges;
 
@@ -18,9 +22,19 @@ namespace RemoteDataModule.RemoteUserProfile
             _pendingChanges = new List<RemoteDataChange>();
         }
 
-        public async Task LoadRootData()
+        /// <summary>
+        /// Loads remote data. if not exits sets initialValue
+        /// </summary>
+        /// <param name="initialDataProvider"></param>
+        /// <returns></returns>
+        public async Task LoadRootData(Func<T> initialDataProvider = null){
+
+            await _objectHandler.LoadData(initialDataProvider: initialDataProvider);
+        }
+
+        public string GetId()
         {
-            await _objectHandler.LoadData();
+            return _objectHandler.GetDataId();
         }
 
         public void UpdateChildData(string childName, object newData)
@@ -28,13 +42,14 @@ namespace RemoteDataModule.RemoteUserProfile
             var change = _objectHandler.CreateChange(childName, newData);
             _pendingChanges.Add(change);
         }
-
+        
         public async Task CommitChanges()
         {
-            // TO DO Async
             // TO DO transaction
             List<Task> updateTasks = new List<Task>();
-            foreach (var change in _pendingChanges)
+            var changes = _pendingChanges;
+            _pendingChanges = new List<RemoteDataChange>();
+            foreach (var change in changes)
                 updateTasks.Add(_objectHandler.ApplyChange(change));
             await Task.WhenAll(updateTasks.ToArray());
             _pendingChanges.Clear();

@@ -11,7 +11,7 @@ namespace RemoteDataModule.RemoteDataAbstracts
 
         public abstract void Dispose();
 
-        public abstract Task<RemoteObjectHandler<T>> LoadData(bool keepSynched = false);
+        public abstract Task<RemoteObjectHandler<T>> LoadData(bool keepSynched = false, Func<T> initialDataProvider = null);
 
         public abstract Task UpdateRemoteData(T newData);
 
@@ -32,6 +32,8 @@ namespace RemoteDataModule.RemoteDataAbstracts
             var fieldInfo = typeof(T).GetField(change.FieldName);
             fieldInfo.SetValue(Object, change.FieldValue);
         }
+
+        public abstract string GetDataId();
 
         protected abstract Task ApplyChangeRemote(RemoteDataChange change);
     }

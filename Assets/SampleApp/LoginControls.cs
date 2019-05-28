@@ -1,4 +1,5 @@
 ﻿using Facebook.Unity;
+using RemoteDataModule.Authorization;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -11,14 +12,14 @@ public class LoginControls : MonoBehaviour
 
     private string _loginInfoString;
 
-    private FirebaseAuthModule _auth;
+    private IAuthModule _auth;
 
     private void Start()
     {
         SetInfoText("...");
     }
 
-    public void Init(FirebaseAuthModule auth)
+    public void Init(IAuthModule auth)
     {
         this._auth = auth;
     }
@@ -31,14 +32,14 @@ public class LoginControls : MonoBehaviour
     public void OnLoginFb()
     {
         SetInfoText("Start login FB");
-        _auth.Login(FirebaseAuthModule.AuthType.Facebook).ContinueWith((_)=> {
+        _auth.Login(AuthType.Facebook).ContinueWith((_)=> {
             ShowAuthData();
         });
     }
 
     public void OnLoginAnonymous()
     {
-        _auth.LoginAnonimously().ContinueWith((t)=> {
+        _auth.Login(AuthType.Anonimous).ContinueWith((t)=> {
             if (t.IsFaulted)
                 SetInfoText("Anonimous auth faulted");
             else

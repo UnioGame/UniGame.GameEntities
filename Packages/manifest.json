@@ -1,5 +1,29 @@
 {
+  "scopedRegistries": [
+    {
+      "name": "Unity",
+      "url": "https://packages.unity.com",
+      "scopes": [
+        "com.unity"
+      ]
+    },
+    {
+      "name": "GreenButtonGames",
+      "url": "http://packages.greenbuttongames.com",
+      "scopes": [
+        "com.greenbuttongames"
+      ]
+    },
+    {
+      "name": "CodeWriter",
+      "url": "http://packages.greenbuttongames.com:12867",
+      "scopes": [
+        "com.codewriter"
+      ]
+    }
+  ],
   "dependencies": {
+    "com.greenbuttongames.neuecc.unirx": "6.2.2",
     "com.unity.ads": "2.0.8",
     "com.unity.analytics": "3.2.2",
     "com.unity.collab-proxy": "1.2.15",

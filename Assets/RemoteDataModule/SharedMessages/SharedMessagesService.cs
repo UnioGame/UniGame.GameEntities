@@ -1,4 +1,5 @@
-﻿using RemoteDataModule.SharedMessages;
+﻿using RemoteDataModule.Authorization;
+using RemoteDataModule.SharedMessages;
 using RemoteDataModule.SharedMessages.MessageData;
 using System;
 using System.Collections;
@@ -12,10 +13,10 @@ namespace RemoteDataModule.SharedMessages
     {
         private Dictionary<Type, ISharedMessageProcessor> _processors = new Dictionary<Type, ISharedMessageProcessor>();
 
-        private FirebaseAuthModule _authModule;
+        private IAuthModule _authModule;
         private BaseSharedMessagesStorage _storage;
 
-        public void Init(FirebaseAuthModule authModule, BaseSharedMessagesStorage storage)
+        public void Init(IAuthModule authModule, BaseSharedMessagesStorage storage)
         {
             this._authModule = authModule;
             this._storage = storage;
