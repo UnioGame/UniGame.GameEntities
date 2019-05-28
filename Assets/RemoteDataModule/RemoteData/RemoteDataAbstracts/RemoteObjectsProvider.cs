@@ -9,5 +9,7 @@ namespace RemoteDataModule.RemoteDataAbstracts
         public abstract void Dispose();
 
         public abstract RemoteObjectHandler<T> GetRemoteObject<T>(string path) where T : class;
+
+        public abstract string GetIdForNewObject(string path);
     }
 }

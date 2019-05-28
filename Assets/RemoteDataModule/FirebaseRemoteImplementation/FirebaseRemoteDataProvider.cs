@@ -9,17 +9,21 @@ namespace GOIFirebase.RemoteDataImpl
 {
     public class FirebaseRemoteDataProvider : RemoteObjectsProvider
     {
-        private Dictionary<string, DatabaseReference> _cachedReferences = new Dictionary<string, DatabaseReference>();
-
         public override void Dispose()
         {
-            _cachedReferences.Clear();
+            // TO DO
+        }
+
+        // TO DO variative bases
+
+        public override string GetIdForNewObject(string path)
+        {
+            return FirebaseDatabase.DefaultInstance.RootReference.Child(path).Push().Key;
         }
 
         public override RemoteObjectHandler<T> GetRemoteObject<T>(string path)
         {
             var reference = FirebaseDatabase.DefaultInstance.RootReference.Child(path);
-           // _cachedReferences.Add(path, reference);
             return new FirebaseRemoteObjectHandler<T>(reference);
         }
     }

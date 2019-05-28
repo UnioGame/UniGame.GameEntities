@@ -17,6 +17,14 @@ namespace RemoteDataModule.RemoteDataTypes
         }
     }
 
+    [SerializeField]
+    public class ClanUserReference
+    {
+        public string Id;
+        public string Name;
+        public string Role;
+    }
+
     [Serializable]
     public class ScoredUserReference : UserReference
     {

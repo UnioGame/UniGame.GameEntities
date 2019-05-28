@@ -19,5 +19,13 @@ namespace Samples
             var obj = _objectsProvider.GetRemoteObject<UserProfileData>(string.Format("Users/{0}", UserId));
             return new MutableUserProfile(obj);
         }
+
+        public MutableClanData GetClanProfile(string clanId = null)
+        {
+            if (clanId == null)
+                clanId =_objectsProvider.GetIdForNewObject("Clans/");
+            var obj = _objectsProvider.GetRemoteObject<ClanData>(string.Format("Clans/{0}", clanId));
+            return new MutableClanData(obj);
+        }
     }
 }
