@@ -54,9 +54,9 @@ namespace Samples
 
         public void CommitSomeChanges()
         {
-            _ownProfile.Gold = Random.Range(0, 120);
-            _ownProfile.Score = Random.Range(0, 75);
-            _ownProfile.UserName = _ownProfile.UserName + Random.Range(0, 9).ToString();
+            _ownProfile.ReactiveGold.Value = Random.Range(0, 120);
+            _ownProfile.ReactiveScore.Value = Random.Range(0, 75);
+            _ownProfile.ReactiveUserName.Value = _ownProfile.ReactiveUserName.Value + Random.Range(0, 9).ToString();
             _ownProfile.CommitChanges().ContinueWith((_)=> { SetInfoText(); });
         }
 

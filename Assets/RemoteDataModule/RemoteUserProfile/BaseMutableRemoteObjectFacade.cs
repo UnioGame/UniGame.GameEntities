@@ -16,10 +16,13 @@ namespace GBG.Modules.RemoteData.MutableRemoteObjects
 
         private List<RemoteDataChange> _pendingChanges;
 
+        private Dictionary<string, INotifyable> _properties;
+
         public BaseMutableRemoteObjectFacade(RemoteObjectHandler<T> objectHandler)
         {
             this._objectHandler = objectHandler;
             _pendingChanges = new List<RemoteDataChange>();
+            _properties = new Dictionary<string, INotifyable>();
         }
 
         /// <summary>
@@ -30,6 +33,7 @@ namespace GBG.Modules.RemoteData.MutableRemoteObjects
         public async Task LoadRootData(Func<T> initialDataProvider = null){
 
             await _objectHandler.LoadData(initialDataProvider: initialDataProvider);
+            AllPropertiesChanged();
         }
 
         public string GetId()
@@ -50,9 +54,30 @@ namespace GBG.Modules.RemoteData.MutableRemoteObjects
             var changes = _pendingChanges;
             _pendingChanges = new List<RemoteDataChange>();
             foreach (var change in changes)
-                updateTasks.Add(_objectHandler.ApplyChange(change));
+            {
+                var fieldName = change.FieldName;
+                updateTasks.Add(_objectHandler.ApplyChange(change).ContinueWith((_)=> { PropertyChanged(fieldName); }));
+            }
             await Task.WhenAll(updateTasks.ToArray());
             _pendingChanges.Clear();
+        }
+
+        public MutableObjectReactiveProperty<Tvalue> CreateReactiveProperty<Tvalue>(Func<Tvalue> getter, Action<Tvalue> setter, string fieldName)
+        {
+            var property = new MutableObjectReactiveProperty<Tvalue>(getter, setter);
+            _properties.Add(fieldName, property);
+            return property;
+        }
+
+        protected void PropertyChanged(string name)
+        {
+            _properties[name].NotifyOnChange();
+        }
+
+        protected void AllPropertiesChanged()
+        {
+            foreach (var property in _properties.Values)
+                property.NotifyOnChange();
         }
     }
 }
