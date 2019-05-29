@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
-using RemoteDataModule.RemoteDataTypes;
+using GBG.Modules.RemoteData.RemoteDataTypes;
 
 public class ClanData {
     // TO DO добавить поддержку словарей

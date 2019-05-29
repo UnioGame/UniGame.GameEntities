@@ -3,7 +3,7 @@ using System.Collections;
 using System.Threading.Tasks;
 using System;
 
-namespace RemoteDataModule.RemoteDataAbstracts
+namespace GBG.Modules.RemoteData.RemoteDataAbstracts
 {
     public abstract class RemoteObjectHandler<T> : IDisposable where T : class
     {

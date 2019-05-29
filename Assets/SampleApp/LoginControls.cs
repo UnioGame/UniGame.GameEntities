@@ -1,5 +1,5 @@
 ﻿using Facebook.Unity;
-using RemoteDataModule.Authorization;
+using GBG.Modules.RemoteData.Authorization;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;

@@ -1,19 +1,20 @@
 ﻿using UnityEngine;
 using System.Collections;
-using RemoteDataModule.SharedMessages;
-using RemoteDataModule.SharedMessages.MessageData;
+using GBG.Modules.RemoteData.SharedMessages;
+using GBG.Modules.RemoteData.SharedMessages.MessageData;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Firebase.Database;
-using RemoteDataModule.Authorization;
+using GBG.Modules.RemoteData.Authorization;
+using Newtonsoft.Json;
 
-namespace RemoteDataModule.FirebaseImplementation.SharedMessages
+namespace GBG.Modules.RemoteData.FirebaseImplementation.SharedMessages
 {
     public sealed class FirebaseSharedMessagesStorage : BaseSharedMessagesStorage
     {
         private IAuthModule _auth;
-
+        
         public override event Action<List<AbstractSharedMessage>> SelfMessagesUpdated;
 
         public void Init(IAuthModule auth)
@@ -23,7 +24,9 @@ namespace RemoteDataModule.FirebaseImplementation.SharedMessages
 
         public override async Task CommitMessage(string userId, AbstractSharedMessage message)
         {
-            var serializedData = JsonUtility.ToJson(message);
+            message.AssureType();
+            var serializedData = JsonConvert.SerializeObject(message);
+            Debug.Log("Commiting serialized message :: " + serializedData);
             var reference = FirebaseDatabase.DefaultInstance.RootReference.Child(string.Format("SharedMessages/{0}/", userId));
             var newKey = reference.Push().Key;
             await reference.Child(newKey).SetRawJsonValueAsync(serializedData);

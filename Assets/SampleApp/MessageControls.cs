@@ -1,6 +1,6 @@
-﻿using RemoteDataModule.Authorization;
-using RemoteDataModule.SharedMessages;
-using RemoteDataModule.SharedMessages.MessageData;
+﻿using GBG.Modules.RemoteData.Authorization;
+using GBG.Modules.RemoteData.SharedMessages;
+using GBG.Modules.RemoteData.SharedMessages.MessageData;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;

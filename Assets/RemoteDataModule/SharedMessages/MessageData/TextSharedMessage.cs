@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace RemoteDataModule.SharedMessages.MessageData
+namespace GBG.Modules.RemoteData.SharedMessages.MessageData
 {
     public class TextSharedMessage : AbstractSharedMessage
     {

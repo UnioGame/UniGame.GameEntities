@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System;
+using System.Collections.Generic;
 
 namespace Samples
 {
@@ -10,5 +11,6 @@ namespace Samples
         public string UserName;
         public int Score;
         public int Gold;
+        public Dictionary<string, string> KeyToVal;
     }
 }

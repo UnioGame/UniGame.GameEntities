@@ -1,9 +1,9 @@
 ﻿using UnityEngine;
 using System.Collections;
-using RemoteDataModule.SharedMessages.MessageData;
+using GBG.Modules.RemoteData.SharedMessages.MessageData;
 using System.Threading.Tasks;
 
-namespace RemoteDataModule.SharedMessages
+namespace GBG.Modules.RemoteData.SharedMessages
 {
     public interface ISharedMessageProcessor
     {

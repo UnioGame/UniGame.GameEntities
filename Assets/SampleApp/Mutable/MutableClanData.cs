@@ -1,9 +1,9 @@
 ﻿using UnityEngine;
 using System.Collections;
-using RemoteDataModule.MutableRemoteObjects;
-using RemoteDataModule.RemoteDataAbstracts;
+using GBG.Modules.RemoteData.MutableRemoteObjects;
+using GBG.Modules.RemoteData.RemoteDataAbstracts;
 using System.Collections.Generic;
-using RemoteDataModule.RemoteDataTypes;
+using GBG.Modules.RemoteData.RemoteDataTypes;
 
 namespace Samples {
     public class MutableClanData : BaseMutableRemoteObjectFacade<ClanData>

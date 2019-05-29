@@ -1,6 +1,6 @@
 ﻿using Firebase.Database;
 using RemoteDataImpl;
-using RemoteDataModule.RemoteDataAbstracts;
+using GBG.Modules.RemoteData.RemoteDataAbstracts;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;

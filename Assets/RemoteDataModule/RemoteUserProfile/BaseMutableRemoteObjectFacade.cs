@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
-using RemoteDataModule.RemoteDataAbstracts;
+using GBG.Modules.RemoteData.RemoteDataAbstracts;
 using System.Threading.Tasks;
 using System.Collections.Generic;
 using System;
@@ -8,7 +8,7 @@ using UniRx;
 using System.Threading;
 using UniRx.Async;
 
-namespace RemoteDataModule.MutableRemoteObjects
+namespace GBG.Modules.RemoteData.MutableRemoteObjects
 {
     public class BaseMutableRemoteObjectFacade<T> where T : class
     {

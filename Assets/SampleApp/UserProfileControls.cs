@@ -1,4 +1,5 @@
-﻿using RemoteDataModule.Authorization;
+﻿using GBG.Modules.RemoteData.Authorization;
+using Newtonsoft.Json;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -40,7 +41,12 @@ namespace Samples
                 {
                     Gold = 10,
                     UserName = "Test",
-                    Score = 0
+                    Score = 0,
+                    KeyToVal = new Dictionary<string, string>()
+                    {
+                        {"a", "b" },
+                        {"b", "c" }
+                    }
                 };
             }).ContinueWith((_) => { SetInfoText(); });
 
@@ -56,7 +62,11 @@ namespace Samples
 
         private void SetInfoText()
         {
-            _infoText = string.Format("Name :: {0}\nGold :: {1}\nScore::{2}", _ownProfile.UserName, _ownProfile.Gold, _ownProfile.Score);
+            _infoText = string.Format("Name :: {0}\nGold :: {1}\nScore::{2}\n\nKeyToVal :: {3}", 
+                _ownProfile.UserName,
+                _ownProfile.Gold,
+                _ownProfile.Score,
+                JsonConvert.SerializeObject(_ownProfile.KeyToVal));
         }
     }
 }

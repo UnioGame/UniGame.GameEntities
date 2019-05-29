@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 
-namespace RemoteDataModule.Authorization
+namespace GBG.Modules.RemoteData.Authorization
 {
     public enum AuthType
     {

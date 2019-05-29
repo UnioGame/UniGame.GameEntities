@@ -1,12 +1,14 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.Serialization;
 using UnityEngine;
 
-namespace RemoteDataModule.SharedMessages.MessageData
+namespace GBG.Modules.RemoteData.SharedMessages.MessageData
 {
     [Serializable]
-    public abstract class AbstractSharedMessage : ISerializationCallbackReceiver
+    public abstract class AbstractSharedMessage
     {
         /// <summary>
         /// User id отправителя
@@ -20,20 +22,19 @@ namespace RemoteDataModule.SharedMessages.MessageData
         [SerializeField]
         private bool Proceeded;
 
-        public void OnAfterDeserialize()
+        /// <summary>
+        /// TO DO вместо ииспользования этого метода надо настроить
+        /// Newtonsoft.Json чтобы он сериализовал инфу о типе в валидные поля
+        /// </summary>
+        public void AssureType()
         {
-            this.MessageType = this.GetType().Name;
-        }
-
-        public void OnBeforeSerialize()
-        {
-            this.MessageType = this.GetType().Name;
+            MessageType = this.GetType().Name;
         }
 
         public static AbstractSharedMessage FromJson(string typeShortName, string data)
         {
             var typeString = string.Join(".", typeof(AbstractSharedMessage).Namespace, typeShortName);
-            return JsonUtility.FromJson(data, Type.GetType(typeString)) as AbstractSharedMessage;
+            return JsonConvert.DeserializeObject(data) as AbstractSharedMessage;
         }
     }
 }

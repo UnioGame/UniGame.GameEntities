@@ -1,11 +1,11 @@
 ﻿using Facebook.Unity;
 using GOIFirebase.RemoteDataImpl;
-using RemoteDataModule.Authorization;
-using RemoteDataModule.FirebaseImplementation;
-using RemoteDataModule.FirebaseImplementation.SharedMessages;
-using RemoteDataModule.RemoteDataAbstracts;
-using RemoteDataModule.SharedMessages;
-using RemoteDataModule.SharedMessages.MessageData;
+using GBG.Modules.RemoteData.Authorization;
+using GBG.Modules.RemoteData.FirebaseImplementation;
+using GBG.Modules.RemoteData.FirebaseImplementation.SharedMessages;
+using GBG.Modules.RemoteData.RemoteDataAbstracts;
+using GBG.Modules.RemoteData.SharedMessages;
+using GBG.Modules.RemoteData.SharedMessages.MessageData;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;

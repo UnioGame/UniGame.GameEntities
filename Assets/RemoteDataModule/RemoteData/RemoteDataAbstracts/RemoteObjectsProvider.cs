@@ -2,7 +2,7 @@
 using System.Collections;
 using System;
 
-namespace RemoteDataModule.RemoteDataAbstracts
+namespace GBG.Modules.RemoteData.RemoteDataAbstracts
 {
     public abstract class RemoteObjectsProvider : IDisposable
     {

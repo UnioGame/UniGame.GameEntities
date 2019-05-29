@@ -1,8 +1,10 @@
 ﻿using UnityEngine;
 using System.Collections;
-using RemoteDataModule.MutableRemoteObjects;
-using RemoteDataModule.RemoteDataAbstracts;
+using GBG.Modules.RemoteData.MutableRemoteObjects;
+using GBG.Modules.RemoteData.RemoteDataAbstracts;
 using UniRx;
+using System.Collections.ObjectModel;
+using System.Collections.Generic;
 
 namespace Samples
 {
@@ -27,6 +29,13 @@ namespace Samples
         {
             get { return _objectHandler.Object.Gold; }
             set { UpdateChildData(nameof(_objectHandler.Object.Gold), value); }
+        }
+
+        // TO DO create dictionary dispatching changes
+        public IDictionary<string, string> KeyToVal
+        {
+            get { return _objectHandler.Object.KeyToVal; }
+            set { UpdateChildData(nameof(_objectHandler.Object.KeyToVal), value); }
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using Firebase.Database;
-using RemoteDataModule.RemoteDataAbstracts;
+using GBG.Modules.RemoteData.RemoteDataAbstracts;
+using Newtonsoft.Json;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -48,7 +49,7 @@ namespace RemoteDataImpl
 
         public override Task UpdateRemoteData(T newObject)
         {
-            var jsonValue = JsonUtility.ToJson(newObject);
+            var jsonValue = JsonConvert.SerializeObject(newObject);
             return _reference.SetRawJsonValueAsync(jsonValue);
         }
 
@@ -86,7 +87,7 @@ namespace RemoteDataImpl
             if (changeType.IsValueType || change.FieldValue is String)
                 await _reference.Child(change.FieldName).SetValueAsync(change.FieldValue);
             else
-                await _reference.Child(change.FieldName).SetRawJsonValueAsync(JsonUtility.ToJson(change.FieldValue));
+                await _reference.Child(change.FieldName).SetRawJsonValueAsync(JsonConvert.SerializeObject(change.FieldValue));
         }
 
         private void RemoteValueChanged(object sender, ValueChangedEventArgs e)
@@ -97,7 +98,7 @@ namespace RemoteDataImpl
 
         private void ParseResult(DataSnapshot dataSnapshot)
         {
-            Object = JsonUtility.FromJson<T>(dataSnapshot.GetRawJsonValue());
+            Object = JsonConvert.DeserializeObject<T>(dataSnapshot.GetRawJsonValue());
             ValueChanged?.Invoke(this);
         }
 

@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-namespace RemoteDataModule.RemoteDataAbstracts
+namespace GBG.Modules.RemoteData.RemoteDataAbstracts
 {
     public class RemoteDataChange
     {

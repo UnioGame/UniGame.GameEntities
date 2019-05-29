@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
-using RemoteDataModule.Authorization;
-using RemoteDataModule.RemoteDataAbstracts;
+using GBG.Modules.RemoteData.Authorization;
+using GBG.Modules.RemoteData.RemoteDataAbstracts;
 
 namespace Samples
 {

@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Firebase.Database;
+using Newtonsoft.Json;
 
 namespace Samples
 {
@@ -23,7 +24,7 @@ namespace Samples
             var result = new List<ClanData>();
             foreach(var clanSnapshot in data.Children)
             {
-                var clan = JsonUtility.FromJson<ClanData>(clanSnapshot.GetRawJsonValue());
+                var clan = JsonConvert.DeserializeObject<ClanData>(clanSnapshot.GetRawJsonValue());
                 result.Add(clan);
             }
             return result;

@@ -5,9 +5,9 @@ using System.Threading.Tasks;
 using UnityEngine;
 using Firebase.Auth;
 using Facebook.Unity;
-using RemoteDataModule.Authorization;
+using GBG.Modules.RemoteData.Authorization;
 
-namespace RemoteDataModule.FirebaseImplementation
+namespace GBG.Modules.RemoteData.FirebaseImplementation
 {
     public class FirebaseAuthModule : IAuthModule
     {
