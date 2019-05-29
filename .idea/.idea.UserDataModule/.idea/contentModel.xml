@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ContentModelStore">
+    <e p="C:\Dev\GreenButtons\UserDataModule" t="IncludeRecursive">
+      <e p="Assembly-CSharp.csproj" t="IncludeRecursive" />
+      <e p="Assets" t="Include">
+        <e p="FacebookSDK" t="Include">
+          <e p="Examples" t="Include">
+            <e p="Scripts" t="Include">
+              <e p="ConsoleBase.cs" t="Include" />
+              <e p="LogView.cs" t="Include" />
+              <e p="MenuBase.cs" t="Include" />
+              <e p="SubMenus" t="Include">
+                <e p="AccessTokenMenu.cs" t="Include" />
+                <e p="AppEvents.cs" t="Include" />
+                <e p="AppInvites.cs" t="Include" />
+                <e p="AppLinks.cs" t="Include" />
+                <e p="AppRequests.cs" t="Include" />
+                <e p="DialogShare.cs" t="Include" />
+                <e p="GraphRequest.cs" t="Include" />
+                <e p="MainMenu.cs" t="Include" />
+                <e p="Pay.cs" t="Include" />
+              </e>
+            </e>
+          </e>
+          <e p="link.xml" t="Include" />
+        </e>
+        <e p="Firebase" t="Include">
+          <e p="m2repository" t="Include">
+            <e p="com" t="Include">
+              <e p="google" t="Include">
+                <e p="Firebase" t="Include">
+                  <e p="firebase-app-unity" t="Include">
+                    <e p="maven-metadata.xml" t="Include" />
+                  </e>
+                  <e p="firebase-auth-unity" t="Include">
+                    <e p="maven-metadata.xml" t="Include" />
+                  </e>
+                  <e p="firebase-database-unity" t="Include">
+                    <e p="maven-metadata.xml" t="Include" />
+                  </e>
+                  <e p="firebase-messaging-unity" t="Include">
+                    <e p="maven-metadata.xml" t="Include" />
+                  </e>
+                </e>
+              </e>
+            </e>
+          </e>
+          <e p="Plugins" t="Include">
+            <e p="Http" t="Include">
+              <e p="link.xml" t="Include" />
+            </e>
+            <e p="link.xml" t="Include" />
+          </e>
+        </e>
+        <e p="RemoteDataModule" t="Include">
+          <e p="Authorization" t="Include">
+            <e p="FirebaseAuthModule.cs" t="Include" />
+            <e p="IAuthModule.cs" t="Include" />
+          </e>
+          <e p="FirebaseConfig.cs" t="Include" />
+          <e p="FirebaseRemoteImplementation" t="Include">
+            <e p="FirebaseProvider.cs" t="Include" />
+            <e p="FirebaseRemoteDataProvider.cs" t="Include" />
+            <e p="FirebaseRemoteObjectHandler.cs" t="Include" />
+            <e p="FirebaseSharedMessagesStorage.cs" t="Include" />
+          </e>
+          <e p="RemoteData" t="Include">
+            <e p="RemoteDataAbstracts" t="Include">
+              <e p="RemoteObjectHandler.cs" t="Include" />
+              <e p="RemoteObjectsProvider.cs" t="Include" />
+            </e>
+            <e p="RemoteDataTypes" t="Include">
+              <e p="RemoteUserProfile.cs" t="Include" />
+              <e p="UserReferences.cs" t="Include" />
+            </e>
+          </e>
+          <e p="RemoteUserProfile" t="Include">
+            <e p="BaseMutableRemoteObjectFacade.cs" t="Include" />
+            <e p="RemoteObjectChange.cs" t="Include" />
+          </e>
+          <e p="SharedMessages" t="Include">
+            <e p="BaseSharedMessagesStorage.cs" t="Include" />
+            <e p="ISharedMessageProcessor.cs" t="Include" />
+            <e p="MessageData" t="Include">
+              <e p="AbstractSharedMessage.cs" t="Include" />
+              <e p="TextSharedMessage.cs" t="Include" />
+            </e>
+            <e p="SharedMessagesService.cs" t="Include" />
+            <e p="TextSharedMessageProcessor.cs" t="Include" />
+          </e>
+        </e>
+        <e p="SampleApp" t="Include">
+          <e p="App.cs" t="Include" />
+          <e p="LoginControls.cs" t="Include" />
+          <e p="MessageControls.cs" t="Include" />
+          <e p="Mutable" t="Include">
+            <e p="ClanData.cs" t="Include" />
+            <e p="MutableClanData.cs" t="Include" />
+            <e p="MutableObjectFactory.cs" t="Include" />
+            <e p="MutableUserProfile.cs" t="Include" />
+            <e p="UserProfileData.cs" t="Include" />
+          </e>
+          <e p="Queries" t="Include">
+            <e p="ClanQueries.cs" t="Include" />
+          </e>
+          <e p="UserProfileControls.cs" t="Include" />
+        </e>
+      </e>
+      <e p="Library" t="ExcludeRecursive" />
+      <e p="obj" t="ExcludeRecursive" />
+      <e p="packages" t="ExcludeRecursive" />
+      <e p="Temp" t="ExcludeRecursive">
+        <e p="bin" t="ExcludeRecursive" />
+      </e>
+      <e p="UserDataModule.sln" t="IncludeFlat" />
+    </e>
+    <e p="C:\Users\1\.Rider2018.3\system\extResources" t="IncludeRecursive" />
+    <e p="C:\Users\1\.Rider2018.3\system\resharper-host\local\Transient\ReSharperHost\v183\SolutionCaches\_UserDataModule.320267390.00" t="ExcludeRecursive" />
+  </component>
+</project>
