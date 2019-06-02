@@ -60,11 +60,13 @@ public class LoginControls : MonoBehaviour
         var emailAuth = new EmailAuth();
         emailAuth.FetchToken().ContinueWith((task) =>
         {
-            _auth.Login(task.Result);
-            ShowAuthData();
+            _auth.Login(task.Result).ContinueWith((t) =>
+            {
+                ShowAuthData();
+            });
         });
     }
-    
+
     public void OnLogout()
     {
         // Logout from firebase and all connected login sources
