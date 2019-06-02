@@ -7,7 +7,7 @@ using UnityEngine;
 using GOIFirebase.RemoteDataImpl;
 using System.Linq;
 
-namespace CodeWriter.Services.Providers.Firebase
+namespace GBG.Modules.RemoteData.FirebaseImplementation
 {
     public class GOIFirebaseProvider
     {

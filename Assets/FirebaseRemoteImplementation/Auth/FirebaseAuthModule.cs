@@ -4,8 +4,10 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using UnityEngine;
 using Firebase.Auth;
-using Facebook.Unity;
 using GBG.Modules.RemoteData.Authorization;
+using RemoteDataImpl.Auth.Tokens;
+using System.Linq;
+using Facebook.Unity;
 
 namespace GBG.Modules.RemoteData.FirebaseImplementation
 {
@@ -26,7 +28,6 @@ namespace GBG.Modules.RemoteData.FirebaseImplementation
 
         public void Init()
         {
-            FB.Init();
             Firebase.FirebaseApp.CheckAndFixDependenciesAsync().ContinueWith((_) =>
             {
                 _app = Firebase.FirebaseApp.DefaultInstance;
@@ -34,15 +35,18 @@ namespace GBG.Modules.RemoteData.FirebaseImplementation
             });
         }
 
-        public async Task Login(AuthType authType)
+        public async Task Login(IAuthToken authToken)
         {
-            switch (authType)
+            switch (authToken)
             {
-                case AuthType.Anonimous:
-                    await LoginAnonimously();
+                case AnonymousAuthToken _:
+                    await LoginAnonymously();
                     break;
-                case AuthType.Facebook:
-                    await LoginFacebook();
+                case FacebookAuthToken facebookToken:
+                    await LoginFacebook(facebookToken.Token);
+                    break;
+                case EmailAuthToken emailToken:
+                    await LoginEmail(emailToken);
                     break;
                 default:
                     throw new NotImplementedException();
@@ -51,37 +55,30 @@ namespace GBG.Modules.RemoteData.FirebaseImplementation
 
         public async Task Logout()
         {
-            //TO DO logout from database network
+            FirebaseAuth.DefaultInstance.SignOut();
         }
 
-        protected async Task LoginAnonimously()
+        protected async Task LoginEmail(EmailAuthToken emailToken)
+        {
+            var providers = await FirebaseAuth.DefaultInstance.FetchProvidersForEmailAsync(emailToken.Email);
+            if (providers.Any())
+                await FirebaseAuth.DefaultInstance.SignInWithEmailAndPasswordAsync(emailToken.Email, emailToken.Password);
+            else
+                await FirebaseAuth.DefaultInstance.CreateUserWithEmailAndPasswordAsync(emailToken.Email, emailToken.Password);
+
+            UnityEngine.Debug.LogFormat("Email Auth: email={0}, pass={1}", emailToken.Email, emailToken.Password);
+        }
+
+        protected async Task LoginAnonymously()
         {
             await FirebaseAuth.DefaultInstance.SignInAnonymouslyAsync();
         }
 
-        protected async Task LoginFacebook()
+        protected async Task LoginFacebook(AccessToken facebookToken)
         {
-            var fbLoginCompletionSrc = new TaskCompletionSource<ILoginResult>();
-            FB.LogInWithReadPermissions(new List<string>() { "public_profile" }, callback: (result) =>
-             {
-                 Debug.Log("Fb login operation finished. Result:" + result.RawResult);
-                 fbLoginCompletionSrc.SetResult(result);
-             });
-            await (fbLoginCompletionSrc.Task);
-            if (fbLoginCompletionSrc.Task.IsFaulted)
-            {
-                Debug.Log("Fb login task faulted");
-                // TO DO spawn event
-                return;
-            }
-            Debug.Log("Fb login task completed");
-            var token = fbLoginCompletionSrc.Task.Result.AccessToken;
-            var credential = FacebookAuthProvider.GetCredential(token.TokenString);
+            var credential = FacebookAuthProvider.GetCredential(facebookToken.TokenString);
             await FirebaseAuth.DefaultInstance.SignInWithCredentialAsync(credential);
             Debug.Log("Firebase fb login complete :: UserID :: " + CurrentUserId);
-            // TO DO
-            // Получить фбшный токен и по нему логинится в фаербейс
-            //await FirebaseAuth.DefaultInstance.SignInWithCredentialAsync()
         }
     }
 }

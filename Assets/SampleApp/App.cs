@@ -35,6 +35,7 @@ namespace Samples
         void Start()
         {
             _authModule = new FirebaseAuthModule();
+            FB.Init();
             _authModule.Init();
             _messagesService = new SharedMessagesService();
             var firebaseStorage = new FirebaseSharedMessagesStorage();
@@ -53,11 +54,6 @@ namespace Samples
             _profileControls.Init(_mutableObjectFactory, _authModule, _batchUpdater);
 
             _transactionControls.Init(_remoteObjectsProvider, _authModule);
-        }
-
-        public void Auth(AuthType authType)
-        {
-            var task = _authModule.Login(authType);
         }
     }
 }

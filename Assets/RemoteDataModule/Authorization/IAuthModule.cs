@@ -2,11 +2,11 @@
 
 namespace GBG.Modules.RemoteData.Authorization
 {
-    public enum AuthType
+    public interface IAuthToken
     {
-        Anonimous,
-        Facebook
+
     }
+
     public interface IAuthModule
     {
         // TO DO other Auth Type
@@ -16,7 +16,7 @@ namespace GBG.Modules.RemoteData.Authorization
         bool IsLogged { get; }
 
         void Init();
-        Task Login(AuthType authType);
+        Task Login(IAuthToken authType);
         Task Logout();
     }
 }

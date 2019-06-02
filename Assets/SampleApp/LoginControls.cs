@@ -1,5 +1,7 @@
 ﻿using Facebook.Unity;
 using GBG.Modules.RemoteData.Authorization;
+using RemoteDataImpl.Auth;
+using RemoteDataImpl.Auth.Tokens;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -26,20 +28,26 @@ public class LoginControls : MonoBehaviour
 
     public void Update()
     {
-        _loginInfoText.text = _loginInfoString; 
+        _loginInfoText.text = _loginInfoString;
     }
 
     public void OnLoginFb()
     {
         SetInfoText("Start login FB");
-        _auth.Login(AuthType.Facebook).ContinueWith((_)=> {
-            ShowAuthData();
+        var FacebookAuth = new DummyFacebookAuth();
+        FacebookAuth.FetchToken().ContinueWith((task) =>
+        {
+            _auth.Login(task.Result).ContinueWith((_) =>
+            {
+                ShowAuthData();
+            });
         });
     }
 
     public void OnLoginAnonymous()
     {
-        _auth.Login(AuthType.Anonimous).ContinueWith((t)=> {
+        _auth.Login(new AnonymousAuthToken()).ContinueWith((t) =>
+        {
             if (t.IsFaulted)
                 SetInfoText("Anonimous auth faulted");
             else
@@ -49,9 +57,14 @@ public class LoginControls : MonoBehaviour
 
     public void OnLoginEditor()
     {
-        // editor login with auto generated email/pass
+        var emailAuth = new EmailAuth();
+        emailAuth.FetchToken().ContinueWith((task) =>
+        {
+            _auth.Login(task.Result);
+            ShowAuthData();
+        });
     }
-
+    
     public void OnLogout()
     {
         // Logout from firebase and all connected login sources
