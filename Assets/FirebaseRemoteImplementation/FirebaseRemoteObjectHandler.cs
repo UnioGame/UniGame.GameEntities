@@ -113,17 +113,8 @@ namespace RemoteDataImpl
             TResult updateResult = default;
             var resultData = await _reference.RunTransaction((data) =>
             {
-                try
-                {
-                    Debug.Log("DATA :: " + data.ToString());
-                    updateResult = updateFunc(data.Value, out var newValue);
-                    data.Value = newValue;
-                }
-                catch (Exception e)
-                {
-                    Debug.LogException(e);
-                }
-                Debug.Log("CHANGED DATA :: " + data.ToString());
+                updateResult = updateFunc(data.Value, out var newValue);
+                data.Value = newValue;
                 return TransactionResult.Success(data);
             });
             return updateResult;
