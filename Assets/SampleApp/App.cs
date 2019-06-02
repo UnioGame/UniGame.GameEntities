@@ -20,6 +20,8 @@ namespace Samples
         private MessageControls _messageControls;
         [SerializeField]
         private UserProfileControls _profileControls;
+        [SerializeField]
+        private TransactionControls _transactionControls;
 
         private IAuthModule _authModule;
         private SharedMessagesService _messagesService;
@@ -46,6 +48,8 @@ namespace Samples
             _remoteObjectsProvider = new FirebaseRemoteDataProvider();
             _mutableObjectFactory = new MutableObjectFactory(_remoteObjectsProvider);
             _profileControls.Init(_mutableObjectFactory, _authModule);
+
+            _transactionControls.Init(_remoteObjectsProvider, _authModule);
 
         }
 

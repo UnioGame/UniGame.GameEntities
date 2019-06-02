@@ -5,7 +5,7 @@ using System;
 
 namespace GBG.Modules.RemoteData.RemoteDataAbstracts
 {
-    public abstract class RemoteObjectHandler<T> : IDisposable where T : class
+    public abstract class RemoteObjectHandler<T> : IDisposable
     {
         public T Object { get; protected set; }
 
@@ -34,6 +34,10 @@ namespace GBG.Modules.RemoteData.RemoteDataAbstracts
         }
 
         public abstract string GetDataId();
+
+        public abstract Task<TResult> PerformTransaction<TResult>(UpdateFunc<TResult, T> updateFunc) where TResult : struct;
+
+        public delegate TRes UpdateFunc<TRes, Tin>(object oldValue, out Tin newValue) where TRes : struct;
 
         protected abstract Task ApplyChangeRemote(RemoteDataChange change);
     }

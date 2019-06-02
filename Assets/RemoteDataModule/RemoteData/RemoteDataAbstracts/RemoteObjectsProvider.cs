@@ -8,7 +8,7 @@ namespace GBG.Modules.RemoteData.RemoteDataAbstracts
     {
         public abstract void Dispose();
 
-        public abstract RemoteObjectHandler<T> GetRemoteObject<T>(string path) where T : class;
+        public abstract RemoteObjectHandler<T> GetRemoteObject<T>(string path);
 
         public abstract string GetIdForNewObject(string path);
     }

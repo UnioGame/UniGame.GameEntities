@@ -25,7 +25,7 @@ namespace Samples {
         }
 
         /// <summary>
-        /// DO NOT MODIFY LIST
+        /// List modifications not allowed, only setting new list
         /// </summary>
         public List<ClanUserReference> userReference{
             get { return _objectHandler.Object.Users; }

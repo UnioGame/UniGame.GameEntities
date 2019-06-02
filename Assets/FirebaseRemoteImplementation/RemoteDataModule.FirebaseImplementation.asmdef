@@ -1,0 +1,14 @@
+{
+    "name": "RemoteDataModule.FirebaseImplementation",
+    "references": [
+        "RemoteDataModule"
+    ],
+    "optionalUnityReferences": [],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": []
+}

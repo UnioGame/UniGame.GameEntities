@@ -9,9 +9,9 @@ using UnityEngine;
 
 namespace RemoteDataImpl
 {
-    public class FirebaseRemoteObjectHandler<T> : RemoteObjectHandler<T> where T : class
+    public class FirebaseRemoteObjectHandler<T> : RemoteObjectHandler<T>
     {
-        DatabaseReference _reference;
+        private DatabaseReference _reference;
 
         public override event Action<RemoteObjectHandler<T>> ValueChanged;
 
@@ -102,5 +102,31 @@ namespace RemoteDataImpl
             ValueChanged?.Invoke(this);
         }
 
+        /// <summary>
+        /// Only suitable for value types and strings
+        /// </summary>
+        /// <typeparam name="TResult"></typeparam>
+        /// <param name="updateFunc"></param>
+        /// <returns></returns>
+        public override async Task<TResult> PerformTransaction<TResult>(UpdateFunc<TResult, T> updateFunc)
+        {
+            TResult updateResult = default;
+            var resultData = await _reference.RunTransaction((data) =>
+            {
+                try
+                {
+                    Debug.Log("DATA :: " + data.ToString());
+                    updateResult = updateFunc(data.Value, out var newValue);
+                    data.Value = newValue;
+                }
+                catch (Exception e)
+                {
+                    Debug.LogException(e);
+                }
+                Debug.Log("CHANGED DATA :: " + data.ToString());
+                return TransactionResult.Success(data);
+            });
+            return updateResult;
+        }
     }
 }

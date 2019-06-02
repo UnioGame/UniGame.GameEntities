@@ -55,17 +55,17 @@ namespace GBG.Modules.RemoteData.MutableRemoteObjects
             throw new NotImplementedException();
         }
 
-        private class ObserverData<T> : IDisposable
+        private class ObserverData<TData> : IDisposable
         {
-            private LinkedList<ObserverData<T>> _parentList;
-            public IObserver<T> _observer;
+            private LinkedList<ObserverData<TData>> _parentList;
+            public IObserver<TData> _observer;
 
-            public ObserverData(IObserver<T> observer)
+            public ObserverData(IObserver<TData> observer)
             {
                 this._observer = observer;
             }
 
-            public void SetParentData(LinkedList<ObserverData<T>> parentList)
+            public void SetParentData(LinkedList<ObserverData<TData>> parentList)
             {
                 _parentList = parentList;
             }
