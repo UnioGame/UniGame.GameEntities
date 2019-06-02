@@ -1,4 +1,5 @@
 ﻿using GBG.Modules.RemoteData.Authorization;
+using GBG.Modules.RemoteData.MutableRemoteObjects;
 using Newtonsoft.Json;
 using System.Collections;
 using System.Collections.Generic;
@@ -12,6 +13,7 @@ namespace Samples
         private MutableObjectFactory _factory;
         private IAuthModule _auth;
         private MutableUserProfile _ownProfile;
+        private BatchUpdater _batchUpdater;
 
         [SerializeField]
         private InputField _userIdInput;
@@ -26,10 +28,11 @@ namespace Samples
             _profileText.text = _infoText;
         }
 
-        public void Init(MutableObjectFactory factory, IAuthModule auth)
+        public void Init(MutableObjectFactory factory, IAuthModule auth, BatchUpdater batchUpdater)
         {
             this._factory = factory;
             this._auth = auth;
+            this._batchUpdater = batchUpdater;
         }
 
         public void FetchUserProfile()
@@ -58,6 +61,15 @@ namespace Samples
             _ownProfile.ReactiveScore.Value = Random.Range(0, 75);
             _ownProfile.ReactiveUserName.Value = _ownProfile.ReactiveUserName.Value + Random.Range(0, 9).ToString();
             _ownProfile.CommitChanges().ContinueWith((_)=> { SetInfoText(); });
+        }
+
+        public void CommitSomeChangesBatch()
+        {
+            _ownProfile.ReactiveGold.Value = Random.Range(0, 120);
+            _ownProfile.ReactiveScore.Value = Random.Range(0, 75);
+            _ownProfile.ReactiveUserName.Value = _ownProfile.ReactiveUserName.Value + Random.Range(0, 9).ToString();
+            var changes = _ownProfile.FlushChanges();
+            _batchUpdater.PerformBatchUpdate(changes).ContinueWith((_)=> SetInfoText());
         }
 
         private void SetInfoText()

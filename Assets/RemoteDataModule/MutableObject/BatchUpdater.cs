@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 using System.Collections.Generic;
 using GBG.Modules.RemoteData.RemoteDataAbstracts;
 
-namespace GBG.Modules.RemoteData.Transaction
+namespace GBG.Modules.RemoteData.MutableRemoteObjects
 {
     public abstract class BatchUpdater
     {

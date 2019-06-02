@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System;
 
 namespace GBG.Modules.RemoteData.RemoteDataAbstracts
 {
@@ -8,5 +9,6 @@ namespace GBG.Modules.RemoteData.RemoteDataAbstracts
         public string FieldName;
         public string FullPath;
         public object FieldValue;
+        public Action<RemoteDataChange> ApplyCallback;
     }
 }

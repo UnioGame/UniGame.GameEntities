@@ -1,10 +1,10 @@
 ﻿using UnityEngine;
 using System.Collections;
-using GBG.Modules.RemoteData.Transaction;
 using GBG.Modules.RemoteData.RemoteDataAbstracts;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Firebase.Database;
+using GBG.Modules.RemoteData.MutableRemoteObjects;
 
 namespace GBG.Modules.RemoteData.FirebaseImplementation
 {
@@ -24,6 +24,10 @@ namespace GBG.Modules.RemoteData.FirebaseImplementation
             }
             var rootRef = FirebaseDatabase.DefaultInstance.RootReference;
             await rootRef.UpdateChildrenAsync(changeDictionary);
+            foreach(var change in changes)
+            {
+                change.ApplyCallback(change);
+            }
         }
     }
 }

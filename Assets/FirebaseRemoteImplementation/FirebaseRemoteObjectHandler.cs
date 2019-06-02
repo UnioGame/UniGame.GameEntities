@@ -70,7 +70,7 @@ namespace RemoteDataImpl
             {
                 FieldName = fieldName,
                 FieldValue = fieldValue,
-                FullPath = _reference.ToString().Substring(_reference.Root.ToString().Length - 1)
+                FullPath = _reference.ToString().Substring(_reference.Root.ToString().Length) + "/" + fieldName
             };
         }
 

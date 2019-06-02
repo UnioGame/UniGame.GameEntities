@@ -9,6 +9,7 @@ using GBG.Modules.RemoteData.SharedMessages.MessageData;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using GBG.Modules.RemoteData.MutableRemoteObjects;
 
 namespace Samples
 {
@@ -29,6 +30,7 @@ namespace Samples
         private TextSharedMessageProcessor _textProcessor;
         private RemoteObjectsProvider _remoteObjectsProvider;
         private MutableObjectFactory _mutableObjectFactory;
+        private BatchUpdater _batchUpdater;
 
         void Start()
         {
@@ -47,12 +49,11 @@ namespace Samples
 
             _remoteObjectsProvider = new FirebaseRemoteDataProvider();
             _mutableObjectFactory = new MutableObjectFactory(_remoteObjectsProvider);
-            _profileControls.Init(_mutableObjectFactory, _authModule);
+            _batchUpdater = new FirebaseBatchUpdater();
+            _profileControls.Init(_mutableObjectFactory, _authModule, _batchUpdater);
 
             _transactionControls.Init(_remoteObjectsProvider, _authModule);
-
         }
-
 
         public void Auth(AuthType authType)
         {

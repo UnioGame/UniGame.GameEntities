@@ -62,6 +62,23 @@ namespace GBG.Modules.RemoteData.MutableRemoteObjects
             _pendingChanges.Clear();
         }
 
+        public List<RemoteDataChange> FlushChanges()
+        {
+            var result = _pendingChanges;
+            _pendingChanges = new List<RemoteDataChange>();
+            foreach(var change in result)
+            {
+                change.ApplyCallback = ChangeAppliedOutside;
+            }
+            return result;
+        }
+
+        public void ChangeAppliedOutside(RemoteDataChange change)
+        {
+            _objectHandler.ApplyChangeLocal(change);
+            PropertyChanged(change.FieldName);
+        }
+
         public MutableObjectReactiveProperty<Tvalue> CreateReactiveProperty<Tvalue>(Func<Tvalue> getter, Action<Tvalue> setter, string fieldName)
         {
             var property = new MutableObjectReactiveProperty<Tvalue>(getter, setter);
