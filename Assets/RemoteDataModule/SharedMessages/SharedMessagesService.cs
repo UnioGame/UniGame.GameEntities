@@ -1,4 +1,5 @@
 ﻿using GBG.Modules.RemoteData.Authorization;
+using GBG.Modules.RemoteData.RemoteDataAbstracts;
 using GBG.Modules.RemoteData.SharedMessages;
 using GBG.Modules.RemoteData.SharedMessages.MessageData;
 using System;
@@ -56,6 +57,16 @@ namespace GBG.Modules.RemoteData.SharedMessages
         public async Task PushMessage(string userId, AbstractSharedMessage message)
         {
             await _storage.CommitMessage(userId, message);
+        }
+
+        public RemoteDataChange CreateMarkProcededChange(AbstractSharedMessage message)
+        {
+            return new RemoteDataChange()
+            {
+                FieldName = nameof(message.Proceeded),
+                FieldValue = true,
+                FullPath = message.FullPath + "/" + nameof(message.Proceeded)
+            };
         }
 
         public void RegisterProcessor<T>(ISharedMessageProcessor processor) where T : AbstractSharedMessage

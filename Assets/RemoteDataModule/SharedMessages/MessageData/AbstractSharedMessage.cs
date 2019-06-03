@@ -20,7 +20,9 @@ namespace GBG.Modules.RemoteData.SharedMessages.MessageData
         public string MessageType;
 
         [SerializeField]
-        private bool Proceeded;
+        public bool Proceeded;
+
+        public string FullPath { get; private set; }
 
         /// <summary>
         /// TO DO вместо ииспользования этого метода надо настроить
@@ -29,6 +31,12 @@ namespace GBG.Modules.RemoteData.SharedMessages.MessageData
         public void AssureType()
         {
             MessageType = this.GetType().Name;
+            FullPath = null;
+        }
+
+        public void SetPath(string path)
+        {
+            FullPath = path;
         }
 
         public static AbstractSharedMessage FromJson(string typeShortName, string data)

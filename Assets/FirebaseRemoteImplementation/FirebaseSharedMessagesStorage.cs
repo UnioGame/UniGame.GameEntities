@@ -41,6 +41,7 @@ namespace GBG.Modules.RemoteData.FirebaseImplementation.SharedMessages
             {
                 var type = (string)messageData.Child("MessageType").Value;
                 var message = AbstractSharedMessage.FromJson(type, messageData.GetRawJsonValue());
+                message.SetPath(messageData.Reference.ToString().Substring(messageData.Reference.Root.ToString().Length));
                 result.Add(message);
             }
             return result;
