@@ -10,7 +10,7 @@ using UniRx.Async;
 
 namespace GBG.Modules.RemoteData.MutableRemoteObjects
 {
-    public class BaseMutableRemoteObjectFacade<T> where T : class
+    public class BaseMutableRemoteObjectFacade<T> : IRemoteChangesStorage where T : class
     {
         protected RemoteObjectHandler<T> _objectHandler;
 
@@ -18,11 +18,14 @@ namespace GBG.Modules.RemoteData.MutableRemoteObjects
 
         private Dictionary<string, INotifyable> _properties;
 
+        private Dictionary<string, IMutableChildBase> _childObjects;
+
         public BaseMutableRemoteObjectFacade(RemoteObjectHandler<T> objectHandler)
         {
             this._objectHandler = objectHandler;
             _pendingChanges = new List<RemoteDataChange>();
             _properties = new Dictionary<string, INotifyable>();
+            _childObjects = new Dictionary<string, IMutableChildBase>();
         }
 
         /// <summary>
@@ -30,7 +33,8 @@ namespace GBG.Modules.RemoteData.MutableRemoteObjects
         /// </summary>
         /// <param name="initialDataProvider"></param>
         /// <returns></returns>
-        public async Task LoadRootData(Func<T> initialDataProvider = null){
+        public async Task LoadRootData(Func<T> initialDataProvider = null)
+        {
 
             await _objectHandler.LoadData(initialDataProvider: initialDataProvider);
             AllPropertiesChanged();
@@ -44,9 +48,15 @@ namespace GBG.Modules.RemoteData.MutableRemoteObjects
         public void UpdateChildData(string childName, object newData)
         {
             var change = _objectHandler.CreateChange(childName, newData);
+            change.ApplyCallback = ApplyChangeOnLocalHandler;
+            AddChange(change);
+        }
+
+        public void AddChange(RemoteDataChange change)
+        {
             _pendingChanges.Add(change);
         }
-        
+
         public async Task CommitChanges()
         {
             // TO DO transaction
@@ -56,7 +66,7 @@ namespace GBG.Modules.RemoteData.MutableRemoteObjects
             foreach (var change in changes)
             {
                 var fieldName = change.FieldName;
-                updateTasks.Add(_objectHandler.ApplyChange(change).ContinueWith((_)=> { PropertyChanged(fieldName); }));
+                updateTasks.Add(_objectHandler.ApplyChange(change).ContinueWith((_) => { ChangeApplied(change); }));
             }
             await Task.WhenAll(updateTasks.ToArray());
             _pendingChanges.Clear();
@@ -66,29 +76,36 @@ namespace GBG.Modules.RemoteData.MutableRemoteObjects
         {
             var result = _pendingChanges;
             _pendingChanges = new List<RemoteDataChange>();
-            foreach(var change in result)
-            {
-                change.ApplyCallback = ChangeAppliedOutside;
-            }
             return result;
         }
 
-        public void ChangeAppliedOutside(RemoteDataChange change)
+        public void ChangeApplied(RemoteDataChange change)
+        {
+            change.ApplyCallback(change);
+        }
+
+        private void ApplyChangeOnLocalHandler(RemoteDataChange change)
         {
             _objectHandler.ApplyChangeLocal(change);
             PropertyChanged(change.FieldName);
         }
 
-        public MutableObjectReactiveProperty<Tvalue> CreateReactiveProperty<Tvalue>(Func<Tvalue> getter, Action<Tvalue> setter, string fieldName)
+        protected MutableObjectReactiveProperty<Tvalue> CreateReactiveProperty<Tvalue>(Func<Tvalue> getter, Action<Tvalue> setter, string fieldName)
         {
             var property = new MutableObjectReactiveProperty<Tvalue>(getter, setter);
             _properties.Add(fieldName, property);
             return property;
         }
 
+        protected void RegisterMutableChild(string childName, IMutableChildBase child)
+        {
+            _childObjects.Add(childName, child);
+        }
+
         protected void PropertyChanged(string name)
         {
-            _properties[name].NotifyOnChange();
+            if (_properties.ContainsKey(name))
+                _properties[name].NotifyOnChange();
         }
 
         protected void AllPropertiesChanged()

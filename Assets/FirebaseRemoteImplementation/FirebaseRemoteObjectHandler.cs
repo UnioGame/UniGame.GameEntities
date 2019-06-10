@@ -13,11 +13,14 @@ namespace RemoteDataImpl
     {
         private DatabaseReference _reference;
 
+        private string _fullPath;
+
         public override event Action<RemoteObjectHandler<T>> ValueChanged;
 
         public FirebaseRemoteObjectHandler(DatabaseReference reference)
         {
             _reference = reference;
+            _fullPath = _reference.ToString().Substring(_reference.Root.ToString().Length) + "/"; ;
         }
 
         public override void Dispose()
@@ -70,7 +73,7 @@ namespace RemoteDataImpl
             {
                 FieldName = fieldName,
                 FieldValue = fieldValue,
-                FullPath = _reference.ToString().Substring(_reference.Root.ToString().Length) + "/" + fieldName
+                FullPath = _fullPath + fieldName
             };
         }
 
@@ -85,9 +88,9 @@ namespace RemoteDataImpl
         {
             var changeType = change.FieldValue.GetType();
             if (changeType.IsValueType || change.FieldValue is String)
-                await _reference.Child(change.FieldName).SetValueAsync(change.FieldValue);
+                await _reference.Root.Child(change.FullPath).SetValueAsync(change.FieldValue);
             else
-                await _reference.Child(change.FieldName).SetRawJsonValueAsync(JsonConvert.SerializeObject(change.FieldValue));
+                await _reference.Root.Child(change.FullPath).SetRawJsonValueAsync(JsonConvert.SerializeObject(change.FieldValue));
         }
 
         private void RemoteValueChanged(object sender, ValueChangedEventArgs e)
@@ -118,6 +121,11 @@ namespace RemoteDataImpl
                 return TransactionResult.Success(data);
             });
             return updateResult;
+        }
+
+        public override string GetFullPath()
+        {
+            return _fullPath;
         }
     }
 }

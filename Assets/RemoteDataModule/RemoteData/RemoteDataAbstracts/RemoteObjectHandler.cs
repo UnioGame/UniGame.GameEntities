@@ -23,7 +23,6 @@ namespace GBG.Modules.RemoteData.RemoteDataAbstracts
 
         public async Task ApplyChange(RemoteDataChange change)
         {
-            ApplyChangeLocal(change);
             await ApplyChangeRemote(change);
         }
 
@@ -34,6 +33,8 @@ namespace GBG.Modules.RemoteData.RemoteDataAbstracts
         }
 
         public abstract string GetDataId();
+
+        public abstract string GetFullPath();
 
         public abstract Task<TResult> PerformTransaction<TResult>(UpdateFunc<TResult, T> updateFunc) where TResult : struct;
 

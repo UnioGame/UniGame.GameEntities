@@ -5,6 +5,7 @@ using GBG.Modules.RemoteData.RemoteDataAbstracts;
 using UniRx;
 using System.Collections.ObjectModel;
 using System.Collections.Generic;
+using Newtonsoft.Json;
 
 namespace Samples
 {
@@ -26,11 +27,19 @@ namespace Samples
                 () => _objectHandler.Object.Gold,
                 (value) => UpdateChildData(nameof(_objectHandler.Object.Gold), value),
                 nameof(_objectHandler.Object.Gold));
+
+            SomeChild = new MutableUserDataChild(
+                () => _objectHandler.Object.SomeChild,
+                _objectHandler.GetFullPath() + nameof(_objectHandler.Object.SomeChild) + "/",
+                this);
+            RegisterMutableChild(nameof(_objectHandler.Object.SomeChild), SomeChild);
         }
 
         public IReactiveProperty<string> ReactiveUserName { get; private set; }
         public IReactiveProperty<int> ReactiveScore { get; private set; }
         public IReactiveProperty<int> ReactiveGold { get; private set; }
+
+        public MutableUserDataChild SomeChild { get; private set; }
 
         public string UserName
         {

@@ -49,7 +49,18 @@ namespace Samples
                     {
                         {"a", "b" },
                         {"b", "c" }
+                    },
+                    SomeChild = new SomeUserDataChild()
+                    {
+                        FieldA = "A",
+                        FieldB = 0,
+                        DeepChild = new DeeperUserDataChild()
+                        {
+                            FieldX = "X",
+                            FieldY = "Y"
+                        }                
                     }
+
                 };
             }).ContinueWith((_) => { SetInfoText(); });
 
@@ -60,6 +71,11 @@ namespace Samples
             _ownProfile.ReactiveGold.Value = Random.Range(0, 120);
             _ownProfile.ReactiveScore.Value = Random.Range(0, 75);
             _ownProfile.ReactiveUserName.Value = _ownProfile.ReactiveUserName.Value + Random.Range(0, 9).ToString();
+            _ownProfile.SomeChild.FieldA.Value += _ownProfile.SomeChild.FieldA.Value + Random.Range(0, 9).ToString();
+            _ownProfile.SomeChild.FieldB.Value = Random.Range(450, 715);
+            _ownProfile.SomeChild.DeepChild.FieldX.Value += Random.Range(0, 30).ToString();
+            _ownProfile.SomeChild.DeepChild.FieldY.Value += Random.Range(480, 920).ToString();
+
             _ownProfile.CommitChanges().ContinueWith((_)=> { SetInfoText(); });
         }
 
@@ -74,11 +90,12 @@ namespace Samples
 
         private void SetInfoText()
         {
-            _infoText = string.Format("Name :: {0}\nGold :: {1}\nScore::{2}\n\nKeyToVal :: {3}", 
+            _infoText = string.Format("Name :: {0}\nGold :: {1}\nScore::{2}\n\nKeyToVal :: {3}\nSomeChild :: {4}",
                 _ownProfile.UserName,
                 _ownProfile.Gold,
                 _ownProfile.Score,
-                JsonConvert.SerializeObject(_ownProfile.KeyToVal));
+                JsonConvert.SerializeObject(_ownProfile.KeyToVal),
+                JsonConvert.SerializeObject(_ownProfile.SomeChild.ToString()));
         }
     }
 }
