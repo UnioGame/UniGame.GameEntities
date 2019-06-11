@@ -38,6 +38,7 @@ namespace Samples
         public void FetchUserProfile()
         {
             this._ownProfile = _factory.CreateUserProfile(_auth.CurrentUserId);
+            _ownProfile.KeyToVal.ItemChangedHandler += KeyToValItemChanged;
             _ownProfile.LoadRootData(() =>
             {
                 return new UserProfileData()
@@ -66,6 +67,11 @@ namespace Samples
 
         }
 
+        private void KeyToValItemChanged(string key)
+        {
+            Debug.Log("KeyVal changed :: Key :: " + key);
+        }
+
         public void CommitSomeChanges()
         {
             _ownProfile.ReactiveGold.Value = Random.Range(0, 120);
@@ -75,6 +81,8 @@ namespace Samples
             _ownProfile.SomeChild.FieldB.Value = Random.Range(450, 715);
             _ownProfile.SomeChild.DeepChild.FieldX.Value += Random.Range(0, 30).ToString();
             _ownProfile.SomeChild.DeepChild.FieldY.Value += Random.Range(480, 920).ToString();
+
+            _ownProfile.KeyToVal["Add" + Random.Range(0, 2).ToString()] = "!_()_!";
 
             _ownProfile.CommitChanges().ContinueWith((_)=> { SetInfoText(); });
         }

@@ -33,6 +33,11 @@ namespace Samples
                 _objectHandler.GetFullPath() + nameof(_objectHandler.Object.SomeChild) + "/",
                 this);
             RegisterMutableChild(nameof(_objectHandler.Object.SomeChild), SomeChild);
+            KeyToVal = new MutableDictionary<string>(
+                () => _objectHandler.Object.KeyToVal,
+                _objectHandler.GetFullPath() + nameof(_objectHandler.Object.KeyToVal) + "/",
+                this);
+            RegisterMutableChild(nameof(_objectHandler.Object.KeyToVal), KeyToVal);
         }
 
         public IReactiveProperty<string> ReactiveUserName { get; private set; }
@@ -59,12 +64,7 @@ namespace Samples
             set { UpdateChildData(nameof(_objectHandler.Object.Gold), value); }
         }
 
-        // TO DO create dictionary dispatching changes
-        public IDictionary<string, string> KeyToVal
-        {
-            get { return _objectHandler.Object.KeyToVal; }
-            set { UpdateChildData(nameof(_objectHandler.Object.KeyToVal), value); }
-        }
+        public MutableDictionary<string> KeyToVal { get; private set; }
 
     }
 }

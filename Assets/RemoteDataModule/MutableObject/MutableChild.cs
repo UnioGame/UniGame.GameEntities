@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace GBG.Modules.RemoteData.MutableRemoteObjects
 {
-    public interface IMutableChildBase : INotifyable, IRemoteChangesStorage
+    public interface IMutableChildBase : IRemoteChangesStorage
     {
 
     }
@@ -17,7 +17,7 @@ namespace GBG.Modules.RemoteData.MutableRemoteObjects
         protected T Object { get => _getter(); }
 
         private Func<T> _getter;
-        private IRemoteChangesStorage _storage;
+        protected IRemoteChangesStorage _storage;
         private Dictionary<string, INotifyable> _properties;
         private Dictionary<string, IMutableChildBase> _childObjects;
 
