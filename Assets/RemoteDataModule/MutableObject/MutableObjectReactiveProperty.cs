@@ -3,7 +3,6 @@ using System.Collections;
 using UniRx;
 using System;
 using System.Threading;
-using UniRx.Async;
 using System.Collections.Generic;
 
 namespace GBG.Modules.RemoteData.MutableRemoteObjects
@@ -47,14 +46,7 @@ namespace GBG.Modules.RemoteData.MutableRemoteObjects
             token.SetParentData(_observers);
             return token;
         }
-
-        public UniTask<T> WaitUntilValueChangedAsync(CancellationToken cancellationToken)
-        {
-            // TO DO
-            Debug.LogError("Not implemented");
-            throw new NotImplementedException();
-        }
-
+        
         private class ObserverData<TData> : IDisposable
         {
             private LinkedList<ObserverData<TData>> _parentList;

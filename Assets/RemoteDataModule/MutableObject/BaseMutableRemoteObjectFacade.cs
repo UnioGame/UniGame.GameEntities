@@ -1,12 +1,7 @@
-﻿using UnityEngine;
-using System.Collections;
-using GBG.Modules.RemoteData.RemoteDataAbstracts;
+﻿using GBG.Modules.RemoteData.RemoteDataAbstracts;
 using System.Threading.Tasks;
 using System.Collections.Generic;
 using System;
-using UniRx;
-using System.Threading;
-using UniRx.Async;
 
 namespace GBG.Modules.RemoteData.MutableRemoteObjects
 {
@@ -90,14 +85,14 @@ namespace GBG.Modules.RemoteData.MutableRemoteObjects
             PropertyChanged(change.FieldName);
         }
 
-        protected MutableObjectReactiveProperty<Tvalue> CreateReactiveProperty<Tvalue>(Func<Tvalue> getter, Action<Tvalue> setter, string fieldName)
+        public MutableObjectReactiveProperty<Tvalue> CreateReactiveProperty<Tvalue>(Func<Tvalue> getter, Action<Tvalue> setter, string fieldName)
         {
             var property = new MutableObjectReactiveProperty<Tvalue>(getter, setter);
             _properties.Add(fieldName, property);
             return property;
         }
 
-        protected void RegisterMutableChild(string childName, IMutableChildBase child)
+        public void RegisterMutableChild(string childName, IMutableChildBase child)
         {
             _childObjects.Add(childName, child);
         }

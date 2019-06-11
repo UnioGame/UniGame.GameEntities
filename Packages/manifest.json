@@ -24,7 +24,7 @@
   ],
   "dependencies": {
     "com.codewriter.npm-publisher-support": "0.3.2",
-    "com.greenbuttongames.neuecc.unirx": "6.2.2",
+    "com.greenbuttongames.neuecc.unirx": "7.0.1",
     "com.unity.ads": "2.0.8",
     "com.unity.analytics": "3.3.2",
     "com.unity.collab-proxy": "1.2.16",
