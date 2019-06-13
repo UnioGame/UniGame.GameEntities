@@ -7,10 +7,8 @@ using UniRx;
 using UnityEngine;
 
 namespace GBG.Modules.RemoteData.MutableRemoteObjects {
-    public class MutableDictionary< TValue> : MutableChild<Dictionary<string, TValue>>, IDictionary<string, TValue>
+    public class MutableDictionary< TValue> : MutableChild<Dictionary<string, TValue>>, IDictionary<string, TValue>, IObservable<string>
     {
-        public event Action<string> ItemChangedHandler;
-
         public MutableDictionary(Func<Dictionary<string, TValue>> getter, string fullPath, IRemoteChangesStorage storage) : base(getter, fullPath, storage)
         {
         }
@@ -49,6 +47,7 @@ namespace GBG.Modules.RemoteData.MutableRemoteObjects {
                 ApplyCallback = ClearApply
             };
             AddChange(clearChange);
+
         }
 
         public bool Contains(KeyValuePair<string, TValue> item)
@@ -109,7 +108,10 @@ namespace GBG.Modules.RemoteData.MutableRemoteObjects {
 
         private void OnItemChanged(string key)
         {
-            ItemChangedHandler?.Invoke(key);
+            foreach (var observer in _observers)
+            {
+                observer._observer.OnNext(key);
+            }
         }
 
         private void AddRemoveChange(string key)
@@ -147,5 +149,18 @@ namespace GBG.Modules.RemoteData.MutableRemoteObjects {
             Object[change.FieldName] = (TValue)change.FieldValue;
             OnItemChanged(change.FieldName);
         }
+
+        #region Observable logic
+        private LinkedList<ObserverData<string>> _observers = new LinkedList<ObserverData<string>>();
+
+        public IDisposable Subscribe(IObserver<string> observer)
+        {
+            var token = new ObserverData<string>(observer);
+            _observers.AddLast(token);
+            token.SetParentData(_observers);
+            return token;
+        }
+
+        #endregion
     }
 }

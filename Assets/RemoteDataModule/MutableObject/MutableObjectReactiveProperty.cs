@@ -46,29 +46,29 @@ namespace GBG.Modules.RemoteData.MutableRemoteObjects
             token.SetParentData(_observers);
             return token;
         }
-        
-        private class ObserverData<TData> : IDisposable
+    }
+
+    internal class ObserverData<TData> : IDisposable
+    {
+        private LinkedList<ObserverData<TData>> _parentList;
+        public IObserver<TData> _observer;
+
+        public ObserverData(IObserver<TData> observer)
         {
-            private LinkedList<ObserverData<TData>> _parentList;
-            public IObserver<TData> _observer;
+            this._observer = observer;
+        }
 
-            public ObserverData(IObserver<TData> observer)
-            {
-                this._observer = observer;
-            }
+        public void SetParentData(LinkedList<ObserverData<TData>> parentList)
+        {
+            _parentList = parentList;
+        }
 
-            public void SetParentData(LinkedList<ObserverData<TData>> parentList)
+        public void Dispose()
+        {
+            _observer = null;
+            lock (_parentList)
             {
-                _parentList = parentList;
-            }
-
-            public void Dispose()
-            {
-                _observer = null;
-                lock (_parentList)
-                {
-                    _parentList.Remove(this);
-                }
+                _parentList.Remove(this);
             }
         }
     }
