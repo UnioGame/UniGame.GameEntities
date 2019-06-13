@@ -6,8 +6,11 @@ using System.Linq;
 using UniRx;
 using UnityEngine;
 
-namespace GBG.Modules.RemoteData.MutableRemoteObjects {
-    public class MutableDictionary< TValue> : MutableChild<Dictionary<string, TValue>>, IDictionary<string, TValue>, IObservable<string>
+namespace GBG.Modules.RemoteData.MutableRemoteObjects
+{
+    public interface IObservableDictionary<TKey, TValue> : IDictionary<TKey, TValue>, IObservable<TKey> { };
+
+    public class MutableDictionary<TValue> : MutableChild<Dictionary<string, TValue>>, IObservableDictionary<string, TValue>
     {
         public MutableDictionary(Func<Dictionary<string, TValue>> getter, string fullPath, IRemoteChangesStorage storage) : base(getter, fullPath, storage)
         {
