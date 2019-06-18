@@ -8,9 +8,10 @@
       ]
     },
     {
-      "name": "GreenButtonGames",
-      "url": "http://packages.greenbuttongames.com",
+      "name": "Plavalaguna",
+      "url": "http://188.227.74.28",
       "scopes": [
+        "com.plavalaguna",
         "com.greenbuttongames"
       ]
     },
