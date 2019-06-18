@@ -1,0 +1,15 @@
+{
+  "name": "com.Newtonsoft.Json",
+  "displayName": "JSON .NET Library",
+  "description": "JSON .NET Library",
+  "version": "2.0.1",
+  "unity": "2018.1",
+  "license": "MIT",
+  "author": "James N K (https://github.com/JamesNK/)",
+  "keywords": [
+    "json",
+    "serialization"
+  ],
+  "dependencies": {
+  }
+}

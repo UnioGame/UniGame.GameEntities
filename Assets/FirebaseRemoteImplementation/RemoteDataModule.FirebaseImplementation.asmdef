@@ -1,7 +1,8 @@
 {
     "name": "RemoteDataModule.FirebaseImplementation",
     "references": [
-        "RemoteDataModule"
+        "RemoteDataModule",
+        "JsonDotNet"
     ],
     "optionalUnityReferences": [],
     "includePlatforms": [],
@@ -10,5 +11,6 @@
     "overrideReferences": false,
     "precompiledReferences": [],
     "autoReferenced": true,
-    "defineConstraints": []
+    "defineConstraints": [],
+    "versionDefines": []
 }

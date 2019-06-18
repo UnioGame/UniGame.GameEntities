@@ -2,7 +2,7 @@
     "name": "RemoteDataModule",
     "references": [
         "UniRx",
-        "UniRx.Async"
+        "JsonDotNet"
     ],
     "optionalUnityReferences": [],
     "includePlatforms": [],
@@ -11,5 +11,6 @@
     "overrideReferences": false,
     "precompiledReferences": [],
     "autoReferenced": true,
-    "defineConstraints": []
+    "defineConstraints": [],
+    "versionDefines": []
 }
