@@ -3,6 +3,7 @@ using GBG.Modules.RemoteData.MutableRemoteObjects;
 using Newtonsoft.Json;
 using System.Collections;
 using System.Collections.Generic;
+using UniRx;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -38,7 +39,8 @@ namespace Samples
         public void FetchUserProfile()
         {
             this._ownProfile = _factory.CreateUserProfile(_auth.CurrentUserId);
-            _ownProfile.KeyToVal.ItemChangedHandler += KeyToValItemChanged;
+            _ownProfile.KeyToVal.Subscribe((v) => { KeyToValItemChanged(v); });
+            _ownProfile.ReactiveGold.Subscribe((v) => Debug.LogError("VALUE :: " + v.ToString()));
             _ownProfile.LoadRootData(() =>
             {
                 return new UserProfileData()
@@ -64,7 +66,7 @@ namespace Samples
 
                 };
             }).ContinueWith((_) => { SetInfoText(); });
-
+            
         }
 
         private void KeyToValItemChanged(string key)
