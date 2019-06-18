@@ -5,7 +5,6 @@ using System.Collections.Generic;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
-using UnityEditor;
 using UnityEngine;
 
 namespace RemoteDataImpl.Auth
@@ -31,11 +30,15 @@ namespace RemoteDataImpl.Auth
 
         private static string CreateEmail()
         {
-            var cloudEmail = CloudProjectSettings.userName;
+#if UNITY_EDITOR
+            var cloudEmail = UnityEditor.CloudProjectSettings.userName;
             var cloudName = cloudEmail.Split('@')[0];
 
             var email = cloudName + "-" + Guid.NewGuid() + "@editor.editor";
             return email;
+#else
+            throw new NotImplementedException();
+#endif
         }
 
         private static string CreatePass(string email)
