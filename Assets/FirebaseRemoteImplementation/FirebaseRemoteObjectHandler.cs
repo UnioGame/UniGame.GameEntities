@@ -37,9 +37,11 @@ namespace RemoteDataImpl
                 _reference.ValueChanged += RemoteValueChanged;
             }
             Debug.Log("Requesting data on path :: " + _reference.ToString());
-            var data = await _reference.GetValueAsync();
-            Debug.Log("RAW DATA :: " + data.GetRawJsonValue());
-            if (!data.Exists && initialDataProvider != null)
+            DataSnapshot data = null;
+            data = await _reference.GetValueAsync();
+
+            Debug.Log("RAW DATA :: " + (data != null ? data.GetRawJsonValue() : string.Empty));
+            if ((data == null || !data.Exists) && initialDataProvider != null)
             {
                 var initialData = initialDataProvider();
                 await UpdateRemoteData(initialData);
@@ -101,7 +103,7 @@ namespace RemoteDataImpl
 
         private void ParseResult(DataSnapshot dataSnapshot)
         {
-            Object = JsonConvert.DeserializeObject<T>(dataSnapshot.GetRawJsonValue());
+            Object = JsonConvert.DeserializeObject<T>(dataSnapshot != null ? dataSnapshot.GetRawJsonValue() : string.Empty);
             ValueChanged?.Invoke(this);
         }
 
