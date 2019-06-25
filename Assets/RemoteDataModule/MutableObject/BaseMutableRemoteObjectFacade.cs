@@ -87,7 +87,7 @@ namespace GBG.Modules.RemoteData.MutableRemoteObjects
 
         public MutableObjectReactiveProperty<Tvalue> CreateReactiveProperty<Tvalue>(Func<Tvalue> getter, Action<Tvalue> setter, string fieldName)
         {
-            var property = new MutableObjectReactiveProperty<Tvalue>(getter, setter);
+            var property = new MutableObjectReactiveProperty<Tvalue>(getter, setter, this);
             _properties.Add(fieldName, property);
             return property;
         }
@@ -95,6 +95,11 @@ namespace GBG.Modules.RemoteData.MutableRemoteObjects
         public void RegisterMutableChild(string childName, IMutableChildBase child)
         {
             _childObjects.Add(childName, child);
+        }
+
+        public bool IsRootLoaded()
+        {
+            return _objectHandler.Object != null;
         }
 
         protected void PropertyChanged(string name)

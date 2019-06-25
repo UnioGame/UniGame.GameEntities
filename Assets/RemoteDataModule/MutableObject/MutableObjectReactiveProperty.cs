@@ -16,21 +16,23 @@ namespace GBG.Modules.RemoteData.MutableRemoteObjects
     {
         private Func<T> _getter;
         private Action<T> _setter;
+        private IRemoteChangesStorage _storage;
 
         private LinkedList<ObserverData<T>> _observers = new LinkedList<ObserverData<T>>();
 
         public void NotifyOnChange()
         {
-            foreach(var _observer in _observers)
+            foreach (var _observer in _observers)
             {
                 _observer._observer.OnNext(Value);
             }
         }
 
-        public MutableObjectReactiveProperty(Func<T> getter, Action<T> setter )
+        public MutableObjectReactiveProperty(Func<T> getter, Action<T> setter, IRemoteChangesStorage storage)
         {
             _getter = getter;
             _setter = setter;
+            _storage = storage;
         }
 
         public T Value { get => _getter(); set => _setter(value); }
@@ -44,6 +46,8 @@ namespace GBG.Modules.RemoteData.MutableRemoteObjects
             var token = new ObserverData<T>(observer);
             _observers.AddLast(token);
             token.SetParentData(_observers);
+            if (_storage.IsRootLoaded())
+                observer.OnNext(Value);
             return token;
         }
     }
