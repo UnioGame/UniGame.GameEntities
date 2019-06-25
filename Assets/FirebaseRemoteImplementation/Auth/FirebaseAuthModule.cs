@@ -26,7 +26,7 @@ namespace GBG.Modules.RemoteData.FirebaseImplementation
             get { return FirebaseAuth.DefaultInstance.CurrentUser != null; }
         }
 
-        public async void Init()
+        public async Task Init()
         {
             await Firebase.FirebaseApp.CheckAndFixDependenciesAsync().ContinueWith((_) =>
             {

@@ -15,7 +15,7 @@ namespace GBG.Modules.RemoteData.Authorization
         string CurrentUserId { get; }
         bool IsLogged { get; }
 
-        void Init();
+        Task Init();
         Task Login(IAuthToken authType);
         Task Logout();
     }
