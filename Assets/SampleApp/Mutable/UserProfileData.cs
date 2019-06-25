@@ -11,8 +11,10 @@ namespace Samples
         public string UserName;
         public int Score;
         public int Gold;
+        public string Clan;
         public Dictionary<string, string> KeyToVal;
         public SomeUserDataChild SomeChild;
+        public List<string> SomeList;
     }
 
     public class SomeUserDataChild

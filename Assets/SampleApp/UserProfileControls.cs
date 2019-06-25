@@ -41,6 +41,7 @@ namespace Samples
             this._ownProfile = _factory.CreateUserProfile(_auth.CurrentUserId);
             _ownProfile.KeyToVal.Subscribe((v) => { KeyToValItemChanged(v); });
             _ownProfile.ReactiveGold.Subscribe((v) => Debug.LogError("VALUE :: " + v.ToString()));
+            _ownProfile.SomeList.ObserveReplace().Subscribe((e) => Debug.LogError(string.Format("LIST :: old = {0} :: new = {1} ", e.OldValue, e.NewValue)));
             _ownProfile.LoadRootData(() =>
             {
                 return new UserProfileData()
@@ -62,11 +63,23 @@ namespace Samples
                             FieldX = "X",
                             FieldY = "Y"
                         }                
+                    },
+                    SomeList = new List<string>()
+                    {
+                        "Bob",
+                        "Sam",
+                        "Homer"
                     }
 
                 };
             }).ContinueWith((_) => { SetInfoText(); });
-            
+            StartCoroutine(subsCoroutine());            
+        }
+
+        private IEnumerator subsCoroutine()
+        {
+            yield return new WaitForSeconds(8.0f);
+            _ownProfile.ReactiveUserName.Subscribe((v) => Debug.LogError("SASAT " + v.ToString()));
         }
 
         private void KeyToValItemChanged(string key)
@@ -86,6 +99,8 @@ namespace Samples
 
             _ownProfile.KeyToVal["Add" + Random.Range(0, 2).ToString()] = "!_()_!";
 
+            _ownProfile.SomeList[Random.Range(0, 2)] = "Add" + Random.Range(0, 2).ToString();
+
             _ownProfile.CommitChanges().ContinueWith((_)=> { SetInfoText(); });
         }
 
@@ -100,12 +115,13 @@ namespace Samples
 
         private void SetInfoText()
         {
-            _infoText = string.Format("Name :: {0}\nGold :: {1}\nScore::{2}\n\nKeyToVal :: {3}\nSomeChild :: {4}",
+            _infoText = string.Format("Name :: {0}\nGold :: {1}\nScore::{2}\n\nKeyToVal :: {3}\nSomeChild :: {4} \nSomeList :: {5}",
                 _ownProfile.UserName,
                 _ownProfile.Gold,
                 _ownProfile.Score,
                 JsonConvert.SerializeObject(_ownProfile.KeyToVal),
-                JsonConvert.SerializeObject(_ownProfile.SomeChild.ToString()));
+                JsonConvert.SerializeObject(_ownProfile.SomeChild.ToString()), 
+                JsonConvert.SerializeObject(_ownProfile.SomeList));
         }
     }
 }

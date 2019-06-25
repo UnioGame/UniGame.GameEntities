@@ -33,11 +33,19 @@ namespace Samples
                 _objectHandler.GetFullPath() + nameof(_objectHandler.Object.SomeChild) + "/",
                 this);
             RegisterMutableChild(nameof(_objectHandler.Object.SomeChild), SomeChild);
+
             KeyToVal = new MutableDictionary<string>(
                 () => _objectHandler.Object.KeyToVal,
                 _objectHandler.GetFullPath() + nameof(_objectHandler.Object.KeyToVal) + "/",
                 this);
             RegisterMutableChild(nameof(_objectHandler.Object.KeyToVal), KeyToVal);
+
+            var someList = new MutableList<string>(
+                () => _objectHandler.Object.SomeList,
+                _objectHandler.GetFullPath() + nameof(_objectHandler.Object.SomeList) + "/",
+                this);
+            RegisterMutableChild(nameof(_objectHandler.Object.SomeList), someList);
+            SomeList = someList;
         }
 
         public IReactiveProperty<string> ReactiveUserName { get; private set; }
@@ -45,6 +53,8 @@ namespace Samples
         public IReactiveProperty<int> ReactiveGold { get; private set; }
 
         public MutableUserDataChild SomeChild { get; private set; }
+
+        public IReactiveCollection<string> SomeList { get; private set; }
 
         public string UserName
         {
