@@ -49,6 +49,7 @@ namespace GBG.Modules.RemoteData.MutableRemoteObjects
 
         public void AddChange(RemoteDataChange change)
         {
+            ChangeApplied(change);
             _pendingChanges.Add(change);
         }
 
@@ -61,7 +62,7 @@ namespace GBG.Modules.RemoteData.MutableRemoteObjects
             foreach (var change in changes)
             {
                 var fieldName = change.FieldName;
-                updateTasks.Add(_objectHandler.ApplyChange(change).ContinueWith((_) => { ChangeApplied(change); }));
+                updateTasks.Add(_objectHandler.ApplyChange(change));
             }
             await Task.WhenAll(updateTasks.ToArray());
             _pendingChanges.Clear();
