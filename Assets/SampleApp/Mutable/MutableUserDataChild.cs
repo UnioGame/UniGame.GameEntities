@@ -4,6 +4,7 @@ using GBG.Modules.RemoteData.MutableRemoteObjects;
 using System;
 using UniRx;
 using Newtonsoft.Json;
+using System.Collections.Generic;
 
 namespace Samples
 {

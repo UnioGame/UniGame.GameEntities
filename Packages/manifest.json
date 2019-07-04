@@ -12,19 +12,13 @@
       "url": "http://188.227.74.28",
       "scopes": [
         "com.plavalaguna",
-        "com.greenbuttongames"
-      ]
-    },
-    {
-      "name": "CodeWriter",
-      "url": "http://packages.greenbuttongames.com:12867",
-      "scopes": [
+        "com.greenbuttongames",
         "com.codewriter"
       ]
     }
   ],
   "dependencies": {
-    "com.codewriter.npm-publisher-support": "0.3.2",
+    "com.codewriter.npm-publisher-support": "0.3.3",
     "com.greenbuttongames.neuecc.unirx": "7.0.1",
     "com.unity.ads": "2.0.8",
     "com.unity.analytics": "3.3.2",
