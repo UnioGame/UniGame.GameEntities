@@ -23,6 +23,8 @@ namespace Samples
         private UserProfileControls _profileControls;
         [SerializeField]
         private TransactionControls _transactionControls;
+        [SerializeField]
+        private FunctionControls _functionControls;
 
         private IAuthModule _authModule;
         private SharedMessagesService _messagesService;
@@ -31,10 +33,12 @@ namespace Samples
         private RemoteObjectsProvider _remoteObjectsProvider;
         private MutableObjectFactory _mutableObjectFactory;
         private BatchUpdater _batchUpdater;
+        private FirebasePvpQueries _queries;
 
         void Start()
         {
             _authModule = new FirebaseAuthModule();
+            _queries = new FirebasePvpQueries();
             FB.Init();
             _authModule.Init();
             _messagesService = new SharedMessagesService();
@@ -52,7 +56,7 @@ namespace Samples
             _mutableObjectFactory = new MutableObjectFactory(_remoteObjectsProvider);
             _batchUpdater = new FirebaseBatchUpdater();
             _profileControls.Init(_mutableObjectFactory, _authModule, _batchUpdater);
-
+            _functionControls.Init(_queries);
             _transactionControls.Init(_remoteObjectsProvider, _authModule);
         }
     }
