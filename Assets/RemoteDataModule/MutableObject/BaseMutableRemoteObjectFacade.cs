@@ -77,7 +77,7 @@ namespace GBG.Modules.RemoteData.MutableRemoteObjects
 
         public void ChangeApplied(RemoteDataChange change)
         {
-            change.ApplyCallback(change);
+            change.ApplyCallback?.Invoke(change);
         }
 
         private void ApplyChangeOnLocalHandler(RemoteDataChange change)
