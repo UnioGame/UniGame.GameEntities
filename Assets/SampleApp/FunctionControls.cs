@@ -13,6 +13,8 @@ namespace Samples {
         private Button _addButton;
         [SerializeField]
         private Button _removeButton;
+        [SerializeField]
+        private Button _poolButton;
 
         private IPvpRegistrationApi _api;
 
@@ -25,6 +27,7 @@ namespace Samples {
         {
             _addButton.onClick.AddListener(OnAddClick);
             _removeButton.onClick.AddListener(OnRemoveClick);
+            _poolButton.onClick.AddListener(OnLoadMetaClick);
         }
 
         private void OnAddClick()
@@ -35,6 +38,22 @@ namespace Samples {
         private void OnRemoveClick()
         {
             _api.UnregisterUserForPvp(_userId.text);
+        }
+
+        private void OnLoadMetaClick()
+        {
+            var handler = _api.GetPoolHandler();
+            handler.LoadData()
+                .ContinueWith((task) =>
+                {
+                    Debug.LogError("DATA LOADED :: " + task.ToString());
+                });
+            var roomHandler = _api.GetRoomHandler(0);
+            roomHandler.LoadData()
+                .ContinueWith((task) =>
+                {
+                    Debug.LogError("ROOM LOADED :: " + task.ToString());
+                });
         }
     }
 }

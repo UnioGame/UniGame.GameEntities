@@ -38,7 +38,6 @@ namespace Samples
         void Start()
         {
             _authModule = new FirebaseAuthModule();
-            _queries = new FirebasePvpQueries();
             FB.Init();
             _authModule.Init();
             _messagesService = new SharedMessagesService();
@@ -55,6 +54,7 @@ namespace Samples
             _remoteObjectsProvider = new FirebaseRemoteDataProvider();
             _mutableObjectFactory = new MutableObjectFactory(_remoteObjectsProvider);
             _batchUpdater = new FirebaseBatchUpdater();
+            _queries = new FirebasePvpQueries(_remoteObjectsProvider);
             _profileControls.Init(_mutableObjectFactory, _authModule, _batchUpdater);
             _functionControls.Init(_queries);
             _transactionControls.Init(_remoteObjectsProvider, _authModule);
