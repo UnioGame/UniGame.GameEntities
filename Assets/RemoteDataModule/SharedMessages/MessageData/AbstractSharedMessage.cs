@@ -7,6 +7,8 @@ using UnityEngine;
 
 namespace GBG.Modules.RemoteData.SharedMessages.MessageData
 {
+    using System.Linq;
+
     [Serializable]
     public abstract class AbstractSharedMessage
     {
@@ -38,11 +40,28 @@ namespace GBG.Modules.RemoteData.SharedMessages.MessageData
         {
             FullPath = path;
         }
+        
+        private static Dictionary<string, Type> cacheTypes = new Dictionary<string, Type>();
 
         public static AbstractSharedMessage FromJson(string typeShortName, string data)
         {
-            var typeString = string.Join(".", typeof(AbstractSharedMessage).Namespace, typeShortName);
-            return JsonConvert.DeserializeObject(data) as AbstractSharedMessage;
+            Type GetTypeForDeserialization()
+            {
+                if (cacheTypes.TryGetValue(typeShortName, out var cachedType)) {
+                    return cachedType;
+                }
+                foreach (var assembly in AppDomain.CurrentDomain.GetAssemblies()) {
+                    foreach (var type in assembly.GetTypes()) {
+                        if (type.Name == typeShortName) {
+                            cacheTypes.Add(typeShortName, type);
+                            return type;
+                        }
+                    }
+                }
+
+                return null;
+            }
+            return (AbstractSharedMessage) JsonConvert.DeserializeObject(data, GetTypeForDeserialization());
         }
     }
 }

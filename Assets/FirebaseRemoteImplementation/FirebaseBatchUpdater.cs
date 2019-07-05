@@ -15,7 +15,7 @@ namespace GBG.Modules.RemoteData.FirebaseImplementation
         /// </summary>
         /// <param name="changes"></param>
         /// <returns></returns>
-        public async override Task PerformBatchUpdate(List<RemoteDataChange> changes)
+        public override async Task PerformBatchUpdate(List<RemoteDataChange> changes)
         {
             var changeDictionary = new Dictionary<string, object>();
             foreach(var change in changes)
@@ -24,9 +24,8 @@ namespace GBG.Modules.RemoteData.FirebaseImplementation
             }
             var rootRef = FirebaseDatabase.DefaultInstance.RootReference;
             await rootRef.UpdateChildrenAsync(changeDictionary);
-            foreach(var change in changes)
-            {
-                change.ApplyCallback(change);
+            foreach(var change in changes) {
+                change.ApplyCallback?.Invoke(change);
             }
         }
     }
