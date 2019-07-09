@@ -8,6 +8,6 @@ namespace GBG.Modules.RemoteData.MutableRemoteObjects
 {
     public abstract class BatchUpdater
     {
-        public abstract Task PerformBatchUpdate(List<RemoteDataChange> changes);
+        public abstract Task PerformBatchUpdate(IEnumerable<RemoteDataChange> changes);
     }
 }

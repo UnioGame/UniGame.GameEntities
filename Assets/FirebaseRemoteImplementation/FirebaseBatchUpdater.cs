@@ -15,7 +15,7 @@ namespace GBG.Modules.RemoteData.FirebaseImplementation
         /// </summary>
         /// <param name="changes"></param>
         /// <returns></returns>
-        public override async Task PerformBatchUpdate(List<RemoteDataChange> changes)
+        public override async Task PerformBatchUpdate(IEnumerable<RemoteDataChange> changes)
         {
             var changeDictionary = new Dictionary<string, object>();
             foreach(var change in changes)
