@@ -1,7 +1,9 @@
 ﻿using GBG.Modules.RemoteData.RemoteDataAbstracts;
+using UniGreenModules.UniCore.Runtime;
 using System.Threading.Tasks;
 using System.Collections.Generic;
 using System;
+using UniGreenModules.UniCore.Runtime.ObjectPool;
 
 namespace GBG.Modules.RemoteData.MutableRemoteObjects
 {
@@ -17,7 +19,7 @@ namespace GBG.Modules.RemoteData.MutableRemoteObjects
 
         public BaseMutableRemoteObjectFacade(RemoteObjectHandler<T> objectHandler)
         {
-            this._objectHandler = objectHandler;
+            _objectHandler = objectHandler;
             _pendingChanges = new List<RemoteDataChange>();
             _properties = new Dictionary<string, INotifyable>();
             _childObjects = new Dictionary<string, IMutableChildBase>();
@@ -53,39 +55,44 @@ namespace GBG.Modules.RemoteData.MutableRemoteObjects
             _pendingChanges.Add(change);
         }
 
+        /// <summary>
+        /// Отправляет все локально записанные изменения на сервер.
+        /// ВАЖНО: все операции в рамках одной комманды не должны прерыватья вызовом
+        /// метода
+        /// </summary>
+        /// <returns></returns>
         public async Task CommitChanges()
         {
-            // TO DO transaction
-            List<Task> updateTasks = new List<Task>();
+            var updateTasks = ClassPool.SpawnOrCreate<List<Task>>(()=>new List<Task>());
             var changes = _pendingChanges;
             _pendingChanges = new List<RemoteDataChange>();
             foreach (var change in changes)
-            {
-                var fieldName = change.FieldName;
                 updateTasks.Add(_objectHandler.ApplyChange(change));
-            }
             await Task.WhenAll(updateTasks.ToArray());
+            _pendingChanges.ForEach((ch) => ch.Dispose());
             _pendingChanges.Clear();
         }
 
+        /// <summary>
+        /// Возвращает список всех локальных изменений и обнуляет его внутри объекта
+        /// применимо для работы с BatchUpdater
+        /// </summary>
+        /// <returns></returns>
         public List<RemoteDataChange> FlushChanges()
         {
             var result = _pendingChanges;
-            _pendingChanges = new List<RemoteDataChange>();
+            _pendingChanges = ClassPool.SpawnOrCreate<List<RemoteDataChange>>(() => new List<RemoteDataChange>());
             return result;
         }
 
-        public void ChangeApplied(RemoteDataChange change)
-        {
-            change.ApplyCallback?.Invoke(change);
-        }
-
-        private void ApplyChangeOnLocalHandler(RemoteDataChange change)
-        {
-            _objectHandler.ApplyChangeLocal(change);
-            PropertyChanged(change.FieldName);
-        }
-
+        /// <summary>
+        /// Создает Reactiv Property для работы с оборачиваемыми данными
+        /// </summary>
+        /// <typeparam name="Tvalue">Тип обрабатываемого поля</typeparam>
+        /// <param name="getter"></param>
+        /// <param name="setter"></param>
+        /// <param name="fieldName">Имя поля</param>
+        /// <returns></returns>
         public MutableObjectReactiveProperty<Tvalue> CreateReactiveProperty<Tvalue>(Func<Tvalue> getter, Action<Tvalue> setter, string fieldName)
         {
             var property = new MutableObjectReactiveProperty<Tvalue>(getter, setter, this);
@@ -106,13 +113,24 @@ namespace GBG.Modules.RemoteData.MutableRemoteObjects
         protected void PropertyChanged(string name)
         {
             if (_properties.ContainsKey(name))
-                _properties[name].NotifyOnChange();
+                _properties[name].Notify();
         }
 
         protected void AllPropertiesChanged()
         {
             foreach (var property in _properties.Values)
-                property.NotifyOnChange();
+                property.Notify();
+        }
+
+        private void ChangeApplied(RemoteDataChange change)
+        {
+            change.ApplyCallback?.Invoke(change);
+        }
+
+        private void ApplyChangeOnLocalHandler(RemoteDataChange change)
+        {
+            _objectHandler.ApplyChangeLocal(change);
+            PropertyChanged(change.FieldName);
         }
     }
 }

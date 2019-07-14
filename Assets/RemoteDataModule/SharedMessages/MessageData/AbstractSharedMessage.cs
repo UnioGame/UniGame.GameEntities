@@ -8,6 +8,7 @@ using UnityEngine;
 namespace GBG.Modules.RemoteData.SharedMessages.MessageData
 {
     using System.Linq;
+    using UniGreenModules.UniCore.Runtime.ReflectionUtils;
 
     [Serializable]
     public abstract class AbstractSharedMessage
@@ -32,7 +33,7 @@ namespace GBG.Modules.RemoteData.SharedMessages.MessageData
         /// </summary>
         public void AssureType()
         {
-            MessageType = this.GetType().Name;
+            MessageType = GetType().Name;
             FullPath = null;
         }
 
@@ -47,19 +48,18 @@ namespace GBG.Modules.RemoteData.SharedMessages.MessageData
         {
             Type GetTypeForDeserialization()
             {
-                if (cacheTypes.TryGetValue(typeShortName, out var cachedType)) {
-                    return cachedType;
+                if (cacheTypes.TryGetValue(typeShortName, out var type)) {
+                    return type;
                 }
-                foreach (var assembly in AppDomain.CurrentDomain.GetAssemblies()) {
-                    foreach (var type in assembly.GetTypes()) {
-                        if (type.Name == typeShortName) {
-                            cacheTypes.Add(typeShortName, type);
-                            return type;
-                        }
-                    }
+                var allImplementations = ReflectionTools.FindAllImplementations(typeof(AbstractSharedMessage));
+                foreach(var candidate in allImplementations)
+                {
+                    if (candidate.Name == typeShortName)
+                        type = candidate;
+                    cacheTypes[candidate.Name] = type;
                 }
 
-                return null;
+                return type;
             }
             return (AbstractSharedMessage) JsonConvert.DeserializeObject(data, GetTypeForDeserialization());
         }

@@ -2,70 +2,75 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Reflection;
 using UniRx;
 using UnityEngine;
 
 namespace GBG.Modules.RemoteData.MutableRemoteObjects
 {
-    public interface IMutableChildBase : IRemoteChangesStorage
-    {
-
-    }
-
     public class MutableChild<T> : IMutableChildBase
     {
-        public string FullPath { get; private set; }
-        protected T Object { get => _getter(); }
+        private static Dictionary<string, FieldInfo> _fieldInfoCache = new Dictionary<string, FieldInfo>();
 
-        private Func<T> _getter;
+        private readonly Func<T> _getter;
         protected IRemoteChangesStorage _storage;
-        private Dictionary<string, INotifyable> _properties;
+        private readonly Dictionary<string, INotifyable> _properties;
         private Dictionary<string, IMutableChildBase> _childObjects;
+        protected T Object => _getter();
 
         public MutableChild(Func<T> getter, string fullPath, IRemoteChangesStorage storage)
         {
-            this._getter = getter;
-            this.FullPath = fullPath;
-            this._storage = storage;
+            _getter = getter;
+            FullPath = fullPath;
+            _storage = storage;
             _properties = new Dictionary<string, INotifyable>();
             _childObjects = new Dictionary<string, IMutableChildBase>();
         }
 
+        public string FullPath { get; private set; }
+
         public void UpdateChildData(string fieldName, object newValue)
         {
-            _storage.AddChange(new RemoteDataChange()
-            {
-                FieldName = fieldName,
-                FullPath = FullPath + fieldName,
-                FieldValue = newValue,
-                ApplyCallback = ApplyChangeLocal
-            });
+            _storage.AddChange(RemoteDataChange.Create(
+                FullPath + fieldName,
+                fieldName,
+                newValue,
+                ApplyChangeLocal));
         }
 
         private void ApplyChangeLocal(RemoteDataChange change)
         {
-            var fieldInfo = typeof(T).GetField(change.FieldName);
+            var fieldInfo = GetFieldInfo(change.FieldName);
             fieldInfo.SetValue(Object, change.FieldValue);
             PropertyChanged(change.FieldName);
+        }
+        
+        private FieldInfo GetFieldInfo(string fieldName)
+        {
+            if(!_fieldInfoCache.TryGetValue(fieldName, out var fieldInfo))
+            {
+                fieldInfo = typeof(T).GetField(fieldName);
+                _fieldInfoCache.Add(fieldName, fieldInfo);
+            }
+            return fieldInfo;
         }
 
         protected MutableObjectReactiveProperty<Tvalue> CreateReactiveProperty<Tvalue>(Func<Tvalue> getter, Action<Tvalue> setter, string fieldName)
         {
-            var property = new MutableObjectReactiveProperty<Tvalue>(getter, setter, this);
-            _properties.Add(fieldName, property);
-            return property;
+            _properties.Add(fieldName, new MutableObjectReactiveProperty<Tvalue>(getter, setter, this));
+            return new MutableObjectReactiveProperty<Tvalue>(getter, setter, this);
         }
 
         protected void PropertyChanged(string name)
         {
             if (_properties.ContainsKey(name))
-                _properties[name].NotifyOnChange();
+                _properties[name].Notify();
         }
 
         protected void AllPropertiesChanged()
         {
             foreach (var property in _properties.Values)
-                property.NotifyOnChange();
+                property.Notify();
         }
 
         public void AddChange(RemoteDataChange change)

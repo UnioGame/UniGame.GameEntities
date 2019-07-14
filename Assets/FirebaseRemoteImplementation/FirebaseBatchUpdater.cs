@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Firebase.Database;
 using GBG.Modules.RemoteData.MutableRemoteObjects;
+using UniGreenModules.UniCore.Runtime.ObjectPool;
 
 namespace GBG.Modules.RemoteData.FirebaseImplementation
 {
@@ -17,7 +18,7 @@ namespace GBG.Modules.RemoteData.FirebaseImplementation
         /// <returns></returns>
         public override async Task PerformBatchUpdate(IEnumerable<RemoteDataChange> changes)
         {
-            var changeDictionary = new Dictionary<string, object>();
+            var changeDictionary = ClassPool.SpawnOrCreate<Dictionary<string, object>>(() => new Dictionary<string, object>());
             foreach(var change in changes)
             {
                 changeDictionary.Add(change.FullPath, change.FieldValue);
@@ -26,7 +27,9 @@ namespace GBG.Modules.RemoteData.FirebaseImplementation
             await rootRef.UpdateChildrenAsync(changeDictionary);
             foreach(var change in changes) {
                 change.ApplyCallback?.Invoke(change);
+                change.Dispose();
             }
+            ClassPool.Despawn<Dictionary<string, object>>(changeDictionary, null);
         }
     }
 }

@@ -7,6 +7,6 @@ namespace GBG.Modules.RemoteData.SharedMessages
 {
     public interface ISharedMessageProcessor
     {
-        Task ProcessMessage(AbstractSharedMessage message);
+        void ProcessMessage(AbstractSharedMessage message);
     }
 }

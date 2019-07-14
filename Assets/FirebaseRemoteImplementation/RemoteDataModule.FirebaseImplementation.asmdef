@@ -2,7 +2,8 @@
     "name": "RemoteDataModule.FirebaseImplementation",
     "references": [
         "RemoteDataModule",
-        "JsonDotNet"
+        "JsonDotNet",
+        "greenbuttongame.unitools"
     ],
     "optionalUnityReferences": [],
     "includePlatforms": [],

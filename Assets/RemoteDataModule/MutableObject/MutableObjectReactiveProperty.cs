@@ -9,7 +9,7 @@ namespace GBG.Modules.RemoteData.MutableRemoteObjects
 {
     public interface INotifyable
     {
-        void NotifyOnChange();
+        void Notify();
     }
 
     public class MutableObjectReactiveProperty<T> : IReactiveProperty<T>, INotifyable
@@ -18,14 +18,10 @@ namespace GBG.Modules.RemoteData.MutableRemoteObjects
         private Action<T> _setter;
         private IRemoteChangesStorage _storage;
 
-        private LinkedList<ObserverData<T>> _observers = new LinkedList<ObserverData<T>>();
-
-        public void NotifyOnChange()
+        private ReactiveCommand<T> _changeCommand;
+        public void Notify()
         {
-            foreach (var _observer in _observers)
-            {
-                _observer._observer.OnNext(Value);
-            }
+            _changeCommand.Execute(Value);
         }
 
         public MutableObjectReactiveProperty(Func<T> getter, Action<T> setter, IRemoteChangesStorage storage)
@@ -33,6 +29,7 @@ namespace GBG.Modules.RemoteData.MutableRemoteObjects
             _getter = getter;
             _setter = setter;
             _storage = storage;
+            _changeCommand = new ReactiveCommand<T>();
         }
 
         public T Value { get => _getter(); set => _setter(value); }
@@ -43,37 +40,7 @@ namespace GBG.Modules.RemoteData.MutableRemoteObjects
 
         public IDisposable Subscribe(IObserver<T> observer)
         {
-            var token = new ObserverData<T>(observer);
-            _observers.AddLast(token);
-            token.SetParentData(_observers);
-            if (_storage.IsRootLoaded())
-                observer.OnNext(Value);
-            return token;
-        }
-    }
-
-    internal class ObserverData<TData> : IDisposable
-    {
-        private LinkedList<ObserverData<TData>> _parentList;
-        public IObserver<TData> _observer;
-
-        public ObserverData(IObserver<TData> observer)
-        {
-            this._observer = observer;
-        }
-
-        public void SetParentData(LinkedList<ObserverData<TData>> parentList)
-        {
-            _parentList = parentList;
-        }
-
-        public void Dispose()
-        {
-            _observer = null;
-            lock (_parentList)
-            {
-                _parentList.Remove(this);
-            }
+            return _changeCommand.Subscribe(observer);
         }
     }
 }

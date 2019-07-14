@@ -12,8 +12,11 @@ namespace GBG.Modules.RemoteData.MutableRemoteObjects
 
     public class MutableDictionary<TValue> : MutableChild<Dictionary<string, TValue>>, IObservableDictionary<string, TValue>
     {
+        private ReactiveCommand<string> _itemChangedCommand;
+
         public MutableDictionary(Func<Dictionary<string, TValue>> getter, string fullPath, IRemoteChangesStorage storage) : base(getter, fullPath, storage)
         {
+            _itemChangedCommand = new ReactiveCommand<string>();
         }
 
         public TValue this[string key] { get => Object[key]; set => AddUpdateChange(key, value); }
@@ -35,22 +38,13 @@ namespace GBG.Modules.RemoteData.MutableRemoteObjects
 
         public void Add(KeyValuePair<string, TValue> item)
         {
-            if (Object.ContainsKey(item.Key))
-                throw new InvalidOperationException(string.Format("Element with key :: {0} exists in Dictionary", item.Key));
-            AddUpdateChange(item.Key, item.Value);
+            Add(item.Key, item.Value);
         }
 
         public void Clear()
         {
-            var clearChange = new RemoteDataChange()
-            {
-                FullPath = FullPath,
-                FieldName = string.Empty,
-                FieldValue = null,
-                ApplyCallback = ClearApply
-            };
+            var clearChange = RemoteDataChange.Create(FullPath, string.Empty, null, ClearApply);
             AddChange(clearChange);
-
         }
 
         public bool Contains(KeyValuePair<string, TValue> item)
@@ -65,8 +59,6 @@ namespace GBG.Modules.RemoteData.MutableRemoteObjects
 
         public void CopyTo(KeyValuePair<string, TValue>[] array, int arrayIndex)
         {
-            Debug.LogError("1");
-
             throw new NotImplementedException();
         }
 
@@ -111,21 +103,12 @@ namespace GBG.Modules.RemoteData.MutableRemoteObjects
 
         private void OnItemChanged(string key)
         {
-            foreach (var observer in _observers)
-            {
-                observer._observer.OnNext(key);
-            }
+            _itemChangedCommand.Execute(key);
         }
 
         private void AddRemoveChange(string key)
         {
-            var remove = new RemoteDataChange()
-            {
-                FullPath = FullPath + key,
-                FieldName = key,
-                FieldValue = null,
-                ApplyCallback = RemoveApply
-            };
+            var remove = RemoteDataChange.Create(FullPath + key, key, null, RemoveApply);
             AddChange(remove);
         }
 
@@ -137,13 +120,7 @@ namespace GBG.Modules.RemoteData.MutableRemoteObjects
 
         private void AddUpdateChange(string key, TValue value)
         {
-            var update = new RemoteDataChange()
-            {
-                FullPath = FullPath + key,
-                FieldName = key,
-                FieldValue = value,
-                ApplyCallback = UpdateApply
-            };
+            var update = RemoteDataChange.Create(FullPath + key, key, value, UpdateApply);
             AddChange(update);
         }
 
@@ -153,17 +130,9 @@ namespace GBG.Modules.RemoteData.MutableRemoteObjects
             OnItemChanged(change.FieldName);
         }
 
-        #region Observable logic
-        private LinkedList<ObserverData<string>> _observers = new LinkedList<ObserverData<string>>();
-
         public IDisposable Subscribe(IObserver<string> observer)
         {
-            var token = new ObserverData<string>(observer);
-            _observers.AddLast(token);
-            token.SetParentData(_observers);
-            return token;
+            return _itemChangedCommand.Subscribe(observer);
         }
-
-        #endregion
     }
 }

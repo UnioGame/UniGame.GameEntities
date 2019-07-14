@@ -71,12 +71,11 @@ namespace RemoteDataImpl
 
         public override RemoteDataChange CreateChange(string fieldName, object fieldValue)
         {
-            return new RemoteDataChange()
-            {
-                FieldName = fieldName,
-                FieldValue = fieldValue,
-                FullPath = _fullPath + fieldName
-            };
+            return RemoteDataChange.Create(
+                _fullPath + fieldName,
+                fieldName,
+                fieldValue,
+                null);
         }
 
         protected void EnsureLoadSuccess(Task<DataSnapshot> task)

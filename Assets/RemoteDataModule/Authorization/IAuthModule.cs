@@ -2,11 +2,6 @@
 
 namespace GBG.Modules.RemoteData.Authorization
 {
-    public interface IAuthToken
-    {
-
-    }
-
     public interface IAuthModule
     {
         // TO DO other Auth Type

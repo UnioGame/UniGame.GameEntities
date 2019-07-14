@@ -19,8 +19,8 @@ namespace GBG.Modules.RemoteData.SharedMessages
 
         public void Init(IAuthModule authModule, BaseSharedMessagesStorage storage)
         {
-            this._authModule = authModule;
-            this._storage = storage;
+            _authModule = authModule;
+            _storage = storage;
             _storage.SelfMessagesUpdated += SelfMessagesUpdated;
         }
 
@@ -61,12 +61,11 @@ namespace GBG.Modules.RemoteData.SharedMessages
 
         public RemoteDataChange CreateMarkProcededChange(AbstractSharedMessage message)
         {
-            return new RemoteDataChange()
-            {
-                FieldName = nameof(message.Proceeded),
-                FieldValue = true,
-                FullPath = message.FullPath + "/" + nameof(message.Proceeded)
-            };
+            return RemoteDataChange.Create(
+                string.Format("{0}/{1}", message.FullPath , nameof(message.Proceeded)),
+                nameof(message.Proceeded),
+                true,
+                null);
         }
 
         public void RegisterProcessor<T>(ISharedMessageProcessor processor) where T : AbstractSharedMessage
@@ -90,8 +89,5 @@ namespace GBG.Modules.RemoteData.SharedMessages
             }
             _processors.Remove(keyToRemove);
         }
-
-
-        // TO DO commit message as read
     }
 }
