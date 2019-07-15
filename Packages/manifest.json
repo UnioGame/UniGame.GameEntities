@@ -8,22 +8,19 @@
       ]
     },
     {
-      "name": "GreenButtonGames",
-      "url": "http://packages.greenbuttongames.com",
+      "name": "Plavalaguna",
+      "url": "http://188.227.74.28",
       "scopes": [
-        "com.greenbuttongames"
-      ]
-    },
-    {
-      "name": "CodeWriter",
-      "url": "http://packages.greenbuttongames.com:12867",
-      "scopes": [
+        "com.plavalaguna",
+        "com.greenbuttongames",
         "com.codewriter"
       ]
     }
   ],
   "dependencies": {
-    "com.greenbuttongames.neuecc.unirx": "6.2.2",
+    "com.codewriter.npm-publisher-support": "0.3.3",
+    "com.greenbuttongames.neuecc.unirx": "7.0.2",
+    "com.greenbuttongames.unicore": "1.1.30",
     "com.unity.ads": "2.0.8",
     "com.unity.analytics": "3.3.2",
     "com.unity.collab-proxy": "1.2.16",

@@ -1,0 +1,17 @@
+{
+    "name": "RemoteDataModule",
+    "references": [
+        "UniRx",
+        "JsonDotNet",
+        "greenbuttongame.unitools"
+    ],
+    "optionalUnityReferences": [],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": []
+}

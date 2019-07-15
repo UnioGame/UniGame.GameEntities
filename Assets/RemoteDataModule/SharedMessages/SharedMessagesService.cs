@@ -1,13 +1,14 @@
-﻿using RemoteDataModule.Authorization;
-using RemoteDataModule.SharedMessages;
-using RemoteDataModule.SharedMessages.MessageData;
+﻿using GBG.Modules.RemoteData.Authorization;
+using GBG.Modules.RemoteData.RemoteDataAbstracts;
+using GBG.Modules.RemoteData.SharedMessages;
+using GBG.Modules.RemoteData.SharedMessages.MessageData;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using UnityEngine;
 
-namespace RemoteDataModule.SharedMessages
+namespace GBG.Modules.RemoteData.SharedMessages
 {
     public class SharedMessagesService
     {
@@ -18,8 +19,8 @@ namespace RemoteDataModule.SharedMessages
 
         public void Init(IAuthModule authModule, BaseSharedMessagesStorage storage)
         {
-            this._authModule = authModule;
-            this._storage = storage;
+            _authModule = authModule;
+            _storage = storage;
             _storage.SelfMessagesUpdated += SelfMessagesUpdated;
         }
 
@@ -58,6 +59,15 @@ namespace RemoteDataModule.SharedMessages
             await _storage.CommitMessage(userId, message);
         }
 
+        public RemoteDataChange CreateMarkProcededChange(AbstractSharedMessage message)
+        {
+            return RemoteDataChange.Create(
+                string.Format("{0}/{1}", message.FullPath , nameof(message.Proceeded)),
+                nameof(message.Proceeded),
+                true,
+                null);
+        }
+
         public void RegisterProcessor<T>(ISharedMessageProcessor processor) where T : AbstractSharedMessage
         {
             if (_processors.ContainsValue(processor))
@@ -79,8 +89,5 @@ namespace RemoteDataModule.SharedMessages
             }
             _processors.Remove(keyToRemove);
         }
-
-
-        // TO DO commit message as read
     }
 }

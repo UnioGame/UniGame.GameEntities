@@ -2,10 +2,10 @@
 using System.Collections;
 using System.Threading.Tasks;
 using System.Collections.Generic;
-using RemoteDataModule.SharedMessages.MessageData;
+using GBG.Modules.RemoteData.SharedMessages.MessageData;
 using System;
 
-namespace RemoteDataModule.SharedMessages {
+namespace GBG.Modules.RemoteData.SharedMessages {
     public abstract class BaseSharedMessagesStorage
     {
         public abstract Task<List<AbstractSharedMessage>> FetchAllMessages();

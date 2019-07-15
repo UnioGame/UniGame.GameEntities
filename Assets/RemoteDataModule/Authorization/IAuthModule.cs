@@ -1,12 +1,7 @@
 ﻿using System.Threading.Tasks;
 
-namespace RemoteDataModule.Authorization
+namespace GBG.Modules.RemoteData.Authorization
 {
-    public enum AuthType
-    {
-        Anonimous,
-        Facebook
-    }
     public interface IAuthModule
     {
         // TO DO other Auth Type
@@ -15,8 +10,8 @@ namespace RemoteDataModule.Authorization
         string CurrentUserId { get; }
         bool IsLogged { get; }
 
-        void Init();
-        Task Login(AuthType authType);
+        Task Init();
+        Task Login(IAuthToken authType);
         Task Logout();
     }
 }
