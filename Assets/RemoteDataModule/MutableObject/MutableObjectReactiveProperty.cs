@@ -40,6 +40,8 @@ namespace GBG.Modules.RemoteData.MutableRemoteObjects
 
         public IDisposable Subscribe(IObserver<T> observer)
         {
+            if (_storage.IsRootLoaded())
+                observer.OnNext(Value);
             return _changeCommand.Subscribe(observer);
         }
     }
