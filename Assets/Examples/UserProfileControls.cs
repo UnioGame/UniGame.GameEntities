@@ -42,37 +42,34 @@ namespace Samples
             _ownProfile.KeyToVal.Subscribe((v) => { KeyToValItemChanged(v); });
             _ownProfile.ReactiveGold.Subscribe((v) => Debug.LogError("VALUE :: " + v.ToString()));
             _ownProfile.SomeList.ObserveReplace().Subscribe((e) => Debug.LogError(string.Format("LIST :: old = {0} :: new = {1} ", e.OldValue, e.NewValue)));
-            _ownProfile.LoadRootData(() =>
+            _ownProfile.LoadRootData(initialDataProvider: () => new UserProfileData
             {
-                return new UserProfileData()
+                Gold     = 10,
+                UserName = "Test",
+                Score    = 0,
+                KeyToVal = new Dictionary<string, string>()
                 {
-                    Gold = 10,
-                    UserName = "Test",
-                    Score = 0,
-                    KeyToVal = new Dictionary<string, string>()
+                    {"a", "b" },
+                    {"b", "c" }
+                },
+                SomeChild = new SomeUserDataChild()
+                {
+                    FieldA = "A",
+                    FieldB = 0,
+                    DeepChild = new DeeperUserDataChild()
                     {
-                        {"a", "b" },
-                        {"b", "c" }
-                    },
-                    SomeChild = new SomeUserDataChild()
-                    {
-                        FieldA = "A",
-                        FieldB = 0,
-                        DeepChild = new DeeperUserDataChild()
-                        {
-                            FieldX = "X",
-                            FieldY = "Y"
-                        }                
-                    },
-                    SomeList = new List<string>()
-                    {
-                        "Bob",
-                        "Sam",
-                        "Homer"
-                    }
+                        FieldX = "X",
+                        FieldY = "Y"
+                    }                
+                },
+                SomeList = new List<string>()
+                {
+                    "Bob",
+                    "Sam",
+                    "Homer"
+                }
 
-                };
-            }).ContinueWith((_) => { SetInfoText(); });
+            }).ContinueWith(_ =>  SetInfoText());
             StartCoroutine(subsCoroutine());            
         }
 

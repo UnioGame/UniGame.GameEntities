@@ -30,10 +30,10 @@ namespace GBG.Modules.RemoteData.MutableRemoteObjects
         /// </summary>
         /// <param name="initialDataProvider"></param>
         /// <returns></returns>
-        public async Task LoadRootData(Func<T> initialDataProvider = null)
+        public async Task LoadRootData(bool keepSynched = false, Func<T> initialDataProvider = null)
         {
 
-            await _objectHandler.LoadData(initialDataProvider: initialDataProvider);
+            await _objectHandler.LoadData(keepSynched, initialDataProvider);
             AllPropertiesChanged();
         }
 

@@ -24,17 +24,10 @@ namespace GBG.Modules.RemoteData.SharedMessages
             _storage.SelfMessagesUpdated += SelfMessagesUpdated;
         }
 
-        public void Run()
+        public async Task Run()
         {
-            _storage.FetchAllMessages().ContinueWith((t) =>
-            {
-                if (t.IsFaulted)
-                {
-                    Debug.LogException(t.Exception);
-                    return;
-                }
-                NotifyListeners(t.Result);
-            });            
+            var messages = await _storage.FetchAllMessages();
+            NotifyListeners(messages);
         }
 
         private void SelfMessagesUpdated(List<AbstractSharedMessage> obj)
