@@ -22,7 +22,7 @@ namespace GBG.Modules.RemoteData.RemoteDataAbstracts
             var change = ClassPool.SpawnOrCreate(() => new RemoteDataChange());
             change.FullPath = FullPath;
             change.FieldName = string.Empty;
-            change.FieldValue = null;
+            change.FieldValue = FieldValue;
             change.ApplyCallback = ApplyCallback;
             return change;
         }

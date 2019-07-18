@@ -88,7 +88,7 @@ namespace RemoteDataImpl
         protected override async Task ApplyChangeRemote(RemoteDataChange change)
         {
             var changeType = change.FieldValue.GetType();
-            if (changeType.IsValueType || change.FieldValue is String)
+            if (changeType.IsPrimitive || change.FieldValue is String)
                 await _reference.Root.Child(change.FullPath).SetValueAsync(change.FieldValue);
             else
                 await _reference.Root.Child(change.FullPath).SetRawJsonValueAsync(JsonConvert.SerializeObject(change.FieldValue));

@@ -21,37 +21,26 @@ namespace GBG.Modules.RemoteData.SharedMessages
         {
             _authModule = authModule;
             _storage = storage;
-            _storage.SelfMessagesUpdated += SelfMessagesUpdated;
         }
 
         public void Run()
         {
-            _storage.FetchAllMessages().ContinueWith((t) =>
-            {
-                if (t.IsFaulted)
-                {
-                    Debug.LogException(t.Exception);
-                    return;
-                }
-                NotifyListeners(t.Result);
-            });            
+            _storage.MessageAdded += SelfMessagesAdded;
+            _storage.StartListen();
         }
 
-        private void SelfMessagesUpdated(List<AbstractSharedMessage> obj)
+        private void SelfMessagesAdded(AbstractSharedMessage obj)
         {
             NotifyListeners(obj);
         }
 
-        private void NotifyListeners(List<AbstractSharedMessage> messages)
+        private void NotifyListeners(AbstractSharedMessage message)
         {
-            foreach(var message in messages)
-            {
-                var type = message.GetType();
-                if (_processors.ContainsKey(type))
-                    _processors[type].ProcessMessage(message);
-                else
-                    Debug.LogWarning("No processors registered for message type :: " + type.Name);
-            }
+            var type = message.GetType();
+            if (_processors.ContainsKey(type))
+                _processors[type].ProcessMessage(message);
+            else
+                Debug.LogWarning("No processors registered for message type :: " + type.Name);
         }
 
         public async Task PushMessage(string userId, AbstractSharedMessage message)
@@ -62,9 +51,18 @@ namespace GBG.Modules.RemoteData.SharedMessages
         public RemoteDataChange CreateMarkProcededChange(AbstractSharedMessage message)
         {
             return RemoteDataChange.Create(
-                string.Format("{0}/{1}", message.FullPath , nameof(message.Proceeded)),
+                string.Format("{0}/{1}", message.FullPath, nameof(message.Proceeded)),
                 nameof(message.Proceeded),
                 true,
+                null);
+        }
+
+        public RemoteDataChange CreateRemoveChange(AbstractSharedMessage message)
+        {
+            return RemoteDataChange.Create(
+                message.FullPath,
+                string.Empty,
+                null,
                 null);
         }
 
@@ -72,14 +70,14 @@ namespace GBG.Modules.RemoteData.SharedMessages
         {
             if (_processors.ContainsValue(processor))
                 throw new InvalidOperationException("Repeated processor registration for type :: " + processor.GetType().FullName);
-            
+
             _processors.Add(typeof(T), processor);
         }
 
         public void UnregisterProcessor(ISharedMessageProcessor processor)
         {
             Type keyToRemove = null;
-            foreach(var kvp in _processors)
+            foreach (var kvp in _processors)
             {
                 if (kvp.Value == processor)
                 {
