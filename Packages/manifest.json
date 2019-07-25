@@ -20,6 +20,7 @@
   "dependencies": {
     "com.codewriter.npm-publisher-support": "0.3.3",
     "com.greenbuttongames.neuecc.unirx": "7.0.2",
+    "com.greenbuttongames.newtonsoft.json": "2.0.6",
     "com.greenbuttongames.unicore": "1.1.30",
     "com.unity.ads": "2.0.8",
     "com.unity.analytics": "3.3.2",

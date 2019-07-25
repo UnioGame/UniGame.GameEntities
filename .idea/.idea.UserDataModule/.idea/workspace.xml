@@ -24,15 +24,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7bd43980-19a8-43aa-909b-d8c402b0f6cd" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/.idea.UserDataModule/.idea/encodings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/.idea.UserDataModule/.idea/indexLayout.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/.idea.UserDataModule/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/.idea.UserDataModule/.idea/vcs.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/SampleApp/Queries/ClanQueries.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/SampleApp/Queries/ClanQueries.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Logs/Packages-Update.log" beforeDir="false" afterPath="$PROJECT_DIR$/Logs/Packages-Update.log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Packages/manifest.json" beforeDir="false" afterPath="$PROJECT_DIR$/Packages/manifest.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ProjectSettings/ProjectVersion.txt" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/ProjectVersion.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.UserDataModule/.idea/contentModel.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.UserDataModule/.idea/contentModel.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.UserDataModule/.idea/indexLayout.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.UserDataModule/.idea/indexLayout.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.UserDataModule/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.UserDataModule/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Firebase/m2repository/com/google/firebase/firebase-app-unity/6.1.1.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Firebase/m2repository/com/google/firebase/firebase-functions-unity/6.1.1.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Plugins/Editor/JetBrains/JetBrains.Rider.Unity.Editor.Plugin.Repacked.dll" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Plugins/Editor/JetBrains/JetBrains.Rider.Unity.Editor.Plugin.Repacked.dll" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -41,19 +38,80 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="FileEditorManager">
-    <leaf>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/Assets/SampleApp/Queries/ClanQueries.cs">
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Assets/FirebaseRemoteImplementation/FirebaseRemoteObjectHandler.cs">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="105">
-              <caret line="5" lean-forward="true" selection-start-line="5" selection-end-line="5" />
+              <caret line="19" column="71" selection-start-line="19" selection-start-column="71" selection-end-line="19" selection-end-column="71" />
               <folding>
-                <marker date="1559123589183" expanded="true" signature="6:133" ph="..." />
-                <marker date="1559123589183" expanded="true" signature="152:1079" ph="{...}" />
-                <marker date="1559123589183" expanded="true" signature="183:1077" ph="{...}" />
-                <marker date="1559123589183" expanded="true" signature="317:522" ph="/// В будущем запрос будет возвращать неполные данные кланов в целях снижения нагрузки ... " />
-                <marker date="1559123589183" expanded="true" signature="588:1071" ph="{...}" />
-                <marker date="1559123589183" expanded="true" signature="881:1034" ph="{...}" />
+                <marker date="1563986021210" expanded="true" signature="6:220" ph="..." />
+                <marker date="1563986021210" expanded="true" signature="246:4590" ph="{...}" />
+                <marker date="1563986021210" expanded="true" signature="321:4588" ph="{...}" />
+                <marker date="1563986021210" expanded="true" signature="557:713" ph="{...}" />
+                <marker date="1563986021210" expanded="true" signature="753:815" ph="{...}" />
+                <marker date="1563986021210" expanded="true" signature="931:1784" ph="{...}" />
+                <marker date="1563986021210" expanded="true" signature="970:1176" ph="{...}" />
+                <marker date="1563986021210" expanded="true" signature="1521:1697" ph="{...}" />
+                <marker date="1563986021210" expanded="true" signature="1844:1995" ph="{...}" />
+                <marker date="1563986021210" expanded="true" signature="2078:2219" ph="{...}" />
+                <marker date="1563986021210" expanded="true" signature="2263:2318" ph="{...}" />
+                <marker date="1563986021210" expanded="true" signature="2410:2591" ph="{...}" />
+                <marker date="1563986021210" expanded="true" signature="2658:2886" ph="{...}" />
+                <marker date="1563986021210" expanded="true" signature="2968:3360" ph="{...}" />
+                <marker date="1563986021210" expanded="true" signature="3441:3538" ph="{...}" />
+                <marker date="1563986021210" expanded="true" signature="3599:3784" ph="{...}" />
+                <marker date="1563986021210" expanded="true" signature="3794:4013" ph="/// Only suitable for value types and strings ... " />
+                <marker date="1563986021210" expanded="true" signature="4120:4486" ph="{...}" />
+                <marker date="1563986021210" expanded="true" signature="4258:4441" ph="{...}" />
+                <marker date="1563986021210" expanded="true" signature="4532:4582" ph="{...}" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Assets/RemoteDataModule/Pvp/PvpRegistrationApi.cs">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="60">
+              <caret line="8" column="28" selection-start-line="8" selection-start-column="28" selection-end-line="8" selection-end-column="28" />
+              <folding>
+                <marker date="1562684456528" expanded="false" signature="6:158" ph="..." />
+                <marker date="1562684456528" expanded="true" signature="196:488" ph="{...}" />
+                <marker date="1562684456528" expanded="true" signature="239:486" ph="{...}" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/Assets/FirebaseRemoteImplementation/Pvp/FirebasePvpQueries.cs">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="225">
+              <caret line="18" column="9" selection-start-line="18" selection-start-column="9" selection-end-line="18" selection-end-column="9" />
+              <folding>
+                <marker date="1563990119599" expanded="false" signature="6:147" ph="..." />
+                <marker date="1563990119599" expanded="true" signature="204:1767" ph="{...}" />
+                <marker date="1563990119599" expanded="true" signature="264:1765" ph="{...}" />
+                <marker date="1563990119599" expanded="true" signature="602:656" ph="{...}" />
+                <marker date="1563990119599" expanded="true" signature="722:822" ph="{...}" />
+                <marker date="1563990119599" expanded="true" signature="907:1031" ph="{...}" />
+                <marker date="1563990119599" expanded="true" signature="1092:1393" ph="{...}" />
+                <marker date="1563990119599" expanded="true" signature="1456:1759" ph="{...}" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Assets/RemoteDataModule/Pvp/PvpPoolData.cs">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="90">
+              <caret line="8" column="25" selection-start-line="8" selection-start-column="25" selection-end-line="8" selection-end-column="25" />
+              <folding>
+                <marker date="1562684456526" expanded="false" signature="6:78" ph="..." />
+                <marker date="1562684456526" expanded="true" signature="116:269" ph="{...}" />
+                <marker date="1562684456526" expanded="true" signature="147:267" ph="{...}" />
               </folding>
             </state>
           </provider>
@@ -65,49 +123,46 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="HighlightingSettingsPerFile">
-    <setting file="file://$PROJECT_DIR$/Assets/SampleApp/Queries/ClanQueries.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/RemoteDataModule/Pvp/PvpPoolData.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/RemoteDataModule/Pvp/PvpRegistrationApi.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/FirebaseRemoteImplementation/Pvp/FirebasePvpQueries.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/FirebaseRemoteImplementation/FirebaseRemoteObjectHandler.cs" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/Assets/SampleApp/Queries/ClanQueries.cs" />
+        <option value="$PROJECT_DIR$/Assets/FirebaseRemoteImplementation/Pvp/FirebasePvpQueries.cs" />
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds">
-    <option name="x" value="-1927" />
-    <option name="y" value="7" />
-    <option name="width" value="1932" />
-    <option name="height" value="1047" />
+  <component name="ProjectFrameBounds" extendedState="6">
+    <option name="x" value="250" />
+    <option name="y" value="118" />
+    <option name="width" value="1801" />
+    <option name="height" value="900" />
   </component>
   <component name="ProjectView">
     <navigator currentView="UnityExplorer" proportions="" version="1">
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="AssemblyExplorer" />
-      <pane id="UnityExplorer">
-        <subPane>
-          <expand>
-            <path>
-              <item name="Project" type="e068e287:UnityExplorerRootNode" />
-              <item name="Assets" type="48f920db:UnityExplorerNode$AssetsRoot" />
-            </path>
-          </expand>
-          <select />
-        </subPane>
-        <option name="show-hidden-items" value="false" />
-        <option name="show-project-names" value="true" />
-      </pane>
       <pane id="FileSystemExplorer" />
       <pane id="SolutionExplorer">
         <option name="show-all-files" value="false" />
       </pane>
+      <pane id="AssemblyExplorer" />
+      <pane id="UnityExplorer">
+        <option name="show-hidden-items" value="false" />
+        <option name="show-project-names" value="true" />
+      </pane>
     </panes>
   </component>
   <component name="PropertiesComponent">
+    <property name="Discover.Launch.Via.Unity" value="true" />
     <property name="Rider.DefaultBreakpoints.AreToggled" value="true" />
     <property name="Rider.ProjectViewActivator.IsNotFirstRun" value="true" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
   </component>
   <component name="RunDashboard">
@@ -127,12 +182,14 @@
       <option name="allowRunningInParallel" value="false" />
       <option name="listenPortForConnections" value="false" />
       <option name="pid" />
+      <option name="userSelectedPid" value="false" />
       <method v="2" />
     </configuration>
     <configuration name="Attach to Unity Editor" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="Unity Debug" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost">
       <option name="allowRunningInParallel" value="false" />
       <option name="listenPortForConnections" value="false" />
       <option name="pid" />
+      <option name="userSelectedPid" value="false" />
       <method v="2" />
     </configuration>
   </component>
@@ -147,11 +204,12 @@
       <option name="presentableId" value="Default" />
       <updated>1559122795170</updated>
       <workItem from="1559122796823" duration="1024000" />
+      <workItem from="1563986185212" duration="5229000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="1024000" />
+    <option name="totallyTimeSpent" value="6253000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -163,23 +221,14 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-1927" y="7" width="1932" height="1047" extended-state="0" />
-    <editor active="true" />
+    <frame x="54" y="-8" width="2514" height="1096" extended-state="6" />
     <layout>
-      <window_info id="Favorites" side_tool="true" />
-      <window_info id="Image Layers" />
-      <window_info id="Capture Tool" />
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.25" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.18696538" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
-      <window_info anchor="bottom" id="NuGet" />
-      <window_info anchor="bottom" id="Docker" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Unity" />
-      <window_info anchor="bottom" id="Version Control" />
-      <window_info anchor="bottom" id="Unit Tests" />
-      <window_info anchor="bottom" id="TeamCity" />
-      <window_info anchor="bottom" id="Event Log" side_tool="true" />
-      <window_info anchor="bottom" id="Database Changes" />
-      <window_info anchor="bottom" id="Terminal" />
+      <window_info id="Image Layers" order="2" />
+      <window_info id="Capture Tool" order="3" />
+      <window_info id="Favorites" order="4" side_tool="true" />
+      <window_info anchor="bottom" id="Performance Profiler" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
       <window_info anchor="bottom" id="Run" order="2" />
@@ -187,20 +236,29 @@
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
-      <window_info anchor="right" id="Capture Analysis" />
-      <window_info anchor="right" id="Errors In Solution" />
-      <window_info anchor="right" id="Database" />
-      <window_info anchor="right" id="Unit Tests Coverage" />
+      <window_info anchor="bottom" id="NuGet" order="7" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Docker" order="8" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Version Control" order="9" />
+      <window_info anchor="bottom" id="Unity" order="10" />
+      <window_info anchor="bottom" id="Database Changes" order="11" />
+      <window_info anchor="bottom" id="Unit Tests" order="12" />
+      <window_info anchor="bottom" id="TeamCity" order="13" />
+      <window_info anchor="bottom" id="Terminal" order="14" />
+      <window_info anchor="bottom" id="Event Log" order="15" side_tool="true" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+      <window_info anchor="right" id="Capture Analysis" order="3" />
+      <window_info anchor="right" id="Errors In Solution" order="4" />
+      <window_info anchor="right" id="Database" order="5" />
+      <window_info anchor="right" id="Unit Tests Coverage" order="6" />
     </layout>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
   </component>
   <component name="UnityProjectConfiguration" hasMinimizedUI="true" />
-  <component name="UnityUnitTestConfiguration" currentTestLauncher="NUnit" />
+  <component name="UnityUnitTestConfiguration" currentTestLauncher="EditMode" />
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
@@ -212,17 +270,73 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/Assets/SampleApp/Queries/ClanQueries.cs">
+    <entry file="file://$PROJECT_DIR$/Assets/SampleApp/Queries/ClanQueries.cs" />
+    <entry file="file://$PROJECT_DIR$/Assets/RemoteDataModule/Pvp/PvpRegistrationApi.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="60">
+          <caret line="8" column="28" selection-start-line="8" selection-start-column="28" selection-end-line="8" selection-end-column="28" />
+          <folding>
+            <marker date="1562684456528" expanded="false" signature="6:158" ph="..." />
+            <marker date="1562684456528" expanded="true" signature="196:488" ph="{...}" />
+            <marker date="1562684456528" expanded="true" signature="239:486" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Assets/FirebaseRemoteImplementation/FirebaseRemoteObjectHandler.cs">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="105">
-          <caret line="5" lean-forward="true" selection-start-line="5" selection-end-line="5" />
+          <caret line="19" column="71" selection-start-line="19" selection-start-column="71" selection-end-line="19" selection-end-column="71" />
           <folding>
-            <marker date="1559123589183" expanded="true" signature="6:133" ph="..." />
-            <marker date="1559123589183" expanded="true" signature="152:1079" ph="{...}" />
-            <marker date="1559123589183" expanded="true" signature="183:1077" ph="{...}" />
-            <marker date="1559123589183" expanded="true" signature="317:522" ph="/// В будущем запрос будет возвращать неполные данные кланов в целях снижения нагрузки ... " />
-            <marker date="1559123589183" expanded="true" signature="588:1071" ph="{...}" />
-            <marker date="1559123589183" expanded="true" signature="881:1034" ph="{...}" />
+            <marker date="1563986021210" expanded="true" signature="6:220" ph="..." />
+            <marker date="1563986021210" expanded="true" signature="246:4590" ph="{...}" />
+            <marker date="1563986021210" expanded="true" signature="321:4588" ph="{...}" />
+            <marker date="1563986021210" expanded="true" signature="557:713" ph="{...}" />
+            <marker date="1563986021210" expanded="true" signature="753:815" ph="{...}" />
+            <marker date="1563986021210" expanded="true" signature="931:1784" ph="{...}" />
+            <marker date="1563986021210" expanded="true" signature="970:1176" ph="{...}" />
+            <marker date="1563986021210" expanded="true" signature="1521:1697" ph="{...}" />
+            <marker date="1563986021210" expanded="true" signature="1844:1995" ph="{...}" />
+            <marker date="1563986021210" expanded="true" signature="2078:2219" ph="{...}" />
+            <marker date="1563986021210" expanded="true" signature="2263:2318" ph="{...}" />
+            <marker date="1563986021210" expanded="true" signature="2410:2591" ph="{...}" />
+            <marker date="1563986021210" expanded="true" signature="2658:2886" ph="{...}" />
+            <marker date="1563986021210" expanded="true" signature="2968:3360" ph="{...}" />
+            <marker date="1563986021210" expanded="true" signature="3441:3538" ph="{...}" />
+            <marker date="1563986021210" expanded="true" signature="3599:3784" ph="{...}" />
+            <marker date="1563986021210" expanded="true" signature="3794:4013" ph="/// Only suitable for value types and strings ... " />
+            <marker date="1563986021210" expanded="true" signature="4120:4486" ph="{...}" />
+            <marker date="1563986021210" expanded="true" signature="4258:4441" ph="{...}" />
+            <marker date="1563986021210" expanded="true" signature="4532:4582" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Assets/RemoteDataModule/Pvp/PvpPoolData.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="90">
+          <caret line="8" column="25" selection-start-line="8" selection-start-column="25" selection-end-line="8" selection-end-column="25" />
+          <folding>
+            <marker date="1562684456526" expanded="false" signature="6:78" ph="..." />
+            <marker date="1562684456526" expanded="true" signature="116:269" ph="{...}" />
+            <marker date="1562684456526" expanded="true" signature="147:267" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Assets/FirebaseRemoteImplementation/Pvp/FirebasePvpQueries.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="225">
+          <caret line="18" column="9" selection-start-line="18" selection-start-column="9" selection-end-line="18" selection-end-column="9" />
+          <folding>
+            <marker date="1563990119599" expanded="false" signature="6:147" ph="..." />
+            <marker date="1563990119599" expanded="true" signature="204:1767" ph="{...}" />
+            <marker date="1563990119599" expanded="true" signature="264:1765" ph="{...}" />
+            <marker date="1563990119599" expanded="true" signature="602:656" ph="{...}" />
+            <marker date="1563990119599" expanded="true" signature="722:822" ph="{...}" />
+            <marker date="1563990119599" expanded="true" signature="907:1031" ph="{...}" />
+            <marker date="1563990119599" expanded="true" signature="1092:1393" ph="{...}" />
+            <marker date="1563990119599" expanded="true" signature="1456:1759" ph="{...}" />
           </folding>
         </state>
       </provider>

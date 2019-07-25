@@ -2,7 +2,29 @@
 <project version="4">
   <component name="ContentModelUserStore">
     <attachedFolders />
-    <explicitIncludes />
-    <explicitExcludes />
+    <explicitIncludes>
+      <Path>Library/PackageCache/com.codewriter.npm-publisher-support@0.3.3</Path>
+      <Path>Library/PackageCache/com.greenbuttongames.neuecc.unirx.async@1.0.0</Path>
+      <Path>Library/PackageCache/com.greenbuttongames.neuecc.unirx@7.0.2</Path>
+      <Path>Library/PackageCache/com.greenbuttongames.unicore@1.1.30</Path>
+      <Path>Library/PackageCache/com.unity.ads@2.0.8</Path>
+      <Path>Library/PackageCache/com.unity.analytics@3.3.2</Path>
+      <Path>Library/PackageCache/com.unity.collab-proxy@1.2.16</Path>
+      <Path>Library/PackageCache/com.unity.editorcoroutines@0.0.2-preview.1</Path>
+      <Path>Library/PackageCache/com.unity.purchasing@2.0.6</Path>
+      <Path>Library/PackageCache/com.unity.textmeshpro@2.0.1</Path>
+      <Path>Library/PackageCache/com.unity.xr.legacyinputhelpers@2.0.2</Path>
+      <Path>Packages</Path>
+      <Path>ProjectSettings</Path>
+    </explicitIncludes>
+    <explicitExcludes>
+      <Path>.git</Path>
+      <Path>.idea</Path>
+      <Path>Firebase-functions</Path>
+      <Path>Library</Path>
+      <Path>Logs</Path>
+      <Path>Temp</Path>
+      <Path>obj</Path>
+    </explicitExcludes>
   </component>
 </project>
