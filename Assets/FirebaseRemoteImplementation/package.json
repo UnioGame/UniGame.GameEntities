@@ -16,7 +16,7 @@
   ],
   "dependencies": {
     "com.greenbuttongames.neuecc.unirx": "7.0.2",
-    "com.greenbuttongames.userdata": "0.2.7",
+    "com.greenbuttongames.userdata": "0.2.9",
     "com.greenbuttongames.newtonsoft.json": "2.0.6"
   }
 }

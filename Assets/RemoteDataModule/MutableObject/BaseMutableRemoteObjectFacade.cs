@@ -4,6 +4,8 @@ using System.Threading.Tasks;
 using System.Collections.Generic;
 using System;
 using UniGreenModules.UniCore.Runtime.ObjectPool;
+using System.Collections.Concurrent;
+using System.Linq;
 
 namespace GBG.Modules.RemoteData.MutableRemoteObjects
 {
@@ -11,7 +13,7 @@ namespace GBG.Modules.RemoteData.MutableRemoteObjects
     {
         protected RemoteObjectHandler<T> _objectHandler;
 
-        private List<RemoteDataChange> _pendingChanges;
+        private ConcurrentStack<RemoteDataChange> _pendingChanges;
 
         private Dictionary<string, INotifyable> _properties;
 
@@ -20,7 +22,7 @@ namespace GBG.Modules.RemoteData.MutableRemoteObjects
         public BaseMutableRemoteObjectFacade(RemoteObjectHandler<T> objectHandler)
         {
             _objectHandler = objectHandler;
-            _pendingChanges = new List<RemoteDataChange>();
+            _pendingChanges = new ConcurrentStack<RemoteDataChange>();
             _properties = new Dictionary<string, INotifyable>();
             _childObjects = new Dictionary<string, IMutableChildBase>();
         }
@@ -52,7 +54,7 @@ namespace GBG.Modules.RemoteData.MutableRemoteObjects
         public void AddChange(RemoteDataChange change)
         {
             ChangeApplied(change);
-            _pendingChanges.Add(change);
+            _pendingChanges.Push(change);
         }
 
         /// <summary>
@@ -64,13 +66,18 @@ namespace GBG.Modules.RemoteData.MutableRemoteObjects
         public async Task CommitChanges()
         {
             var updateTasks = ClassPool.SpawnOrCreate<List<Task>>(()=>new List<Task>());
-            var changes = _pendingChanges;
-            _pendingChanges = new List<RemoteDataChange>();
+            List<RemoteDataChange> changes;
+            lock (_pendingChanges)
+            {
+                changes = _pendingChanges.ToList();
+                _pendingChanges.Clear();
+            }
+
             foreach (var change in changes)
                 updateTasks.Add(_objectHandler.ApplyChange(change));
             await Task.WhenAll(updateTasks.ToArray());
-            _pendingChanges.ForEach((ch) => ch.Dispose());
-            _pendingChanges.Clear();
+            changes.ForEach((ch) => ch.Dispose());
+            changes.Clear();
         }
 
         /// <summary>
@@ -80,13 +87,13 @@ namespace GBG.Modules.RemoteData.MutableRemoteObjects
         /// <returns></returns>
         public List<RemoteDataChange> FlushChanges()
         {
-            var result = _pendingChanges;
-            _pendingChanges = ClassPool.SpawnOrCreate<List<RemoteDataChange>>(() => new List<RemoteDataChange>());
+            var result = _pendingChanges.ToList();
+            _pendingChanges.Clear();
             return result;
         }
 
         /// <summary>
-        /// Создает Reactiv Property для работы с оборачиваемыми данными
+        /// Создает Reactive Property для работы с оборачиваемыми данными
         /// </summary>
         /// <typeparam name="Tvalue">Тип обрабатываемого поля</typeparam>
         /// <param name="getter"></param>
