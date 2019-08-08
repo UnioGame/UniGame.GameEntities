@@ -36,11 +36,16 @@ namespace RemoteDataImpl
                 _reference.ValueChanged -= RemoteValueChanged;
                 _reference.ValueChanged += RemoteValueChanged;
             }
-            Debug.Log("Requesting data on path :: " + _reference.ToString());
+
+            if (Debug.isDebugBuild || Application.isEditor) {
+                Debug.Log("Requesting data on path :: " + _reference.ToString());
+            }
+
             DataSnapshot data = null;
             data = await _reference.GetValueAsync();
-
-            Debug.Log("RAW DATA :: " + (data != null ? data.GetRawJsonValue() : string.Empty));
+            if (Debug.isDebugBuild || Application.isEditor) {
+                Debug.Log("RAW DATA :: " + (data != null ? data.GetRawJsonValue() : string.Empty));
+            }
             if ((data == null || !data.Exists) && initialDataProvider != null)
             {
                 var initialData = initialDataProvider();
