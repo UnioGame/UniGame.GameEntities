@@ -26,6 +26,8 @@
     <list default="true" id="7bd43980-19a8-43aa-909b-d8c402b0f6cd" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.UserDataModule/.idea/contentModel.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.UserDataModule/.idea/contentModel.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.UserDataModule/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.UserDataModule/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/RemoteDataModule/Pvp/PvpPoolData.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/RemoteDataModule/Pvp/PvpPoolData.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ProjectSettings/EditorSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/EditorSettings.asset" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -35,10 +37,10 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Assets/FirebaseRemoteImplementation/FirebaseRemoteObjectHandler.cs">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="390">
+            <state relative-caret-position="450">
               <caret line="41" column="13" selection-start-line="41" selection-start-column="13" selection-end-line="41" selection-end-column="13" />
               <folding>
                 <marker date="1565273863060" expanded="true" signature="6:220" ph="..." />
@@ -101,15 +103,15 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Assets/RemoteDataModule/Pvp/PvpPoolData.cs">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="75">
-              <caret line="8" column="25" selection-start-line="8" selection-start-column="25" selection-end-line="8" selection-end-column="25" />
+            <state relative-caret-position="135">
+              <caret line="11" selection-start-line="11" selection-end-line="11" />
               <folding>
-                <marker date="1562684456526" expanded="false" signature="6:78" ph="..." />
-                <marker date="1562684456526" expanded="true" signature="116:269" ph="{...}" />
-                <marker date="1562684456526" expanded="true" signature="147:267" ph="{...}" />
+                <marker date="1565360043695" expanded="false" signature="6:78" ph="..." />
+                <marker date="1565360043695" expanded="true" signature="116:187" ph="{...}" />
+                <marker date="1565360043695" expanded="true" signature="147:185" ph="{...}" />
               </folding>
             </state>
           </provider>
@@ -132,6 +134,7 @@
         <option value="$PROJECT_DIR$/Assets/SampleApp/Queries/ClanQueries.cs" />
         <option value="$PROJECT_DIR$/Assets/FirebaseRemoteImplementation/Pvp/FirebasePvpQueries.cs" />
         <option value="$PROJECT_DIR$/Assets/FirebaseRemoteImplementation/FirebaseRemoteObjectHandler.cs" />
+        <option value="$PROJECT_DIR$/Assets/RemoteDataModule/Pvp/PvpPoolData.cs" />
       </list>
     </option>
   </component>
@@ -146,15 +149,15 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="AssemblyExplorer" />
       <pane id="UnityExplorer">
         <option name="show-hidden-items" value="false" />
         <option name="show-project-names" value="true" />
       </pane>
-      <pane id="FileSystemExplorer" />
       <pane id="SolutionExplorer">
         <option name="show-all-files" value="false" />
       </pane>
+      <pane id="AssemblyExplorer" />
+      <pane id="FileSystemExplorer" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -205,11 +208,12 @@
       <workItem from="1559122796823" duration="1024000" />
       <workItem from="1563986185212" duration="5229000" />
       <workItem from="1565273798935" duration="671000" />
+      <workItem from="1565360029527" duration="614000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="6924000" />
+    <option name="totallyTimeSpent" value="7538000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -223,7 +227,7 @@
   <component name="ToolWindowManager">
     <frame x="54" y="-8" width="2514" height="1096" extended-state="6" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.1885947" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.19022404" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Capture Tool" order="3" />
@@ -271,50 +275,9 @@
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/Assets/SampleApp/Queries/ClanQueries.cs" />
-    <entry file="file://$PROJECT_DIR$/Assets/RemoteDataModule/Pvp/PvpRegistrationApi.cs">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="45">
-          <caret line="8" column="28" selection-start-line="8" selection-start-column="28" selection-end-line="8" selection-end-column="28" />
-          <folding>
-            <marker date="1562684456528" expanded="false" signature="6:158" ph="..." />
-            <marker date="1562684456528" expanded="true" signature="196:488" ph="{...}" />
-            <marker date="1562684456528" expanded="true" signature="239:486" ph="{...}" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Assets/RemoteDataModule/Pvp/PvpPoolData.cs">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="75">
-          <caret line="8" column="25" selection-start-line="8" selection-start-column="25" selection-end-line="8" selection-end-column="25" />
-          <folding>
-            <marker date="1562684456526" expanded="false" signature="6:78" ph="..." />
-            <marker date="1562684456526" expanded="true" signature="116:269" ph="{...}" />
-            <marker date="1562684456526" expanded="true" signature="147:267" ph="{...}" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Assets/FirebaseRemoteImplementation/Pvp/FirebasePvpQueries.cs">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="195">
-          <caret line="18" column="9" selection-start-line="18" selection-start-column="9" selection-end-line="18" selection-end-column="9" />
-          <folding>
-            <marker date="1563990119599" expanded="false" signature="6:147" ph="..." />
-            <marker date="1563990119599" expanded="true" signature="204:1767" ph="{...}" />
-            <marker date="1563990119599" expanded="true" signature="264:1765" ph="{...}" />
-            <marker date="1563990119599" expanded="true" signature="602:656" ph="{...}" />
-            <marker date="1563990119599" expanded="true" signature="722:822" ph="{...}" />
-            <marker date="1563990119599" expanded="true" signature="907:1031" ph="{...}" />
-            <marker date="1563990119599" expanded="true" signature="1092:1393" ph="{...}" />
-            <marker date="1563990119599" expanded="true" signature="1456:1759" ph="{...}" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Assets/FirebaseRemoteImplementation/FirebaseRemoteObjectHandler.cs">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="390">
+        <state relative-caret-position="450">
           <caret line="41" column="13" selection-start-line="41" selection-start-column="13" selection-end-line="41" selection-end-column="13" />
           <folding>
             <marker date="1565273863060" expanded="true" signature="6:220" ph="..." />
@@ -339,6 +302,47 @@
             <marker date="1565273863060" expanded="true" signature="4281:4647" ph="{...}" />
             <marker date="1565273863060" expanded="true" signature="4419:4602" ph="{...}" />
             <marker date="1565273863060" expanded="true" signature="4693:4743" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Assets/RemoteDataModule/Pvp/PvpRegistrationApi.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="45">
+          <caret line="8" column="28" selection-start-line="8" selection-start-column="28" selection-end-line="8" selection-end-column="28" />
+          <folding>
+            <marker date="1562684456528" expanded="false" signature="6:158" ph="..." />
+            <marker date="1562684456528" expanded="true" signature="196:488" ph="{...}" />
+            <marker date="1562684456528" expanded="true" signature="239:486" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Assets/FirebaseRemoteImplementation/Pvp/FirebasePvpQueries.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="195">
+          <caret line="18" column="9" selection-start-line="18" selection-start-column="9" selection-end-line="18" selection-end-column="9" />
+          <folding>
+            <marker date="1563990119599" expanded="false" signature="6:147" ph="..." />
+            <marker date="1563990119599" expanded="true" signature="204:1767" ph="{...}" />
+            <marker date="1563990119599" expanded="true" signature="264:1765" ph="{...}" />
+            <marker date="1563990119599" expanded="true" signature="602:656" ph="{...}" />
+            <marker date="1563990119599" expanded="true" signature="722:822" ph="{...}" />
+            <marker date="1563990119599" expanded="true" signature="907:1031" ph="{...}" />
+            <marker date="1563990119599" expanded="true" signature="1092:1393" ph="{...}" />
+            <marker date="1563990119599" expanded="true" signature="1456:1759" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Assets/RemoteDataModule/Pvp/PvpPoolData.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="135">
+          <caret line="11" selection-start-line="11" selection-end-line="11" />
+          <folding>
+            <marker date="1565360043695" expanded="false" signature="6:78" ph="..." />
+            <marker date="1565360043695" expanded="true" signature="116:187" ph="{...}" />
+            <marker date="1565360043695" expanded="true" signature="147:185" ph="{...}" />
           </folding>
         </state>
       </provider>

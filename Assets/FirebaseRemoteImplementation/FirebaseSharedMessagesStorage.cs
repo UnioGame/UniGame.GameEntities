@@ -1,9 +1,6 @@
-﻿using UnityEngine;
-using System.Collections;
-using GBG.Modules.RemoteData.SharedMessages;
+﻿using GBG.Modules.RemoteData.SharedMessages;
 using GBG.Modules.RemoteData.SharedMessages.MessageData;
 using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 using Firebase.Database;
 using GBG.Modules.RemoteData.Authorization;
@@ -40,7 +37,11 @@ namespace GBG.Modules.RemoteData.FirebaseImplementation.SharedMessages
         {
             message.AssureType();
             var serializedData = JsonConvert.SerializeObject(message);
+#if USERDATA_MODULE_DEBUG
+            if (Debug.isDebugBuild || Application.isEditor) {
             Debug.Log("Commiting serialized message :: " + serializedData);
+            }
+#endif
             var reference = FirebaseDatabase.DefaultInstance.RootReference.Child($"SharedMessages/{userId}/");
             var newKey = reference.Push().Key;
             await reference.Child(newKey).SetRawJsonValueAsync(serializedData);
