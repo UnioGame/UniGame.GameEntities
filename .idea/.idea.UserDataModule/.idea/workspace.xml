@@ -24,10 +24,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7bd43980-19a8-43aa-909b-d8c402b0f6cd" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.UserDataModule/.idea/contentModel.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.UserDataModule/.idea/contentModel.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.UserDataModule/.idea/indexLayout.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.UserDataModule/.idea/indexLayout.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.UserDataModule/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.UserDataModule/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/RemoteDataModule/Pvp/PvpPoolData.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/RemoteDataModule/Pvp/PvpPoolData.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ProjectSettings/EditorSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/EditorSettings.asset" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -40,31 +38,29 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Assets/FirebaseRemoteImplementation/FirebaseRemoteObjectHandler.cs">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="450">
-              <caret line="41" column="13" selection-start-line="41" selection-start-column="13" selection-end-line="41" selection-end-column="13" />
+            <state relative-caret-position="330">
+              <caret line="38" selection-start-line="38" selection-end-line="39" selection-end-column="61" />
               <folding>
-                <marker date="1565273863060" expanded="true" signature="6:220" ph="..." />
-                <marker date="1565273863060" expanded="true" signature="246:4751" ph="{...}" />
-                <marker date="1565273863060" expanded="true" signature="321:4749" ph="{...}" />
-                <marker date="1565273863060" expanded="true" signature="557:713" ph="{...}" />
-                <marker date="1565273863060" expanded="true" signature="753:815" ph="{...}" />
-                <marker date="1565273863060" expanded="true" signature="931:1945" ph="{...}" />
-                <marker date="1565273863060" expanded="true" signature="970:1176" ph="{...}" />
-                <marker date="1565273863060" expanded="true" signature="1238:1335" ph="{...}" />
-                <marker date="1565273863060" expanded="true" signature="1488:1603" ph="{...}" />
-                <marker date="1565273863060" expanded="true" signature="1682:1858" ph="{...}" />
-                <marker date="1565273863060" expanded="true" signature="2005:2156" ph="{...}" />
-                <marker date="1565273863060" expanded="true" signature="2239:2380" ph="{...}" />
-                <marker date="1565273863060" expanded="true" signature="2424:2479" ph="{...}" />
-                <marker date="1565273863060" expanded="true" signature="2571:2752" ph="{...}" />
-                <marker date="1565273863060" expanded="true" signature="2819:3047" ph="{...}" />
-                <marker date="1565273863060" expanded="true" signature="3129:3521" ph="{...}" />
-                <marker date="1565273863060" expanded="true" signature="3602:3699" ph="{...}" />
-                <marker date="1565273863060" expanded="true" signature="3760:3945" ph="{...}" />
-                <marker date="1565273863060" expanded="true" signature="3955:4174" ph="/// Only suitable for value types and strings ... " />
-                <marker date="1565273863060" expanded="true" signature="4281:4647" ph="{...}" />
-                <marker date="1565273863060" expanded="true" signature="4419:4602" ph="{...}" />
-                <marker date="1565273863060" expanded="true" signature="4693:4743" ph="{...}" />
+                <marker date="1565607505334" expanded="true" signature="6:220" ph="..." />
+                <marker date="1565607505334" expanded="true" signature="246:4815" ph="{...}" />
+                <marker date="1565607505334" expanded="true" signature="321:4813" ph="{...}" />
+                <marker date="1565607505334" expanded="true" signature="557:713" ph="{...}" />
+                <marker date="1565607505334" expanded="true" signature="753:815" ph="{...}" />
+                <marker date="1565607505334" expanded="true" signature="931:2009" ph="{...}" />
+                <marker date="1565607505334" expanded="true" signature="970:1176" ph="{...}" />
+                <marker date="1565607505334" expanded="true" signature="1746:1922" ph="{...}" />
+                <marker date="1565607505334" expanded="true" signature="2069:2220" ph="{...}" />
+                <marker date="1565607505334" expanded="true" signature="2303:2444" ph="{...}" />
+                <marker date="1565607505334" expanded="true" signature="2488:2543" ph="{...}" />
+                <marker date="1565607505334" expanded="true" signature="2635:2816" ph="{...}" />
+                <marker date="1565607505334" expanded="true" signature="2883:3111" ph="{...}" />
+                <marker date="1565607505334" expanded="true" signature="3193:3585" ph="{...}" />
+                <marker date="1565607505334" expanded="true" signature="3666:3763" ph="{...}" />
+                <marker date="1565607505334" expanded="true" signature="3824:4009" ph="{...}" />
+                <marker date="1565607505334" expanded="true" signature="4019:4238" ph="/// Only suitable for value types and strings ... " />
+                <marker date="1565607505334" expanded="true" signature="4345:4711" ph="{...}" />
+                <marker date="1565607505334" expanded="true" signature="4483:4666" ph="{...}" />
+                <marker date="1565607505334" expanded="true" signature="4757:4807" ph="{...}" />
               </folding>
             </state>
           </provider>
@@ -103,15 +99,37 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Assets/RemoteDataModule/Pvp/PvpPoolData.cs">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="135">
+            <state relative-caret-position="120">
               <caret line="11" selection-start-line="11" selection-end-line="11" />
               <folding>
                 <marker date="1565360043695" expanded="false" signature="6:78" ph="..." />
                 <marker date="1565360043695" expanded="true" signature="116:187" ph="{...}" />
                 <marker date="1565360043695" expanded="true" signature="147:185" ph="{...}" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/Assets/FirebaseRemoteImplementation/FirebaseSharedMessagesStorage.cs">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="90">
+              <caret line="6" column="22" selection-start-line="6" selection-start-column="22" selection-end-line="6" selection-end-column="22" />
+              <folding>
+                <marker date="1565607503540" expanded="true" signature="6:237" ph="..." />
+                <marker date="1565607503540" expanded="true" signature="309:2528" ph="{...}" />
+                <marker date="1565607503540" expanded="true" signature="393:2526" ph="{...}" />
+                <marker date="1565607503540" expanded="true" signature="574:913" ph="{...}" />
+                <marker date="1565607503540" expanded="true" signature="600:903" ph="{...}" />
+                <marker date="1565607503540" expanded="true" signature="665:842" ph="{...}" />
+                <marker date="1565607503540" expanded="true" signature="1016:1062" ph="{...}" />
+                <marker date="1565607503540" expanded="true" signature="1158:1706" ph="{...}" />
+                <marker date="1565607503540" expanded="true" signature="1750:1834" ph="{...}" />
+                <marker date="1565607503540" expanded="true" signature="1919:2343" ph="{...}" />
+                <marker date="1565607503540" expanded="true" signature="2383:2520" ph="{...}" />
               </folding>
             </state>
           </provider>
@@ -127,14 +145,16 @@
     <setting file="file://$PROJECT_DIR$/Assets/RemoteDataModule/Pvp/PvpRegistrationApi.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/FirebaseRemoteImplementation/Pvp/FirebasePvpQueries.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/FirebaseRemoteImplementation/FirebaseRemoteObjectHandler.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/FirebaseRemoteImplementation/FirebaseSharedMessagesStorage.cs" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/Assets/SampleApp/Queries/ClanQueries.cs" />
         <option value="$PROJECT_DIR$/Assets/FirebaseRemoteImplementation/Pvp/FirebasePvpQueries.cs" />
-        <option value="$PROJECT_DIR$/Assets/FirebaseRemoteImplementation/FirebaseRemoteObjectHandler.cs" />
         <option value="$PROJECT_DIR$/Assets/RemoteDataModule/Pvp/PvpPoolData.cs" />
+        <option value="$PROJECT_DIR$/Assets/FirebaseRemoteImplementation/FirebaseRemoteObjectHandler.cs" />
+        <option value="$PROJECT_DIR$/Assets/FirebaseRemoteImplementation/FirebaseSharedMessagesStorage.cs" />
       </list>
     </option>
   </component>
@@ -149,15 +169,15 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="AssemblyExplorer" />
+      <pane id="FileSystemExplorer" />
+      <pane id="SolutionExplorer">
+        <option name="show-all-files" value="false" />
+      </pane>
       <pane id="UnityExplorer">
         <option name="show-hidden-items" value="false" />
         <option name="show-project-names" value="true" />
       </pane>
-      <pane id="SolutionExplorer">
-        <option name="show-all-files" value="false" />
-      </pane>
-      <pane id="AssemblyExplorer" />
-      <pane id="FileSystemExplorer" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -209,11 +229,12 @@
       <workItem from="1563986185212" duration="5229000" />
       <workItem from="1565273798935" duration="671000" />
       <workItem from="1565360029527" duration="614000" />
+      <workItem from="1565607391582" duration="711000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="7538000" />
+    <option name="totallyTimeSpent" value="8249000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -227,7 +248,7 @@
   <component name="ToolWindowManager">
     <frame x="54" y="-8" width="2514" height="1096" extended-state="6" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.19022404" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.19185336" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Capture Tool" order="3" />
@@ -275,37 +296,6 @@
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/Assets/SampleApp/Queries/ClanQueries.cs" />
-    <entry file="file://$PROJECT_DIR$/Assets/FirebaseRemoteImplementation/FirebaseRemoteObjectHandler.cs">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="450">
-          <caret line="41" column="13" selection-start-line="41" selection-start-column="13" selection-end-line="41" selection-end-column="13" />
-          <folding>
-            <marker date="1565273863060" expanded="true" signature="6:220" ph="..." />
-            <marker date="1565273863060" expanded="true" signature="246:4751" ph="{...}" />
-            <marker date="1565273863060" expanded="true" signature="321:4749" ph="{...}" />
-            <marker date="1565273863060" expanded="true" signature="557:713" ph="{...}" />
-            <marker date="1565273863060" expanded="true" signature="753:815" ph="{...}" />
-            <marker date="1565273863060" expanded="true" signature="931:1945" ph="{...}" />
-            <marker date="1565273863060" expanded="true" signature="970:1176" ph="{...}" />
-            <marker date="1565273863060" expanded="true" signature="1238:1335" ph="{...}" />
-            <marker date="1565273863060" expanded="true" signature="1488:1603" ph="{...}" />
-            <marker date="1565273863060" expanded="true" signature="1682:1858" ph="{...}" />
-            <marker date="1565273863060" expanded="true" signature="2005:2156" ph="{...}" />
-            <marker date="1565273863060" expanded="true" signature="2239:2380" ph="{...}" />
-            <marker date="1565273863060" expanded="true" signature="2424:2479" ph="{...}" />
-            <marker date="1565273863060" expanded="true" signature="2571:2752" ph="{...}" />
-            <marker date="1565273863060" expanded="true" signature="2819:3047" ph="{...}" />
-            <marker date="1565273863060" expanded="true" signature="3129:3521" ph="{...}" />
-            <marker date="1565273863060" expanded="true" signature="3602:3699" ph="{...}" />
-            <marker date="1565273863060" expanded="true" signature="3760:3945" ph="{...}" />
-            <marker date="1565273863060" expanded="true" signature="3955:4174" ph="/// Only suitable for value types and strings ... " />
-            <marker date="1565273863060" expanded="true" signature="4281:4647" ph="{...}" />
-            <marker date="1565273863060" expanded="true" signature="4419:4602" ph="{...}" />
-            <marker date="1565273863060" expanded="true" signature="4693:4743" ph="{...}" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Assets/RemoteDataModule/Pvp/PvpRegistrationApi.cs">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="45">
@@ -337,12 +327,61 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Assets/RemoteDataModule/Pvp/PvpPoolData.cs">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="135">
+        <state relative-caret-position="120">
           <caret line="11" selection-start-line="11" selection-end-line="11" />
           <folding>
             <marker date="1565360043695" expanded="false" signature="6:78" ph="..." />
             <marker date="1565360043695" expanded="true" signature="116:187" ph="{...}" />
             <marker date="1565360043695" expanded="true" signature="147:185" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Assets/FirebaseRemoteImplementation/FirebaseRemoteObjectHandler.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="330">
+          <caret line="38" selection-start-line="38" selection-end-line="39" selection-end-column="61" />
+          <folding>
+            <marker date="1565607505334" expanded="true" signature="6:220" ph="..." />
+            <marker date="1565607505334" expanded="true" signature="246:4815" ph="{...}" />
+            <marker date="1565607505334" expanded="true" signature="321:4813" ph="{...}" />
+            <marker date="1565607505334" expanded="true" signature="557:713" ph="{...}" />
+            <marker date="1565607505334" expanded="true" signature="753:815" ph="{...}" />
+            <marker date="1565607505334" expanded="true" signature="931:2009" ph="{...}" />
+            <marker date="1565607505334" expanded="true" signature="970:1176" ph="{...}" />
+            <marker date="1565607505334" expanded="true" signature="1746:1922" ph="{...}" />
+            <marker date="1565607505334" expanded="true" signature="2069:2220" ph="{...}" />
+            <marker date="1565607505334" expanded="true" signature="2303:2444" ph="{...}" />
+            <marker date="1565607505334" expanded="true" signature="2488:2543" ph="{...}" />
+            <marker date="1565607505334" expanded="true" signature="2635:2816" ph="{...}" />
+            <marker date="1565607505334" expanded="true" signature="2883:3111" ph="{...}" />
+            <marker date="1565607505334" expanded="true" signature="3193:3585" ph="{...}" />
+            <marker date="1565607505334" expanded="true" signature="3666:3763" ph="{...}" />
+            <marker date="1565607505334" expanded="true" signature="3824:4009" ph="{...}" />
+            <marker date="1565607505334" expanded="true" signature="4019:4238" ph="/// Only suitable for value types and strings ... " />
+            <marker date="1565607505334" expanded="true" signature="4345:4711" ph="{...}" />
+            <marker date="1565607505334" expanded="true" signature="4483:4666" ph="{...}" />
+            <marker date="1565607505334" expanded="true" signature="4757:4807" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Assets/FirebaseRemoteImplementation/FirebaseSharedMessagesStorage.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="90">
+          <caret line="6" column="22" selection-start-line="6" selection-start-column="22" selection-end-line="6" selection-end-column="22" />
+          <folding>
+            <marker date="1565607503540" expanded="true" signature="6:237" ph="..." />
+            <marker date="1565607503540" expanded="true" signature="309:2528" ph="{...}" />
+            <marker date="1565607503540" expanded="true" signature="393:2526" ph="{...}" />
+            <marker date="1565607503540" expanded="true" signature="574:913" ph="{...}" />
+            <marker date="1565607503540" expanded="true" signature="600:903" ph="{...}" />
+            <marker date="1565607503540" expanded="true" signature="665:842" ph="{...}" />
+            <marker date="1565607503540" expanded="true" signature="1016:1062" ph="{...}" />
+            <marker date="1565607503540" expanded="true" signature="1158:1706" ph="{...}" />
+            <marker date="1565607503540" expanded="true" signature="1750:1834" ph="{...}" />
+            <marker date="1565607503540" expanded="true" signature="1919:2343" ph="{...}" />
+            <marker date="1565607503540" expanded="true" signature="2383:2520" ph="{...}" />
           </folding>
         </state>
       </provider>
