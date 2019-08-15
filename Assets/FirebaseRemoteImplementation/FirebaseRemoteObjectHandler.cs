@@ -107,10 +107,12 @@ namespace RemoteDataImpl
             ValueChanged?.Invoke(this);
         }
 
-        private void ParseResult(DataSnapshot dataSnapshot)
-        {
-            Object = JsonConvert.DeserializeObject<T>(dataSnapshot != null ? dataSnapshot.GetRawJsonValue() : string.Empty);
-            ValueChanged?.Invoke(this);
+        private void ParseResult(DataSnapshot dataSnapshot) {
+            var json = dataSnapshot?.GetRawJsonValue();
+            if (json != null) {
+                Object = JsonConvert.DeserializeObject<T>(json);
+                ValueChanged?.Invoke(this);
+            }
         }
 
         /// <summary>
