@@ -11,8 +11,14 @@ namespace GBG.Modules.Quests.Data
         Done
     }
 
+    /// <summary>
+    /// АХТУНГ! При использовании вместе с Firebase в progressStorage нельзя пихать данные 
+    /// которые будут похожи на массив (например целочисленные ключи) черевато обосрамсами 
+    /// при десериализации 
+    /// </summary>
     public class QuestData
     {
-
+        public QuestState State;
+        public Dictionary<string, string> ProgressStorage = new Dictionary<string, string>();
     }
 }
