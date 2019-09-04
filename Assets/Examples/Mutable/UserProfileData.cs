@@ -2,6 +2,7 @@
 using System.Collections;
 using System;
 using System.Collections.Generic;
+using GBG.Modules.Quests.Data;
 
 namespace Samples
 {
@@ -15,6 +16,7 @@ namespace Samples
         public Dictionary<string, string> KeyToVal;
         public SomeUserDataChild SomeChild;
         public List<string> SomeList;
+        public Dictionary<string, QuestData> Quests;
     }
 
     public class SomeUserDataChild

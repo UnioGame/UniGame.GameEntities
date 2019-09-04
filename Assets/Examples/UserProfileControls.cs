@@ -13,7 +13,7 @@ namespace Samples
     {
         private MutableObjectFactory _factory;
         private IAuthModule _auth;
-        private MutableUserProfile _ownProfile;
+        public MutableUserProfile _ownProfile;
         private BatchUpdater _batchUpdater;
 
         [SerializeField]
@@ -44,9 +44,9 @@ namespace Samples
             _ownProfile.SomeList.ObserveReplace().Subscribe((e) => Debug.LogError(string.Format("LIST :: old = {0} :: new = {1} ", e.OldValue, e.NewValue)));
             _ownProfile.LoadRootData(initialDataProvider: () => new UserProfileData
             {
-                Gold     = 10,
+                Gold = 10,
                 UserName = "Test",
-                Score    = 0,
+                Score = 0,
                 KeyToVal = new Dictionary<string, string>()
                 {
                     {"a", "b" },
@@ -60,7 +60,7 @@ namespace Samples
                     {
                         FieldX = "X",
                         FieldY = "Y"
-                    }                
+                    }
                 },
                 SomeList = new List<string>()
                 {
@@ -69,8 +69,8 @@ namespace Samples
                     "Homer"
                 }
 
-            }).ContinueWith(_ =>  SetInfoText());
-            StartCoroutine(subsCoroutine());            
+            }).ContinueWith(_ => SetInfoText());
+            StartCoroutine(subsCoroutine());
         }
 
         private IEnumerator subsCoroutine()
@@ -98,7 +98,7 @@ namespace Samples
 
             _ownProfile.SomeList[Random.Range(0, 2)] = "Add" + Random.Range(0, 2).ToString();
 
-            _ownProfile.CommitChanges().ContinueWith((_)=> { SetInfoText(); });
+            _ownProfile.CommitChanges().ContinueWith((_) => { SetInfoText(); });
         }
 
         public void CommitSomeChangesBatch()
@@ -107,18 +107,17 @@ namespace Samples
             _ownProfile.ReactiveScore.Value = Random.Range(0, 75);
             _ownProfile.ReactiveUserName.Value = _ownProfile.ReactiveUserName.Value + Random.Range(0, 9).ToString();
             var changes = _ownProfile.FlushChanges();
-            _batchUpdater.PerformBatchUpdate(changes).ContinueWith((_)=> SetInfoText());
+            _batchUpdater.PerformBatchUpdate(changes).ContinueWith((_) => SetInfoText());
         }
 
         private void SetInfoText()
         {
-            _infoText = string.Format("Name :: {0}\nGold :: {1}\nScore::{2}\n\nKeyToVal :: {3}\nSomeChild :: {4} \nSomeList :: {5}",
-                _ownProfile.UserName,
-                _ownProfile.Gold,
-                _ownProfile.Score,
-                JsonConvert.SerializeObject(_ownProfile.KeyToVal),
-                JsonConvert.SerializeObject(_ownProfile.SomeChild.ToString()), 
-                JsonConvert.SerializeObject(_ownProfile.SomeList));
+            _infoText = string.Format("Name :: {0}\nGold :: {1}\nScore::{2}\n\nKeyToVal :: {3}\nSomeChild :: {4}",
+                   _ownProfile.UserName,
+                   _ownProfile.Gold,
+                   _ownProfile.Score,
+                   JsonConvert.SerializeObject(_ownProfile.KeyToVal),
+                   JsonConvert.SerializeObject(_ownProfile.SomeChild.ToString()));
         }
     }
 }

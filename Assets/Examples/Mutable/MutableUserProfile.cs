@@ -6,6 +6,7 @@ using UniRx;
 using System.Collections.ObjectModel;
 using System.Collections.Generic;
 using Newtonsoft.Json;
+using GBG.Modules.Quests.Data;
 
 namespace Samples
 {
@@ -40,6 +41,11 @@ namespace Samples
                 this);
             RegisterMutableChild(nameof(_objectHandler.Object.KeyToVal), KeyToVal);
 
+            Quests = new MutableDictionary<QuestData>(
+                () => _objectHandler.Object.Quests,
+                _objectHandler.GetFullPath() + nameof(_objectHandler.Object.Quests) + "/",
+                this);
+
             var someList = new MutableList<string>(
                 () => _objectHandler.Object.SomeList,
                 _objectHandler.GetFullPath() + nameof(_objectHandler.Object.SomeList) + "/",
@@ -55,6 +61,8 @@ namespace Samples
         public MutableUserDataChild SomeChild { get; private set; }
 
         public IReactiveCollection<string> SomeList { get; private set; }
+
+        public MutableDictionary<QuestData> Quests { get; private set; }
 
         public string UserName
         {

@@ -1,4 +1,5 @@
 ﻿using GBG.Modules.Quests;
+using JetBrains.Annotations;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -15,8 +16,11 @@ namespace Samples.Quests
     [Serializable]
     public class SampleQuestDef : QuestDef
     {
+        [NotNull]
         public SampleRewardDef Reward;
+        [NotNull]
         public ConditionDef Condition;
+        [NotNull]
         public override object ConditionDef => Condition;
     }
 

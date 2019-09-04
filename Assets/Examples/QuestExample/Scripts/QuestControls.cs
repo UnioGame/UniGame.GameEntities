@@ -1,18 +1,33 @@
-﻿using System.Collections;
+﻿using GBG.Modules.Quests;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
-public class QuestControls : MonoBehaviour
+namespace Samples.Quests
 {
-    // Start is called before the first frame update
-    void Start()
+    public class QuestControls : MonoBehaviour
     {
+        [SerializeField]
+        private Button _generateNewButton;
+        [SerializeField]
+        private Text _questDataText;
         
-    }
+        private QuestService _questService;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+        public void Awake()
+        {
+            _generateNewButton.onClick.AddListener(GenerateNewQuest);
+        }
+
+        public void Init(QuestService questService)
+        {
+            _questService = questService;
+        }
+
+        public void GenerateNewQuest()
+        {
+            _questService.GenerateNewQuest();
+        }
     }
 }

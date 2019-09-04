@@ -70,6 +70,7 @@ namespace GBG.Modules.RemoteData.MutableRemoteObjects
             lock (_pendingChanges)
             {
                 changes = _pendingChanges.ToList();
+                changes.Reverse();
                 _pendingChanges.Clear();
             }
 

@@ -2,8 +2,10 @@
 using System.Collections;
 using System;
 
-public class QuestsController : MonoBehaviour
+public class QuestsController
 {
+
+
     private void RerandomQuests()
     {
         throw new NotImplementedException();

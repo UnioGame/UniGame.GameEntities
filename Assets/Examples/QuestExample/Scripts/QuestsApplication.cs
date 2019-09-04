@@ -1,10 +1,13 @@
 ﻿using Facebook.Unity;
+using GBG.Modules.Quests;
 using GBG.Modules.RemoteData.Authorization;
 using GBG.Modules.RemoteData.FirebaseImplementation;
 using GBG.Modules.RemoteData.MutableRemoteObjects;
 using GBG.Modules.RemoteData.RemoteDataAbstracts;
 using GOIFirebase.RemoteDataImpl;
 using Samples.Messages;
+using Samples.Quests;
+using Samples.Quests.Storage;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -13,6 +16,8 @@ namespace Samples
 {
     public class QuestsApplication : MonoBehaviour
     {
+        [SerializeField]
+        private SOQuestDef _defs;
         [SerializeField]
         private LoginControls _loginControls;
         [SerializeField]
@@ -25,6 +30,7 @@ namespace Samples
         private RemoteObjectsProvider _remoteObjectsProvider;
         private MutableObjectFactory _mutableObjectFactory;
         private BatchUpdater _batchUpdater;
+        private QuestService _questService;
 
         void Start()
         {
@@ -38,6 +44,14 @@ namespace Samples
             _mutableObjectFactory = new MutableObjectFactory(_remoteObjectsProvider);
             _batchUpdater = new FirebaseBatchUpdater();
             _profileControls.Init(_mutableObjectFactory, _authModule, _batchUpdater);
+        }
+
+        public void Init()
+        {
+            _questService = new QuestService();
+            var questDefStorage = new QuestDefStorage(_defs);
+            var questDataStorage = new ProfileQuestDataStorage(_profileControls._ownProfile);
+            _questService.Init(questDataStorage, questDefStorage);
         }
 
     }
