@@ -46,12 +46,14 @@ namespace Samples
             _profileControls.Init(_mutableObjectFactory, _authModule, _batchUpdater);
         }
 
+        // TO DO call from controls
         public void Init()
         {
             _questService = new QuestService();
-            var questDefStorage = new QuestDefStorage(_defs);
+            var questDefStorage = new QuestDefStorage(_defs, _profileControls._ownProfile);
             var questDataStorage = new ProfileQuestDataStorage(_profileControls._ownProfile);
             _questService.Init(questDataStorage, questDefStorage);
+            _questControls.Init(_questService);
         }
 
     }

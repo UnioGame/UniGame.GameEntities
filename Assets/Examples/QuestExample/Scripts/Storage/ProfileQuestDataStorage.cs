@@ -30,6 +30,7 @@ namespace Samples.Quests.Storage
         public void UpdateQuestData(string questId, QuestData newData)
         {
             _profile.Quests[questId] = newData;
+            _profile.CommitChanges();
         }
     }
 }

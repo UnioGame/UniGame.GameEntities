@@ -14,18 +14,20 @@ namespace Samples.Quests
         private MutableUserProfile _profile;
         private SampleQuestDef _questDef;
         private IQuestDataStorage _dataStorage;
+        private string _questDataId;
         private QuestData _questData;
 
-        public ScoreProcessor(MutableUserProfile profile, SampleQuestDef questDef, IQuestDataStorage dataStorage)
+        public ScoreProcessor(MutableUserProfile profile, SampleQuestDef questDef, IQuestDataStorage dataStorage, string questDataId)
         {
-            _progress = new ReactiveProperty<float>();
-            MaxProgress = _questDef.Condition.Count;
 
             _profile = profile;
             _questDef = questDef;
             _dataStorage = dataStorage;
+            _questDataId = questDataId;
 
-            InitQuestData();
+            _progress = new ReactiveProperty<float>();
+            MaxProgress = _questDef.Condition.Count;
+            InitQuestData(_questDataId);
             UpdateProgress(_profile.ReactiveScore.Value);
             SubscribeOnProfile();
         }
@@ -44,15 +46,15 @@ namespace Samples.Quests
                 Debug.Log("QUEST :: " + _questDef.Id + "Success!"); // TO DO Process reward
         }
 
-        private void InitQuestData()
+        private void InitQuestData(string questDataId)
         {
-            _questData = _dataStorage.GetQuestData(_questDef.Id);
+            _questData = _dataStorage.GetQuestData(questDataId);
             if (_questData == null)
             {
                 _questData = new QuestData();
                 _questData.State = QuestState.InProgress;
                 _questData.ProgressStorage[SCORE_ON_START_KEY] = _profile.ReactiveScore.Value.ToString();
-                _dataStorage.UpdateQuestData(_questDef.Id, _questData);
+                _dataStorage.UpdateQuestData(questDataId, _questData);
             }
         }
 

@@ -9,7 +9,7 @@ namespace Samples.Quests
 {
     public enum ConditionType
     {
-        Stars,
+        Score,
         Money
     }
 

@@ -1,4 +1,5 @@
 ﻿using GBG.Modules.Quests;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -11,8 +12,10 @@ namespace Samples.Quests
         [SerializeField]
         private Button _generateNewButton;
         [SerializeField]
+        private Button _initButton;
+        [SerializeField]
         private Text _questDataText;
-        
+
         private QuestService _questService;
 
         public void Awake()
@@ -24,6 +27,7 @@ namespace Samples.Quests
         {
             _questService = questService;
         }
+
 
         public void GenerateNewQuest()
         {
