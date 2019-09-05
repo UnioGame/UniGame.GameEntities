@@ -16,7 +16,7 @@ namespace Samples
         public Dictionary<string, string> KeyToVal;
         public SomeUserDataChild SomeChild;
         public List<string> SomeList;
-        public Dictionary<string, QuestData> Quests;
+        public Dictionary<string, QuestData> Quests = new Dictionary<string, QuestData>();
     }
 
     public class SomeUserDataChild

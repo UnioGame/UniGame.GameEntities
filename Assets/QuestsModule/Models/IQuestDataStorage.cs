@@ -5,7 +5,7 @@ namespace GBG.Modules.Quests
 {
     public interface IQuestDataStorage
     {
-        List<QuestData> GetAllQuest();
+        List<string> GetAllQuestIds();
 
         /// <summary>
         /// Если квеста нет вернет null

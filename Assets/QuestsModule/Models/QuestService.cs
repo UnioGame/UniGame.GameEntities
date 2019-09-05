@@ -18,8 +18,13 @@ namespace GBG.Modules.Quests
         {
             _dataStorage = dataStorage;
             _defStorage = defStorage;
-            // Прочитать все квесты из даты
-            // создать модели под все квесты
+
+            var ids = _dataStorage.GetAllQuestIds();
+            foreach(var id in ids)
+            {
+                var data = _dataStorage.GetQuestData(id);
+                var defId = data.Id;
+            }
         }
 
         public IQuestModel GenerateNewQuest()

@@ -27,5 +27,5 @@ MonoBehaviour:
       Type: 0
       Count: 50
     Condition:
-      Type: 1
+      Type: 0
       Count: 52
