@@ -11,5 +11,7 @@ namespace GBG.Modules.Quests
 
         IReadOnlyReactiveProperty<float> Progress { get; }
         float MaxProgress { get; }
+        string QuestDefId { get; }
+        string QuestDataId { get; }
     }
 }

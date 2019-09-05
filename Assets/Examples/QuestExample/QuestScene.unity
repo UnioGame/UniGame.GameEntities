@@ -636,6 +636,16 @@ PrefabInstance:
       propertyPath: m_SizeDelta.x
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4460715246809914412, guid: 764a3b3ce689e8c47883dba23185b321,
+        type: 3}
+      propertyPath: m_FontData.m_FontSize
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 4460715246809914412, guid: 764a3b3ce689e8c47883dba23185b321,
+        type: 3}
+      propertyPath: m_FontData.m_MinSize
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 943645172448362203, guid: 764a3b3ce689e8c47883dba23185b321,
         type: 3}
       propertyPath: m_AnchorMin.y

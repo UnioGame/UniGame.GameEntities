@@ -52,6 +52,7 @@ namespace Samples.Quests
             if (_questData == null)
             {
                 _questData = new QuestData();
+                _questData.Id = _questDef.Id;
                 _questData.State = QuestState.InProgress;
                 _questData.ProgressStorage[SCORE_ON_START_KEY] = _profile.ReactiveScore.Value.ToString();
                 _dataStorage.UpdateQuestData(questDataId, _questData);
@@ -73,6 +74,10 @@ namespace Samples.Quests
         private IReactiveProperty<float> _progress;
 
         public float MaxProgress { get; private set; }
+
+        public string QuestDefId => _questDef.Id;
+
+        public string QuestDataId => _questDataId;
 
         // TO DO Call on change
         public event Action QuestStateChanged;

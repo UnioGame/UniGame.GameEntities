@@ -18,24 +18,28 @@ namespace GBG.Modules.Quests
         {
             _dataStorage = dataStorage;
             _defStorage = defStorage;
-
+            Models = new ReactiveCollection<QuestModel>();
             var ids = _dataStorage.GetAllQuestIds();
-            foreach(var id in ids)
+            foreach(var dataId in ids)
             {
-                var data = _dataStorage.GetQuestData(id);
+                var data = _dataStorage.GetQuestData(dataId);
                 var defId = data.Id;
+                var processor = _defStorage.InstantiateProcessor(defId, dataId, _dataStorage);
+                var model = new QuestModel(processor);
+                Models.Add(model);
             }
         }
 
-        public IQuestModel GenerateNewQuest()
+        public QuestModel GenerateNewQuest()
         {
             var defId = GetRandomQuestId();
             if (string.IsNullOrEmpty(defId))
                 throw new Exception("Unable to generate new random quest Id");
             var dataId = Guid.NewGuid().ToString();
-            _defStorage.InstantiateProcessor(defId, dataId, _dataStorage);
-
-            return null;
+            var processor = _defStorage.InstantiateProcessor(defId, dataId, _dataStorage);
+            var model = new QuestModel(processor);
+            Models.Add(model);
+            return model;
         }
 
         private string GetRandomQuestId()

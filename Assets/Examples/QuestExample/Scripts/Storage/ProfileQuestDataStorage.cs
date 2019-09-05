@@ -3,6 +3,7 @@ using System.Collections;
 using GBG.Modules.Quests;
 using GBG.Modules.Quests.Data;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Samples.Quests.Storage
 {
@@ -14,12 +15,11 @@ namespace Samples.Quests.Storage
         {
             _profile = profile;
         }
-
-        public List<QuestData> GetAllQuest()
+        
+        public List<string> GetAllQuestIds()
         {
-            throw new System.NotImplementedException();
+            return _profile.Quests.Keys.Select((k) => k).ToList();
         }
-
 
         public QuestData GetQuestData(string questId)
         {

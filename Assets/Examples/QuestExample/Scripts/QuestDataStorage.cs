@@ -11,6 +11,11 @@ public class QuestDataStorage : IQuestDataStorage
         throw new System.NotImplementedException();
     }
 
+    public List<string> GetAllQuestIds()
+    {
+        throw new System.NotImplementedException();
+    }
+
     public QuestData GetQuestData(string questId)
     {
         throw new System.NotImplementedException();

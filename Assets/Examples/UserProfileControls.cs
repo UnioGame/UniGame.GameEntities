@@ -47,6 +47,8 @@ namespace Samples
         private void Update()
         {
             _profileText.text = _infoText;
+            if (_ownProfile != null)
+                SetInfoText();
         }
 
         public void Init(MutableObjectFactory factory, IAuthModule auth, BatchUpdater batchUpdater)
@@ -132,12 +134,13 @@ namespace Samples
 
         private void SetInfoText()
         {
-            _infoText = string.Format("Name :: {0}\nGold :: {1}\nScore::{2}\n\nKeyToVal :: {3}\nSomeChild :: {4}",
+            _infoText = string.Format("Name :: {0}\nGold :: {1}\nScore::{2}\n\nKeyToVal :: {3}\nSomeChild :: {4}\nQuests :: {5}",
                    _ownProfile.UserName,
                    _ownProfile.Gold,
                    _ownProfile.Score,
                    JsonConvert.SerializeObject(_ownProfile.KeyToVal),
-                   JsonConvert.SerializeObject(_ownProfile.SomeChild.ToString()));
+                   JsonConvert.SerializeObject(_ownProfile.SomeChild.ToString()),
+                   JsonConvert.SerializeObject(_ownProfile.Quests));
         }
     }
 }
