@@ -1,11 +1,13 @@
 ﻿using GBG.Modules.RemoteData.Authorization;
 using GBG.Modules.RemoteData.MutableRemoteObjects;
 using Newtonsoft.Json;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UniRx;
 using UnityEngine;
 using UnityEngine.UI;
+using Random = UnityEngine.Random;
 
 namespace Samples
 {
@@ -22,7 +24,25 @@ namespace Samples
         [SerializeField]
         private Text _profileText;
 
+        [Space]
+        [SerializeField]
+        private InputField _scoreInput;
+        [SerializeField]
+        private Button _scoreInputSubmit;
+
         private string _infoText;
+
+        private void Awake()
+        {
+            _scoreInputSubmit.onClick.AddListener(SubmitScore);
+        }
+
+        private void SubmitScore()
+        {
+            var value = int.Parse(_scoreInput.text);
+            _ownProfile.ReactiveScore.Value += value;
+            _ownProfile.CommitChanges().ContinueWith((_) => { SetInfoText(); });
+        }
 
         private void Update()
         {
