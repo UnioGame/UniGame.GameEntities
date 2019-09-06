@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace GBG.Modules.Quests
 {
-    public class QuestService
+    public class QuestService : IDisposable
     {
         private IQuestDefsStorage _defStorage;
         private IQuestDataStorage _dataStorage;
@@ -14,11 +14,15 @@ namespace GBG.Modules.Quests
         // TO DO заменить на Subject, добавить возможность подписки на модели
         public IReactiveCollection<QuestModel> Models { get; private set; }
 
+        private IDisposable _mergedToken;
+
         public void Init(IQuestDataStorage dataStorage, IQuestDefsStorage defStorage)
         {
             _dataStorage = dataStorage;
             _defStorage = defStorage;
             Models = new ReactiveCollection<QuestModel>();
+            Models.ObserveAdd().Subscribe(SubscribeOnModel);
+
             var ids = _dataStorage.GetAllQuestIds();
             foreach(var dataId in ids)
             {
@@ -27,6 +31,20 @@ namespace GBG.Modules.Quests
                 var processor = _defStorage.InstantiateProcessor(defId, dataId, _dataStorage);
                 var model = new QuestModel(processor);
                 Models.Add(model);
+            }
+        }
+
+        private void SubscribeOnModel(CollectionAddEvent<QuestModel> @event)
+        {
+            @event.Value.Subscribe(OnModelChanged);
+        }
+        
+        private void OnModelChanged(QuestModel qm)
+        {
+            if(qm.State.Value == Data.QuestState.ReadyToRemove)
+            {
+                qm.DeleteQuest();
+                Models.Remove(qm);
             }
         }
 
@@ -59,6 +77,11 @@ namespace GBG.Modules.Quests
                     return allIds[i];
             }
             return null;
+        }
+
+        public void Dispose()
+        {
+            _mergedToken.Dispose();
         }
     }
 }

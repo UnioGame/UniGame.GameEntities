@@ -17,9 +17,10 @@ namespace Samples.Quests
         private string _questDataId;
         private QuestData _questData;
 
+        private IDisposable _scoreToken;
+
         public ScoreProcessor(MutableUserProfile profile, SampleQuestDef questDef, IQuestDataStorage dataStorage, string questDataId)
         {
-
             _profile = profile;
             _questDef = questDef;
             _dataStorage = dataStorage;
@@ -34,7 +35,7 @@ namespace Samples.Quests
 
         private void SubscribeOnProfile()
         {
-            _profile.ReactiveScore.Subscribe(OnScoreChanged);
+            _scoreToken = _profile.ReactiveScore.Subscribe(OnScoreChanged);
         }
 
         // TODO лимит времени
@@ -43,11 +44,18 @@ namespace Samples.Quests
         {
             var delta = CalculateProgress(newScore);
             if (delta > _questDef.Condition.Count)
+            {
                 Debug.Log("QUEST :: " + _questDef.Id + "Success!"); // TO DO Process reward
+                _questData.State = QuestState.ReadyToRemove;
+                _dataStorage.UpdateQuestData(_questDataId, _questData);
+                _scoreToken.Dispose();
+            }
+            OnStateChanged();
         }
 
         private void InitQuestData(string questDataId)
         {
+            _questDataId = questDataId;
             _questData = _dataStorage.GetQuestData(questDataId);
             if (_questData == null)
             {
@@ -57,11 +65,13 @@ namespace Samples.Quests
                 _questData.ProgressStorage[SCORE_ON_START_KEY] = _profile.ReactiveScore.Value.ToString();
                 _dataStorage.UpdateQuestData(questDataId, _questData);
             }
+            OnStateChanged();
         }
 
         private void UpdateProgress(float value)
         {
             _progress.Value = int.Parse(_questData.ProgressStorage[SCORE_ON_START_KEY]);
+            OnStateChanged();
         }
 
         private float CalculateProgress(float newScore)
@@ -79,13 +89,18 @@ namespace Samples.Quests
 
         public string QuestDataId => _questDataId;
 
-        // TO DO Call on change
-        public event Action QuestStateChanged;
+        public QuestState QuestState => _questData.State;
+        
+        public event Action StateChanged;
 
-        // TO DO Remove
-        public void ProcessStateChange()
+        private void OnStateChanged()
         {
-            throw new NotImplementedException();
+            StateChanged?.Invoke();
+        }
+
+        public void DeleteData()
+        {
+            _dataStorage.UpdateQuestData(_questDataId, null);
         }
     } 
 }

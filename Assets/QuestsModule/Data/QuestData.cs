@@ -6,9 +6,11 @@ namespace GBG.Modules.Quests.Data
 {
     public enum QuestState
     {
-        InProgress,
-        RewardAvailable,
-        Done
+        InProgress = 10,
+        RewardAvailable = 20,
+        Done = 30,
+        Failed = 40,
+        ReadyToRemove = 50
     }
 
     /// <summary>
