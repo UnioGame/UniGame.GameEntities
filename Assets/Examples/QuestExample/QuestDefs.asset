@@ -15,6 +15,8 @@ MonoBehaviour:
   Quests:
   - Id: StarsQuest
     Description: Stars quest description
+    QuestFsm: {fileID: 8528385582802593370, guid: 3811483802e6f6942bbc84b433db503f,
+      type: 3}
     Reward:
       Type: 0
       Count: 10
@@ -23,6 +25,8 @@ MonoBehaviour:
       Count: 10
   - Id: MoneyQuest
     Description: Money quest description
+    QuestFsm: {fileID: 8528385582802593370, guid: 3811483802e6f6942bbc84b433db503f,
+      type: 3}
     Reward:
       Type: 0
       Count: 50

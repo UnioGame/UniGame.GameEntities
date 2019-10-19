@@ -16,9 +16,9 @@ namespace Samples.Quests
     [Serializable]
     public class SampleQuestDef : QuestDef
     {
-        [NotNull]
+        [NotNull, SerializeField]
         public SampleRewardDef Reward;
-        [NotNull]
+        [NotNull, SerializeField]
         public ConditionDef Condition;
         [NotNull]
         public override object ConditionDef => Condition;

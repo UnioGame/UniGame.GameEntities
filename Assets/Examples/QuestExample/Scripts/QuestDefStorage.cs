@@ -29,6 +29,17 @@ public class QuestDefStorage : IQuestDefsStorage
         return _data.Quests.Find((q) => q.Id == questId);
     }
 
+    public PlayMakerFSM InstantiateFSM(string defId, string questId)
+    {
+        var def = GetQuestDef(defId);
+        var fsm = def.QuestFsm;
+        var result = GameObject.Instantiate(fsm);
+        result.FsmVariables
+            .GetFsmString(StorageConstants.FSM_QUEST_ID_NAME)
+            .SafeAssign(questId);
+        return result;
+    }
+
     public IQuestProcessor InstantiateProcessor(string defId, string dataId, IQuestDataStorage storage)
     {
         var def = GetQuestDef(defId) as SampleQuestDef;

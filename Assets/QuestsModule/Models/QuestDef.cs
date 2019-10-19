@@ -7,6 +7,7 @@ namespace GBG.Modules.Quests
     {
         public string Id;
         public string Description;
+        public PlayMakerFSM QuestFsm;
         public abstract object ConditionDef { get; }
     }
 }
