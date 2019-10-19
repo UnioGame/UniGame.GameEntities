@@ -1,6 +1,9 @@
 ﻿using GBG.Modules.Quests.Data;
+using GBG.Modules.Quests.FsmParts;
 using System;
+using System.Collections.Generic;
 using UniRx;
+using UnityEngine;
 
 namespace GBG.Modules.Quests
 {
@@ -9,14 +12,25 @@ namespace GBG.Modules.Quests
         private readonly IQuestProcessor _processor;
         private readonly ReactiveCommand<QuestModel> _onChanged;
         private readonly ReactiveProperty<QuestState> _questState;
+        private PlayMakerFSM _correspondingFSM;
 
-        public QuestModel(IQuestProcessor processor)
+        private List<IDisposable> _disposables = new List<IDisposable>();
+
+        public QuestModel(IQuestProcessor processor, PlayMakerFSM correspondingFsm)
         {
             _processor = processor;
             _onChanged = new ReactiveCommand<QuestModel>();
+            _disposables.Add(_onChanged);
             _questState = new ReactiveProperty<QuestState>();
+            _disposables.Add(_questState);
             _questState.Value = _processor.QuestState;
             _processor.StateChanged += ProcessorStateChanged;
+            _correspondingFSM = correspondingFsm;
+            var disposable = MessageBroker.Default.Receive<QuestProcessingFinishedMessage>()
+                .Where(v => v.QuestDataId == QuestDataId)
+                .Subscribe(message => Dispose());
+            // возможно нужно вытирать дату полностью
+            _disposables.Add(disposable);
         }
 
         private void ProcessorStateChanged()
@@ -39,8 +53,10 @@ namespace GBG.Modules.Quests
         public void Dispose()
         {
             _processor.StateChanged -= ProcessorStateChanged;
-            _questState.Dispose();
-            _onChanged.Dispose();
+            GameObject.Destroy(_correspondingFSM.gameObject);
+            _correspondingFSM = null;
+            _disposables.ForEach((o) => o.Dispose());
+            _disposables.Clear();
         }
 
         public float MaxProgress => _processor.MaxProgress;
