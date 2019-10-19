@@ -34,9 +34,7 @@ public class QuestDefStorage : IQuestDefsStorage
         var def = GetQuestDef(defId);
         var fsm = def.QuestFsm;
         var result = GameObject.Instantiate(fsm);
-        result.FsmVariables
-            .GetFsmString(StorageConstants.FSM_QUEST_ID_NAME)
-            .SafeAssign(questId);
+        result.FsmVariables.GetFsmString(StorageConstants.FSM_QUEST_ID_NAME).Value = questId;
         return result;
     }
 

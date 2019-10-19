@@ -11,6 +11,16 @@ using Random = UnityEngine.Random;
 
 namespace Samples
 {
+    public class AddScoreMessage
+    {
+        public AddScoreMessage(int delta ,string reason = "Undefined")
+        {
+            Delta = delta;
+            Reason = reason;
+        }
+        public string Reason { get; private set; }
+        public int Delta { get; private set; }
+    }
     public class UserProfileControls : MonoBehaviour
     {
         private MutableObjectFactory _factory;
@@ -112,10 +122,15 @@ namespace Samples
 
         private void SubscribePlaymakerMaping(MutableUserProfile profile)
         {
-            profile.ReactiveGold.Subscribe((value)=> { PlayMakerGlobals.Instance.Variables.GetFsmInt(nameof(profile.Gold)).SafeAssign(value); });
-            profile.ReactiveScore.Subscribe((value)=> { PlayMakerGlobals.Instance.Variables.GetFsmInt(nameof(profile.Score)).SafeAssign(value); });
-            profile.ReactiveUserName.Subscribe((value)=> { PlayMakerGlobals.Instance.Variables.GetFsmString(nameof(profile.UserName)).SafeAssign(value); });
-        
+            profile.ReactiveGold.Subscribe((value)=> { PlayMakerGlobals.Instance.Variables.GetFsmInt(nameof(profile.Gold)).Value = value; });
+            profile.ReactiveScore.Subscribe((value)=> { PlayMakerGlobals.Instance.Variables.GetFsmInt(nameof(profile.Score)).Value = value; });
+            profile.ReactiveUserName.Subscribe((value)=> { PlayMakerGlobals.Instance.Variables.GetFsmString(nameof(profile.UserName)).Value = value; });
+
+            MessageBroker.Default.Receive<AddScoreMessage>().Subscribe((message) =>
+            {
+                Debug.Log($"Score increased for :: {message.Delta} because of :: {message.Reason}");
+                profile.ReactiveScore.Value += message.Delta;
+            });
         }
 
         private IEnumerator subsCoroutine()
