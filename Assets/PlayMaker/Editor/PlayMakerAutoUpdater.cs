@@ -132,24 +132,25 @@ namespace HutongGames.PlayMakerEditor
 
         static bool NeedsUpdate()
         {
-            updateList.Clear();
+            return false;
+            //updateList.Clear();
 
-            if (PlaymakerDllsNeedMoving())
-            {
-                updateList.Add("Move Playmaker dlls to Plugin folders.");
-            }
+            //if (PlaymakerDllsNeedMoving())
+            //{
+            //    updateList.Add("Move Playmaker dlls to Plugin folders.");
+            //}
 
-            if (DuplicatePlaymakerDllExists())
-            {
-                updateList.Add("Fix duplicate Playmaker dlls from previous install.");
-            }
+            //if (DuplicatePlaymakerDllExists())
+            //{
+            //    updateList.Add("Fix duplicate Playmaker dlls from previous install.");
+            //}
 
-            if (HasOldEditorLanguageResources())
-            {
-                updateList.Add("Rename old Playmaker language resource files.");
-            }
+            //if (HasOldEditorLanguageResources())
+            //{
+            //    updateList.Add("Rename old Playmaker language resource files.");
+            //}
 
-            return updateList.Count > 0;
+            //return updateList.Count > 0;
         }
 
         /// <summary>
