@@ -14,6 +14,17 @@ namespace GBG.Modules.Quests.FsmParts
         }
         public string QuestDataId { get; private set; }
     }
+
+    public class QuestLocalsUpdated
+    {
+        public readonly string QuestDataId;
+        public readonly Dictionary<string, string> Values;
+        public QuestLocalsUpdated(string dataId, Dictionary<string, string> values)
+        {
+            QuestDataId = dataId;
+            Values = values;
+        }
+    }
     public class QuestFsmFinishedAction : FsmStateAction
     {
         public FsmString QuestId;

@@ -30,7 +30,7 @@ namespace GBG.Modules.Quests
                 var defId = data.Id;
                 var processor = _defStorage.InstantiateProcessor(defId, dataId, _dataStorage);
                 var fsm = _defStorage.InstantiateFSM(defId, dataId);
-                var model = new QuestModel(processor, fsm);
+                var model = new QuestModel(processor, fsm, _dataStorage);
                 Models.Add(model);
             }
         }
@@ -57,7 +57,7 @@ namespace GBG.Modules.Quests
             var dataId = Guid.NewGuid().ToString();
             var processor = _defStorage.InstantiateProcessor(defId, dataId, _dataStorage);
             var fsm = _defStorage.InstantiateFSM(defId, dataId);
-            var model = new QuestModel(processor, fsm);
+            var model = new QuestModel(processor, fsm, _dataStorage);
             Models.Add(model);
             return model;
         }

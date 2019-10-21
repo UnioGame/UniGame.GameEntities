@@ -14,10 +14,9 @@ namespace Samples.Quests.Fsm
         public FsmString Reason;
         public override void OnEnter()
         {
-            // возможно в этом акшоне надо будет понимать, что за квест происходит и
-            // исходя из него собирать Reason
             base.OnEnter();
             MessageBroker.Default.Publish(new AddScoreMessage(Count.Value, Reason.Value));
+            Finish();
         }
     }
 }

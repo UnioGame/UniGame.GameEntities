@@ -54,10 +54,10 @@ MonoBehaviour:
       colorIndex: 1
       position:
         serializedVersion: 2
-        x: 128
+        x: 304
         y: 112
         width: 149
-        height: 48
+        height: 64
       isBreakpoint: 0
       isSequence: 0
       hideUnused: 0
@@ -78,17 +78,27 @@ MonoBehaviour:
         linkStyle: 0
         linkConstraint: 0
         colorIndex: 0
+      - fsmEvent:
+          name: PerformSetup
+          isSystemEvent: 0
+          isGlobal: 0
+        toState: InitialSetup
+        linkStyle: 0
+        linkConstraint: 0
+        colorIndex: 0
       actionData:
         actionNames:
+        - HutongGames.PlayMaker.Actions.BoolTest
         - HutongGames.PlayMaker.Actions.IntChanged
         - HutongGames.PlayMaker.Actions.IntChanged
         customNames:
         - 
         - 
-        actionEnabled: 0101
-        actionIsOpen: 0101
-        actionStartIndex: 0000000003000000
-        actionHashCodes: 4b932c014b932c01
+        - 
+        actionEnabled: 010101
+        actionIsOpen: 010101
+        actionStartIndex: 000000000400000007000000
+        actionHashCodes: a4c8bf004b932c014b932c01
         unityObjectParams: []
         fsmGameObjectParams: []
         fsmOwnerDefaultParams: []
@@ -119,6 +129,12 @@ MonoBehaviour:
           value: 0
         fsmBoolParams:
         - useVariable: 1
+          name: New
+          tooltip: 
+          showInInspector: 0
+          networkSync: 0
+          value: 1
+        - useVariable: 1
           name: 
           tooltip: 
           showInInspector: 0
@@ -136,30 +152,36 @@ MonoBehaviour:
         fsmRectParams: []
         fsmQuaternionParams: []
         stringParams:
+        - PerformSetup
+        - 
         - ConditionChanged
         - ConditionChanged
-        byteData: 
+        byteData: 00
         arrayParamSizes: 
         arrayParamTypes: []
         customTypeSizes: 
         customTypeNames: []
-        paramDataType: 100000001700000011000000100000001700000011000000
+        paramDataType: 11000000170000001700000001000000100000001700000011000000100000001700000011000000
         paramName:
+        - boolVariable
+        - isTrue
+        - isFalse
+        - everyFrame
         - intVariable
         - changedEvent
         - storeResult
         - intVariable
         - changedEvent
         - storeResult
-        paramDataPos: 000000000000000000000000010000000100000001000000
-        paramByteDataSize: 000000000000000000000000000000000000000000000000
+        paramDataPos: 00000000000000000100000000000000000000000200000001000000010000000300000002000000
+        paramByteDataSize: 00000000000000000000000001000000000000000000000000000000000000000000000000000000
     - name: Add reward
       description: 
       colorIndex: 3
       position:
         serializedVersion: 2
-        x: 64
-        y: 304
+        x: 96
+        y: 384
         width: 107
         height: 32
       isBreakpoint: 0
@@ -278,8 +300,8 @@ MonoBehaviour:
       colorIndex: 6
       position:
         serializedVersion: 2
-        x: 464
-        y: 272
+        x: 560
+        y: 384
         width: 100
         height: 32
       isBreakpoint: 0
@@ -338,8 +360,8 @@ MonoBehaviour:
       colorIndex: 4
       position:
         serializedVersion: 2
-        x: 128
-        y: 224
+        x: 304
+        y: 240
         width: 146
         height: 64
       isBreakpoint: 0
@@ -347,7 +369,7 @@ MonoBehaviour:
       hideUnused: 0
       transitions:
       - fsmEvent:
-          name: GoldSatisfied
+          name: ConditionsMet
           isSystemEvent: 0
           isGlobal: 0
         toState: Add reward
@@ -363,7 +385,7 @@ MonoBehaviour:
         linkConstraint: 0
         colorIndex: 0
       - fsmEvent:
-          name: TimeOver
+          name: ConditionsFailed
           isSystemEvent: 0
           isGlobal: 0
         toState: Failed
@@ -410,17 +432,17 @@ MonoBehaviour:
           networkSync: 0
           value: 0
         - useVariable: 1
+          name: GoldGoal
+          tooltip: 
+          showInInspector: 0
+          networkSync: 0
+          value: 0
+        - useVariable: 1
           name: Gold
           tooltip: 
           showInInspector: 0
           networkSync: 0
           value: 0
-        - useVariable: 0
-          name: 
-          tooltip: 
-          showInInspector: 0
-          networkSync: 0
-          value: 55
         fsmBoolParams: []
         fsmVector2Params: []
         fsmVector3Params: []
@@ -429,11 +451,11 @@ MonoBehaviour:
         fsmQuaternionParams: []
         stringParams:
         - 
-        - TimeOver
+        - ConditionsFailed
         - 
-        - GoldSatisfied
+        - ConditionsMet
+        - ConditionsMet
         - ConditionsNotMet
-        - GoldSatisfied
         byteData: 0000
         arrayParamSizes: 
         arrayParamTypes: []
@@ -460,8 +482,8 @@ MonoBehaviour:
       colorIndex: 0
       position:
         serializedVersion: 2
-        x: 160
-        y: 432
+        x: 304
+        y: 400
         width: 124
         height: 16
       isBreakpoint: 0
@@ -516,6 +538,126 @@ MonoBehaviour:
         - QuestId
         paramDataPos: 00000000
         paramByteDataSize: 00000000
+    - name: InitialSetup
+      description: 
+      colorIndex: 1
+      position:
+        serializedVersion: 2
+        x: 64
+        y: 128
+        width: 107
+        height: 32
+      isBreakpoint: 0
+      isSequence: 0
+      hideUnused: 0
+      transitions:
+      - fsmEvent:
+          name: FINISHED
+          isSystemEvent: 1
+          isGlobal: 0
+        toState: Idle
+        linkStyle: 0
+        linkConstraint: 0
+        colorIndex: 0
+      actionData:
+        actionNames:
+        - HutongGames.PlayMaker.Actions.SetIntValue
+        - HutongGames.PlayMaker.Actions.IntAdd
+        - HutongGames.PlayMaker.Actions.SetBoolValue
+        - Samples.UpdateQuestLocals
+        customNames:
+        - 
+        - 
+        - 
+        - 
+        actionEnabled: 01010101
+        actionIsOpen: 01010101
+        actionStartIndex: 00000000030000000600000009000000
+        actionHashCodes: 603dd905603dd90527fbe10313227100
+        unityObjectParams: []
+        fsmGameObjectParams: []
+        fsmOwnerDefaultParams: []
+        animationCurveParams: []
+        functionCallParams: []
+        fsmTemplateControlParams: []
+        fsmEventTargetParams: []
+        fsmPropertyParams: []
+        layoutOptionParams: []
+        fsmStringParams:
+        - useVariable: 1
+          name: QuestDataID
+          tooltip: 
+          showInInspector: 0
+          networkSync: 0
+          value: 
+        fsmObjectParams: []
+        fsmVarParams: []
+        fsmArrayParams: []
+        fsmEnumParams: []
+        fsmFloatParams: []
+        fsmIntParams:
+        - useVariable: 1
+          name: GoldGoal
+          tooltip: 
+          showInInspector: 0
+          networkSync: 0
+          value: 0
+        - useVariable: 1
+          name: Gold
+          tooltip: 
+          showInInspector: 0
+          networkSync: 0
+          value: 0
+        - useVariable: 1
+          name: GoldGoal
+          tooltip: 
+          showInInspector: 0
+          networkSync: 0
+          value: 0
+        - useVariable: 0
+          name: 
+          tooltip: 
+          showInInspector: 0
+          networkSync: 0
+          value: 50
+        fsmBoolParams:
+        - useVariable: 1
+          name: New
+          tooltip: 
+          showInInspector: 0
+          networkSync: 0
+          value: 1
+        - useVariable: 0
+          name: 
+          tooltip: 
+          showInInspector: 0
+          networkSync: 0
+          value: 0
+        fsmVector2Params: []
+        fsmVector3Params: []
+        fsmColorParams: []
+        fsmRectParams: []
+        fsmQuaternionParams: []
+        stringParams: []
+        byteData: 000000
+        arrayParamSizes: 
+        arrayParamTypes: []
+        customTypeSizes: 
+        customTypeNames: []
+        paramDataType: 10000000100000000100000010000000100000000100000011000000110000000100000012000000
+        paramName:
+        - intVariable
+        - intValue
+        - everyFrame
+        - intVariable
+        - add
+        - everyFrame
+        - boolVariable
+        - boolValue
+        - everyFrame
+        - QuestId
+        paramDataPos: 00000000010000000000000002000000030000000100000000000000010000000200000000000000
+        paramByteDataSize: 00000000000000000100000000000000000000000100000000000000000000000100000000000000
     events:
     - name: FINISHED
       isSystemEvent: 1
@@ -523,13 +665,16 @@ MonoBehaviour:
     - name: ConditionChanged
       isSystemEvent: 0
       isGlobal: 0
+    - name: ConditionsFailed
+      isSystemEvent: 0
+      isGlobal: 0
+    - name: ConditionsMet
+      isSystemEvent: 0
+      isGlobal: 0
     - name: ConditionsNotMet
       isSystemEvent: 0
       isGlobal: 0
-    - name: GoldSatisfied
-      isSystemEvent: 0
-      isGlobal: 0
-    - name: TimeOver
+    - name: PerformSetup
       isSystemEvent: 0
       isGlobal: 0
     globalTransitions: []
@@ -542,7 +687,19 @@ MonoBehaviour:
         showInInspector: 0
         networkSync: 0
         value: 0
-      boolVariables: []
+      - useVariable: 1
+        name: GoldGoal
+        tooltip: 
+        showInInspector: 0
+        networkSync: 0
+        value: 0
+      boolVariables:
+      - useVariable: 1
+        name: New
+        tooltip: 
+        showInInspector: 0
+        networkSync: 0
+        value: 1
       stringVariables:
       - useVariable: 1
         name: CombinedReason
@@ -569,7 +726,7 @@ MonoBehaviour:
       enumVariables: []
       categories:
       - 
-      variableCategoryIDs: 000000000000000000000000
+      variableCategoryIDs: 0000000000000000000000000000000000000000
     description: 
     docUrl: 
     showStateLabel: 0

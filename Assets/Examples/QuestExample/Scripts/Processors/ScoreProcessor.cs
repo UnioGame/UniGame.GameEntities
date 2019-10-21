@@ -70,14 +70,14 @@ namespace Samples.Quests
 
         private void UpdateProgress(float value)
         {
-            _progress.Value = int.Parse(_questData.ProgressStorage[SCORE_ON_START_KEY]);
+            //_progress.Value = int.Parse(_questData.ProgressStorage[SCORE_ON_START_KEY]);
             OnStateChanged();
         }
 
         private float CalculateProgress(float newScore)
         {
-            var onStart = int.Parse(_questData.ProgressStorage[SCORE_ON_START_KEY]);
-            return newScore - onStart;
+            //var onStart = int.Parse(_questData.ProgressStorage[SCORE_ON_START_KEY]);
+            return 0.5f;
         }
 
         public IReadOnlyReactiveProperty<float> Progress => _progress;
