@@ -32,6 +32,7 @@ namespace GBG.Modules.Quests.FsmParts
         {
             base.OnEnter();
             MessageBroker.Default.Publish(new QuestProcessingFinishedMessage(QuestId.Value));
+            Finish();
         }
     }
 }

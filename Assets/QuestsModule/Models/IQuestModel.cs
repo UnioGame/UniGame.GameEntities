@@ -10,24 +10,32 @@ namespace GBG.Modules.Quests
 {
     public class QuestModel : IObservable<QuestModel>, IDisposable
     {
-        private readonly IQuestProcessor _processor;
         private readonly IQuestDataStorage _dataStorage;
         private readonly ReactiveCommand<QuestModel> _onChanged;
         private readonly ReactiveProperty<QuestState> _questState;
+        private readonly string _questDefId;
+        private readonly string _questDataId;
         private PlayMakerFSM _correspondingFSM;
 
         private List<IDisposable> _disposables = new List<IDisposable>();
 
-        public QuestModel(IQuestProcessor processor, PlayMakerFSM correspondingFsm, IQuestDataStorage dataStorage)
+        public QuestModel(
+            PlayMakerFSM correspondingFsm,
+            IQuestDataStorage dataStorage,
+            string defId,
+            string dataId)
         {
-            _processor = processor;
+            _questDefId = defId;
+            _questDataId = dataId;
             _dataStorage = dataStorage;
+            InitQuestData();
+
             _onChanged = new ReactiveCommand<QuestModel>();
             _disposables.Add(_onChanged);
             _questState = new ReactiveProperty<QuestState>();
             _disposables.Add(_questState);
-            _questState.Value = _processor.QuestState;
-            _processor.StateChanged += ProcessorStateChanged;
+            _questState.Value = QuestState.InProgress;
+
             _correspondingFSM = correspondingFsm;
             InitFSMVariables(_correspondingFSM);
             // возможно нужно вытирать дату полностью
@@ -42,7 +50,7 @@ namespace GBG.Modules.Quests
                 {
                     var data = _dataStorage.GetQuestData(QuestDataId);
                     data.ProgressStorage = message.Values;
-                    _dataStorage.UpdateQuestData(QuestDataId ,data);
+                    _dataStorage.UpdateQuestData(QuestDataId, data);
                 });
 
             _disposables.Add(disposable);
@@ -50,27 +58,37 @@ namespace GBG.Modules.Quests
 
         }
 
+        private void InitQuestData()
+        {
+            var questData = _dataStorage.GetQuestData(QuestDataId);
+            if (questData == null)
+            {
+                questData = new QuestData();
+                questData.Id = _questDefId;
+                questData.State = QuestState.InProgress;
+                _dataStorage.UpdateQuestData(QuestDataId, questData);
+            }
+        }
+
         private void InitFSMVariables(PlayMakerFSM fsm)
         {
             var data = _dataStorage.GetQuestData(QuestDataId);
-            if(data != null && data.ProgressStorage != null)
+            if (data != null && data.ProgressStorage != null)
             {
-                foreach(var kvp in data.ProgressStorage)
+                foreach (var kvp in data.ProgressStorage)
                 {
                     var fsmVar = fsm.FsmVariables.GetVariable(kvp.Key);
-                    var varType = fsmVar.RawValue.GetType();
-                    var converter = TypeDescriptor.GetConverter(varType);
-                    fsmVar.RawValue = converter.ConvertFromString(kvp.Value);
+                    if (fsmVar != null)
+                    {
+                        var varType = fsmVar.RawValue.GetType();
+                        var converter = TypeDescriptor.GetConverter(varType);
+                        fsmVar.RawValue = converter.ConvertFromString(kvp.Value);
+                    }
                 }
             }
 
         }
 
-        private void ProcessorStateChanged()
-        {
-            _questState.Value = _processor.QuestState;
-            _onChanged.Execute(this);
-        }
 
         public IDisposable Subscribe(IObserver<QuestModel> observer)
         {
@@ -79,23 +97,23 @@ namespace GBG.Modules.Quests
 
         public void DeleteQuest()
         {
-            _processor.DeleteData();
+            _dataStorage.UpdateQuestData(_questDataId, null);
             Dispose();
         }
 
         public void Dispose()
         {
-            _processor.StateChanged -= ProcessorStateChanged;
             GameObject.Destroy(_correspondingFSM.gameObject);
             _correspondingFSM = null;
             _disposables.ForEach((o) => o.Dispose());
             _disposables.Clear();
         }
 
-        public float MaxProgress => _processor.MaxProgress;
-        public IReadOnlyReactiveProperty<float> Progress => _processor.Progress;
+        public float MaxProgress => _correspondingFSM.FsmVariables.GetFsmFloat(StorageConstants.FSM_QUEST_MAX_PROGRESS_NAME).Value;
+        // TO DO Reactive
+        public float Progress => _correspondingFSM.FsmVariables.GetFsmFloat(StorageConstants.FSM_QUEST_PROGRESS_NAME).Value;
         public IReactiveProperty<QuestState> State => _questState;
-        public string QuestDefId => _processor.QuestDefId;
-        public string QuestDataId => _processor.QuestDataId;
+        public string QuestDefId => _questDefId;
+        public string QuestDataId => _questDataId;
     }
 }

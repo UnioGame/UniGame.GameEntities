@@ -180,8 +180,8 @@ MonoBehaviour:
       colorIndex: 3
       position:
         serializedVersion: 2
-        x: 96
-        y: 384
+        x: 144
+        y: 336
         width: 107
         height: 32
       isBreakpoint: 0
@@ -300,8 +300,8 @@ MonoBehaviour:
       colorIndex: 6
       position:
         serializedVersion: 2
-        x: 560
-        y: 384
+        x: 496
+        y: 336
         width: 100
         height: 32
       isBreakpoint: 0
@@ -365,7 +365,7 @@ MonoBehaviour:
         width: 146
         height: 64
       isBreakpoint: 0
-      isSequence: 0
+      isSequence: 1
       hideUnused: 0
       transitions:
       - fsmEvent:
@@ -394,15 +394,31 @@ MonoBehaviour:
         colorIndex: 0
       actionData:
         actionNames:
+        - HutongGames.PlayMaker.Actions.SetFloatValue
+        - HutongGames.PlayMaker.Actions.SetIntValue
+        - HutongGames.PlayMaker.Actions.IntAdd
+        - HutongGames.PlayMaker.Actions.IntAdd
+        - HutongGames.PlayMaker.Actions.IntSubtract
+        - HutongGames.PlayMaker.Actions.SetFloatValue
+        - HutongGames.PlayMaker.Actions.FloatDivide
+        - HutongGames.PlayMaker.Actions.FloatClamp
         - HutongGames.PlayMaker.Actions.IntCompare
         - HutongGames.PlayMaker.Actions.IntCompare
         customNames:
         - 
         - 
-        actionEnabled: 0101
-        actionIsOpen: 0101
-        actionStartIndex: 0000000006000000
-        actionHashCodes: 09faa10209faa102
+        - 
+        - 
+        - 
+        - 
+        - 
+        - 
+        - 
+        - 
+        actionEnabled: 01010101010101010101
+        actionIsOpen: 00000000000001010000
+        actionStartIndex: 000000000300000006000000090000000c0000001000000013000000160000001a00000020000000
+        actionHashCodes: 9845b305603dd905603dd905603dd90531e5da029845b3059845b3050c8bc10009faa10209faa102
         unityObjectParams: []
         fsmGameObjectParams: []
         fsmOwnerDefaultParams: []
@@ -417,14 +433,116 @@ MonoBehaviour:
         fsmVarParams: []
         fsmArrayParams: []
         fsmEnumParams: []
-        fsmFloatParams: []
+        fsmFloatParams:
+        - useVariable: 1
+          name: Progress
+          tooltip: 
+          showInInspector: 0
+          networkSync: 0
+          value: 0
+        - useVariable: 0
+          name: 
+          tooltip: 
+          showInInspector: 0
+          networkSync: 0
+          value: 0
+        - useVariable: 1
+          name: Progress
+          tooltip: 
+          showInInspector: 0
+          networkSync: 0
+          value: 0
+        - useVariable: 1
+          name: GoldCollected
+          tooltip: 
+          showInInspector: 0
+          networkSync: 0
+          value: 0
+        - useVariable: 1
+          name: Progress
+          tooltip: 
+          showInInspector: 0
+          networkSync: 0
+          value: 0
+        - useVariable: 1
+          name: GoldDelta
+          tooltip: 
+          showInInspector: 0
+          networkSync: 0
+          value: 0
+        - useVariable: 1
+          name: Progress
+          tooltip: 
+          showInInspector: 0
+          networkSync: 0
+          value: 0
+        - useVariable: 0
+          name: 
+          tooltip: 
+          showInInspector: 0
+          networkSync: 0
+          value: 0
+        - useVariable: 1
+          name: MaxProgress
+          tooltip: 
+          showInInspector: 0
+          networkSync: 0
+          value: 1
         fsmIntParams:
+        - useVariable: 1
+          name: GoldCollected
+          tooltip: 
+          showInInspector: 0
+          networkSync: 0
+          value: 0
+        - useVariable: 0
+          name: 
+          tooltip: 
+          showInInspector: 0
+          networkSync: 0
+          value: 0
+        - useVariable: 1
+          name: GoldCollected
+          tooltip: 
+          showInInspector: 0
+          networkSync: 0
+          value: 0
+        - useVariable: 1
+          name: Gold
+          tooltip: 
+          showInInspector: 0
+          networkSync: 0
+          value: 0
+        - useVariable: 1
+          name: GoldCollected
+          tooltip: 
+          showInInspector: 0
+          networkSync: 0
+          value: 0
+        - useVariable: 1
+          name: GoldDelta
+          tooltip: 
+          showInInspector: 1
+          networkSync: 0
+          value: 50
+        - useVariable: 1
+          name: GoldCollected
+          tooltip: 
+          showInInspector: 0
+          networkSync: 0
+          value: 0
+        - useVariable: 1
+          name: GoldGoal
+          tooltip: 
+          showInInspector: 0
+          networkSync: 0
+          value: 0
         - useVariable: 1
           name: EndTime
           tooltip: 
           showInInspector: 0
           networkSync: 0
-          value: 0
+          value: 2147483647
         - useVariable: 1
           name: Time
           tooltip: 
@@ -456,18 +574,38 @@ MonoBehaviour:
         - ConditionsMet
         - ConditionsMet
         - ConditionsNotMet
-        byteData: 0000
+        byteData: 0000000000000000000000
         arrayParamSizes: 
         arrayParamTypes: []
         customTypeSizes: 
         customTypeNames: []
-        paramDataType: 100000001000000017000000170000001700000001000000100000001000000017000000170000001700000001000000
+        paramDataType: 0f0000000f00000001000000100000001000000001000000100000001000000001000000100000001000000001000000100000001000000001000000010000000f0000000f000000010000000f0000000f000000010000000f0000000f0000000f00000001000000100000001000000017000000170000001700000001000000100000001000000017000000170000001700000001000000
         paramName:
-        - integer1
-        - integer2
-        - equal
-        - lessThan
-        - greaterThan
+        - floatVariable
+        - floatValue
+        - everyFrame
+        - intVariable
+        - intValue
+        - everyFrame
+        - intVariable
+        - add
+        - everyFrame
+        - intVariable
+        - add
+        - everyFrame
+        - intVariable
+        - subtract
+        - everyFrame
+        - perSecond
+        - floatVariable
+        - floatValue
+        - everyFrame
+        - floatVariable
+        - divideBy
+        - everyFrame
+        - floatVariable
+        - minValue
+        - maxValue
         - everyFrame
         - integer1
         - integer2
@@ -475,8 +613,14 @@ MonoBehaviour:
         - lessThan
         - greaterThan
         - everyFrame
-        paramDataPos: 000000000100000000000000010000000200000000000000020000000300000003000000040000000500000001000000
-        paramByteDataSize: 000000000000000000000000000000000000000001000000000000000000000000000000000000000000000001000000
+        - integer1
+        - integer2
+        - equal
+        - lessThan
+        - greaterThan
+        - everyFrame
+        paramDataPos: 00000000010000000000000000000000010000000100000002000000030000000200000004000000050000000300000006000000070000000400000005000000020000000300000006000000040000000500000007000000060000000700000008000000080000000800000009000000000000000100000002000000090000000a0000000b0000000300000004000000050000000a000000
+        paramByteDataSize: 0000000000000000010000000000000000000000010000000000000000000000010000000000000000000000010000000000000000000000010000000100000000000000000000000100000000000000000000000100000000000000000000000000000001000000000000000000000000000000000000000000000001000000000000000000000000000000000000000000000001000000
     - name: QuestFinished
       description: 
       colorIndex: 0
@@ -614,10 +758,10 @@ MonoBehaviour:
           showInInspector: 0
           networkSync: 0
           value: 0
-        - useVariable: 0
-          name: 
+        - useVariable: 1
+          name: GoldDelta
           tooltip: 
-          showInInspector: 0
+          showInInspector: 1
           networkSync: 0
           value: 50
         fsmBoolParams:
@@ -679,14 +823,38 @@ MonoBehaviour:
       isGlobal: 0
     globalTransitions: []
     variables:
-      floatVariables: []
+      floatVariables:
+      - useVariable: 1
+        name: MaxProgress
+        tooltip: 
+        showInInspector: 0
+        networkSync: 0
+        value: 1
+      - useVariable: 1
+        name: Progress
+        tooltip: 
+        showInInspector: 0
+        networkSync: 0
+        value: 0
       intVariables:
       - useVariable: 1
         name: EndTime
         tooltip: 
         showInInspector: 0
         networkSync: 0
+        value: 2147483647
+      - useVariable: 1
+        name: GoldCollected
+        tooltip: 
+        showInInspector: 0
+        networkSync: 0
         value: 0
+      - useVariable: 1
+        name: GoldDelta
+        tooltip: 
+        showInInspector: 1
+        networkSync: 0
+        value: 50
       - useVariable: 1
         name: GoldGoal
         tooltip: 
@@ -726,7 +894,7 @@ MonoBehaviour:
       enumVariables: []
       categories:
       - 
-      variableCategoryIDs: 0000000000000000000000000000000000000000
+      variableCategoryIDs: 000000000000000000000000000000000000000000000000000000000000000000000000
     description: 
     docUrl: 
     showStateLabel: 0

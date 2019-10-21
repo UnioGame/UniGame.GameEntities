@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System;
 using System.Linq;
 using Samples;
+using GBG.Modules.Quests.FsmParts;
 
 public class QuestDefStorage : IQuestDefsStorage
 {
@@ -37,19 +38,7 @@ public class QuestDefStorage : IQuestDefsStorage
         result.FsmVariables.GetFsmString(StorageConstants.FSM_QUEST_ID_NAME).Value = questId;
         return result;
     }
-
-    public IQuestProcessor InstantiateProcessor(string defId, string dataId, IQuestDataStorage storage)
-    {
-        var def = GetQuestDef(defId) as SampleQuestDef;
-
-        if (def == null) throw new ArgumentException("Quest def with ID = " + defId + ", not exist!");
-
-        if(def.Condition.Type == ConditionType.Score)
-            return new ScoreProcessor(_profile, def, storage, dataId);
-
-        throw new InvalidOperationException("Unable to create processor for :: " + defId);
-    }
-
+    
     public float QuestWeightFunction(string questId)
     {
         return 1;

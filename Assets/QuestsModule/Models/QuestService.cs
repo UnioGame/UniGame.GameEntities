@@ -28,9 +28,8 @@ namespace GBG.Modules.Quests
             {
                 var data = _dataStorage.GetQuestData(dataId);
                 var defId = data.Id;
-                var processor = _defStorage.InstantiateProcessor(defId, dataId, _dataStorage);
                 var fsm = _defStorage.InstantiateFSM(defId, dataId);
-                var model = new QuestModel(processor, fsm, _dataStorage);
+                var model = new QuestModel( fsm, _dataStorage, defId, dataId);
                 Models.Add(model);
             }
         }
@@ -55,9 +54,8 @@ namespace GBG.Modules.Quests
             if (string.IsNullOrEmpty(defId))
                 throw new Exception("Unable to generate new random quest Id");
             var dataId = Guid.NewGuid().ToString();
-            var processor = _defStorage.InstantiateProcessor(defId, dataId, _dataStorage);
             var fsm = _defStorage.InstantiateFSM(defId, dataId);
-            var model = new QuestModel(processor, fsm, _dataStorage);
+            var model = new QuestModel( fsm, _dataStorage, defId, dataId);
             Models.Add(model);
             return model;
         }
