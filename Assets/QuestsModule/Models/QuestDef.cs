@@ -3,11 +3,11 @@
 namespace GBG.Modules.Quests
 {
     [Serializable]
-    public abstract class QuestDef
+    public class QuestDef
     {
         public string Id;
         public string Description;
+        public int Weight = 1;
         public PlayMakerFSM QuestFsm;
-        public abstract object ConditionDef { get; }
     }
 }

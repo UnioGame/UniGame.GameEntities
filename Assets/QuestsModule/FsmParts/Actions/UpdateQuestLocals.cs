@@ -5,9 +5,8 @@ using System.Collections.Generic;
 using UniRx;
 using UnityEngine;
 
-namespace Samples
+namespace GBG.Modules.Quests.FsmParts.Actions
 {
-
     public class UpdateQuestLocals : FsmStateAction
     {
         public FsmString QuestId;
