@@ -21,7 +21,10 @@ namespace GBG.Modules.Quests.Data
     public class QuestData
     {
         public string Id;
-        public QuestState State;
+        /// <summary>
+        /// Value corresponds to QuestsState<see cref="GBG.Modules.Quests.Data.QuestState"/>
+        /// </summary>
+        public int State;
         public Dictionary<string, string> ProgressStorage = new Dictionary<string, string>();
     }
 }

@@ -65,7 +65,7 @@ namespace GBG.Modules.Quests
             {
                 questData = new QuestData();
                 questData.Id = _questDefId;
-                questData.State = QuestState.InProgress;
+                questData.State = (int)QuestState.InProgress;
                 _dataStorage.UpdateQuestData(QuestDataId, questData);
             }
         }

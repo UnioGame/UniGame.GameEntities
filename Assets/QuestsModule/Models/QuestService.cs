@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace GBG.Modules.Quests
 {
-    public class QuestService : IDisposable
+    public sealed class QuestService : IDisposable
     {
         private IQuestDefsStorage _defStorage;
         private IQuestDataStorage _dataStorage;
