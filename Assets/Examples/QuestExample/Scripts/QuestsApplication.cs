@@ -1,5 +1,6 @@
 ﻿using Facebook.Unity;
 using GBG.Modules.Quests;
+using GBG.Modules.Quests.Data;
 using GBG.Modules.RemoteData.Authorization;
 using GBG.Modules.RemoteData.FirebaseImplementation;
 using GBG.Modules.RemoteData.MutableRemoteObjects;

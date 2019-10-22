@@ -35,12 +35,13 @@ public class QuestDefStorage : IQuestDefsStorage
         var def = GetQuestDef(defId);
         var fsm = def.QuestFsm;
         var result = GameObject.Instantiate(fsm);
+        result.gameObject.name = $"Quest :: {defId} :: {questId}";
         result.FsmVariables.GetFsmString(StorageConstants.FSM_QUEST_ID_NAME).Value = questId;
         return result;
     }
-    
+
     public float QuestWeightFunction(string questId)
     {
-        return 1;
+        return GetQuestDef(questId).Weight;
     }
 }
