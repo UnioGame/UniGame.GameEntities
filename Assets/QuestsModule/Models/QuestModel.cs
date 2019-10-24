@@ -113,6 +113,11 @@ namespace GBG.Modules.Quests
             Dispose();
         }
 
+        public string GetDescription()
+        {
+            return Description;
+        }
+
         public void Dispose()
         {
             GameObject.Destroy(_correspondingFSM.gameObject);
