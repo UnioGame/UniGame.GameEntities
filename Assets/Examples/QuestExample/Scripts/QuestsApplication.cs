@@ -53,7 +53,7 @@ namespace Samples
             _questService = new QuestService();
             var questDefStorage = new QuestDefStorage(_defs, _profileControls._ownProfile);
             var questDataStorage = new ProfileQuestDataStorage(_profileControls._ownProfile);
-            _questService.Init(questDataStorage, questDefStorage);
+            _questService.Init(questDataStorage, questDefStorage, this.transform);
             _questControls.Init(_questService);
         }
 

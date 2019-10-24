@@ -16,10 +16,13 @@ namespace GBG.Modules.Quests
 
         private IDisposable _mergedToken;
 
-        public void Init(IQuestDataStorage dataStorage, IQuestDefsStorage defStorage)
+        private Transform _modelsParent;
+
+        public void Init(IQuestDataStorage dataStorage, IQuestDefsStorage defStorage, Transform modelsParent)
         {
             _dataStorage = dataStorage;
             _defStorage = defStorage;
+            _modelsParent = modelsParent;
             Models = new ReactiveCollection<QuestModel>();
             Models.ObserveAdd().Subscribe(SubscribeOnModel);
 
@@ -28,10 +31,19 @@ namespace GBG.Modules.Quests
             {
                 var data = _dataStorage.GetQuestData(dataId);
                 var defId = data.Id;
-                var fsm = _defStorage.InstantiateFSM(defId, dataId);
-                var model = new QuestModel( fsm, _dataStorage, defId, dataId);
-                Models.Add(model);
+                CreateQuestModel(dataId, defId);
             }
+        }
+
+        private QuestModel CreateQuestModel(string dataId, string defId)
+        {
+            var fsm = _defStorage.InstantiateFSM(defId, dataId);
+            var go = new GameObject($"QuestModel :: {dataId}");
+            go.transform.SetParent(_modelsParent);
+            var model = go.AddComponent<QuestModel>();
+            model.Init(fsm, _dataStorage, _defStorage, defId, dataId);
+            Models.Add(model);
+            return model;
         }
 
         private void SubscribeOnModel(CollectionAddEvent<QuestModel> @event)
@@ -54,10 +66,7 @@ namespace GBG.Modules.Quests
             if (string.IsNullOrEmpty(defId))
                 throw new Exception("Unable to generate new random quest Id");
             var dataId = Guid.NewGuid().ToString();
-            var fsm = _defStorage.InstantiateFSM(defId, dataId);
-            var model = new QuestModel( fsm, _dataStorage, defId, dataId);
-            Models.Add(model);
-            return model;
+            return CreateQuestModel(dataId, defId);
         }
 
         private string GetRandomQuestId()

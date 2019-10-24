@@ -8,26 +8,38 @@ using UnityEngine;
 
 namespace GBG.Modules.Quests
 {
-    public sealed class QuestModel : IQuestModel, IObservable<QuestModel>
+    public sealed class QuestModel : MonoBehaviour, IQuestModel, IObservable<QuestModel>
     {
-        private readonly IQuestDataStorage _dataStorage;
-        private readonly ReactiveCommand<QuestModel> _onChanged;
-        private readonly ReactiveProperty<QuestState> _questState;
-        private readonly string _questDefId;
-        private readonly string _questDataId;
+        private IQuestDataStorage _dataStorage;
+        private IQuestDefsStorage _defStorage;
+        private ReactiveCommand<QuestModel> _onChanged;
+        private ReactiveProperty<QuestState> _questState;
+        private string _questDefId;
+        private string _questDataId;
         private PlayMakerFSM _correspondingFSM;
+
+        public float MaxProgress => _correspondingFSM.FsmVariables.GetFsmFloat(StorageConstants.FSM_QUEST_MAX_PROGRESS_NAME).Value;
+        // TO DO Reactive
+        public float Progress => _correspondingFSM.FsmVariables.GetFsmFloat(StorageConstants.FSM_QUEST_PROGRESS_NAME).Value;
+        public IReactiveProperty<QuestState> State => _questState;
+        public string QuestDefId => _questDefId;
+        public string QuestDataId => _questDataId;
+        public string Description => _defStorage.GetQuestDef(QuestDefId).Description;
+        //TODO Localize
 
         private List<IDisposable> _disposables = new List<IDisposable>();
 
-        public QuestModel(
+        public void Init(
             PlayMakerFSM correspondingFsm,
             IQuestDataStorage dataStorage,
+            IQuestDefsStorage defStorage,
             string defId,
             string dataId)
         {
             _questDefId = defId;
             _questDataId = dataId;
             _dataStorage = dataStorage;
+            _defStorage = defStorage;
             InitQuestData();
 
             _onChanged = new ReactiveCommand<QuestModel>();
@@ -108,12 +120,5 @@ namespace GBG.Modules.Quests
             _disposables.ForEach((o) => o.Dispose());
             _disposables.Clear();
         }
-
-        public float MaxProgress => _correspondingFSM.FsmVariables.GetFsmFloat(StorageConstants.FSM_QUEST_MAX_PROGRESS_NAME).Value;
-        // TO DO Reactive
-        public float Progress => _correspondingFSM.FsmVariables.GetFsmFloat(StorageConstants.FSM_QUEST_PROGRESS_NAME).Value;
-        public IReactiveProperty<QuestState> State => _questState;
-        public string QuestDefId => _questDefId;
-        public string QuestDataId => _questDataId;
     }
 }
