@@ -8,7 +8,7 @@ namespace GBG.Modules.Quests
     {
         float MaxProgress { get; }
         float Progress { get; }
-        IReactiveProperty<QuestState> State { get; }
+        QuestState State { get; }
         string QuestDefId { get; }
         string QuestDataId { get; }
         void DeleteQuest();

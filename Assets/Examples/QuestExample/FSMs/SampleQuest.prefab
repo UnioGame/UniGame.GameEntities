@@ -708,16 +708,14 @@ MonoBehaviour:
         - HutongGames.PlayMaker.Actions.SetIntValue
         - HutongGames.PlayMaker.Actions.IntAdd
         - HutongGames.PlayMaker.Actions.SetBoolValue
-        - Samples.UpdateQuestLocals
         customNames:
         - 
         - 
         - 
-        - 
-        actionEnabled: 01010101
-        actionIsOpen: 01010101
-        actionStartIndex: 00000000030000000600000009000000
-        actionHashCodes: 603dd905603dd90527fbe10313227100
+        actionEnabled: 010101
+        actionIsOpen: 010101
+        actionStartIndex: 000000000300000006000000
+        actionHashCodes: 603dd905603dd90527fbe103
         unityObjectParams: []
         fsmGameObjectParams: []
         fsmOwnerDefaultParams: []
@@ -727,13 +725,7 @@ MonoBehaviour:
         fsmEventTargetParams: []
         fsmPropertyParams: []
         layoutOptionParams: []
-        fsmStringParams:
-        - useVariable: 1
-          name: QuestDataID
-          tooltip: 
-          showInInspector: 0
-          networkSync: 0
-          value: 
+        fsmStringParams: []
         fsmObjectParams: []
         fsmVarParams: []
         fsmArrayParams: []
@@ -788,7 +780,7 @@ MonoBehaviour:
         arrayParamTypes: []
         customTypeSizes: 
         customTypeNames: []
-        paramDataType: 10000000100000000100000010000000100000000100000011000000110000000100000012000000
+        paramDataType: 100000001000000001000000100000001000000001000000110000001100000001000000
         paramName:
         - intVariable
         - intValue
@@ -799,9 +791,8 @@ MonoBehaviour:
         - boolVariable
         - boolValue
         - everyFrame
-        - QuestId
-        paramDataPos: 00000000010000000000000002000000030000000100000000000000010000000200000000000000
-        paramByteDataSize: 00000000000000000100000000000000000000000100000000000000000000000100000000000000
+        paramDataPos: 000000000100000000000000020000000300000001000000000000000100000002000000
+        paramByteDataSize: 000000000000000001000000000000000000000001000000000000000000000001000000
     events:
     - name: FINISHED
       isSystemEvent: 1
@@ -891,10 +882,17 @@ MonoBehaviour:
       materialVariables: []
       textureVariables: []
       arrayVariables: []
-      enumVariables: []
+      enumVariables:
+      - useVariable: 1
+        name: State
+        tooltip: 
+        showInInspector: 0
+        networkSync: 0
+        enumName: GBG.Modules.Quests.Data.QuestState
+        intValue: 10
       categories:
       - 
-      variableCategoryIDs: 000000000000000000000000000000000000000000000000000000000000000000000000
+      variableCategoryIDs: 00000000000000000000000000000000000000000000000000000000000000000000000000000000
     description: 
     docUrl: 
     showStateLabel: 0

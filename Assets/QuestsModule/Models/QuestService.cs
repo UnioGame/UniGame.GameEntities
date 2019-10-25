@@ -53,7 +53,7 @@ namespace GBG.Modules.Quests
         
         private void OnModelChanged(QuestModel qm)
         {
-            if(qm.State.Value == Data.QuestState.ReadyToRemove)
+            if(qm.State == Data.QuestState.ReadyToRemove)
             {
                 qm.DeleteQuest();
                 Models.Remove(qm);

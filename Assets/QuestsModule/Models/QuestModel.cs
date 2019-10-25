@@ -1,5 +1,6 @@
 ﻿using GBG.Modules.Quests.Data;
 using GBG.Modules.Quests.FsmParts;
+using GBG.Modules.Quests.FsmParts.Actions;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -13,15 +14,15 @@ namespace GBG.Modules.Quests
         private IQuestDataStorage _dataStorage;
         private IQuestDefsStorage _defStorage;
         private ReactiveCommand<QuestModel> _onChanged;
-        private ReactiveProperty<QuestState> _questState;
         private string _questDefId;
         private string _questDataId;
         private PlayMakerFSM _correspondingFSM;
+        private QuestState _state;
 
         public float MaxProgress => _correspondingFSM.FsmVariables.GetFsmFloat(StorageConstants.FSM_QUEST_MAX_PROGRESS_NAME).Value;
         // TO DO Reactive
         public float Progress => _correspondingFSM.FsmVariables.GetFsmFloat(StorageConstants.FSM_QUEST_PROGRESS_NAME).Value;
-        public IReactiveProperty<QuestState> State => _questState;
+        public QuestState State => (QuestState)_correspondingFSM.FsmVariables.GetFsmEnum(StorageConstants.FSM_QUEST_STATE_NAME).Value;
         public string QuestDefId => _questDefId;
         public string QuestDataId => _questDataId;
         public string Description => _defStorage.GetQuestDef(QuestDefId).Description;
@@ -44,9 +45,6 @@ namespace GBG.Modules.Quests
 
             _onChanged = new ReactiveCommand<QuestModel>();
             _disposables.Add(_onChanged);
-            _questState = new ReactiveProperty<QuestState>();
-            _disposables.Add(_questState);
-            _questState.Value = QuestState.InProgress;
 
             _correspondingFSM = correspondingFsm;
             InitFSMVariables(_correspondingFSM);
@@ -64,10 +62,17 @@ namespace GBG.Modules.Quests
                     data.ProgressStorage = message.Values;
                     _dataStorage.UpdateQuestData(QuestDataId, data);
                 });
-
             _disposables.Add(disposable);
 
-
+            disposable = MessageBroker.Default.Receive<QuestStateChangedAction>()
+                .Where(message => message.QuestId == QuestDataId)
+                .Subscribe(message =>
+                {
+                    var data = _dataStorage.GetQuestData(QuestDataId);
+                    data.State = (int)State;
+                    _onChanged.Execute(this);
+                });
+            _disposables.Add(disposable);
         }
 
         private void InitQuestData()
