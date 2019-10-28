@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace GBG.Modules.Quests
+namespace GBG.Modules.Quests.Data
 {
     [Serializable]
     public class QuestDef

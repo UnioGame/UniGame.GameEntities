@@ -60,9 +60,9 @@ namespace GBG.Modules.Quests
             }
         }
 
-        public QuestModel GenerateNewQuest()
+        public QuestModel GenerateNewQuest(string defId = null)
         {
-            var defId = GetRandomQuestId();
+            defId = defId != null ? defId : GetRandomQuestId();
             if (string.IsNullOrEmpty(defId))
                 throw new Exception("Unable to generate new random quest Id");
             var dataId = Guid.NewGuid().ToString();
