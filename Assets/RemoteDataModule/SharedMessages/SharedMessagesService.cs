@@ -1,13 +1,14 @@
-﻿using RemoteDataModule.Authorization;
-using RemoteDataModule.SharedMessages;
-using RemoteDataModule.SharedMessages.MessageData;
+﻿using GBG.Modules.RemoteData.Authorization;
+using GBG.Modules.RemoteData.RemoteDataAbstracts;
+using GBG.Modules.RemoteData.SharedMessages;
+using GBG.Modules.RemoteData.SharedMessages.MessageData;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using UnityEngine;
 
-namespace RemoteDataModule.SharedMessages
+namespace GBG.Modules.RemoteData.SharedMessages
 {
     public class SharedMessagesService
     {
@@ -18,39 +19,28 @@ namespace RemoteDataModule.SharedMessages
 
         public void Init(IAuthModule authModule, BaseSharedMessagesStorage storage)
         {
-            this._authModule = authModule;
-            this._storage = storage;
-            _storage.SelfMessagesUpdated += SelfMessagesUpdated;
+            _authModule = authModule;
+            _storage = storage;
         }
 
         public void Run()
         {
-            _storage.FetchAllMessages().ContinueWith((t) =>
-            {
-                if (t.IsFaulted)
-                {
-                    Debug.LogException(t.Exception);
-                    return;
-                }
-                NotifyListeners(t.Result);
-            });            
+            _storage.MessageAdded += SelfMessagesAdded;
+            _storage.StartListen();
         }
 
-        private void SelfMessagesUpdated(List<AbstractSharedMessage> obj)
+        private void SelfMessagesAdded(AbstractSharedMessage obj)
         {
             NotifyListeners(obj);
         }
 
-        private void NotifyListeners(List<AbstractSharedMessage> messages)
+        private void NotifyListeners(AbstractSharedMessage message)
         {
-            foreach(var message in messages)
-            {
-                var type = message.GetType();
-                if (_processors.ContainsKey(type))
-                    _processors[type].ProcessMessage(message);
-                else
-                    Debug.LogWarning("No processors registered for message type :: " + type.Name);
-            }
+            var type = message.GetType();
+            if (_processors.ContainsKey(type))
+                _processors[type].ProcessMessage(message);
+            else
+                Debug.LogWarning("No processors registered for message type :: " + type.Name);
         }
 
         public async Task PushMessage(string userId, AbstractSharedMessage message)
@@ -58,18 +48,36 @@ namespace RemoteDataModule.SharedMessages
             await _storage.CommitMessage(userId, message);
         }
 
+        public RemoteDataChange CreateMarkProcededChange(AbstractSharedMessage message)
+        {
+            return RemoteDataChange.Create(
+                string.Format("{0}/{1}", message.FullPath, nameof(message.Proceeded)),
+                nameof(message.Proceeded),
+                true,
+                null);
+        }
+
+        public RemoteDataChange CreateRemoveChange(AbstractSharedMessage message)
+        {
+            return RemoteDataChange.Create(
+                message.FullPath,
+                string.Empty,
+                null,
+                null);
+        }
+
         public void RegisterProcessor<T>(ISharedMessageProcessor processor) where T : AbstractSharedMessage
         {
             if (_processors.ContainsValue(processor))
                 throw new InvalidOperationException("Repeated processor registration for type :: " + processor.GetType().FullName);
-            
+
             _processors.Add(typeof(T), processor);
         }
 
         public void UnregisterProcessor(ISharedMessageProcessor processor)
         {
             Type keyToRemove = null;
-            foreach(var kvp in _processors)
+            foreach (var kvp in _processors)
             {
                 if (kvp.Value == processor)
                 {
@@ -79,8 +87,5 @@ namespace RemoteDataModule.SharedMessages
             }
             _processors.Remove(keyToRemove);
         }
-
-
-        // TO DO commit message as read
     }
 }

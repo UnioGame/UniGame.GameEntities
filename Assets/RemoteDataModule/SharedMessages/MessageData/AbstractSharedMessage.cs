@@ -1,12 +1,17 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.Serialization;
 using UnityEngine;
 
-namespace RemoteDataModule.SharedMessages.MessageData
+namespace GBG.Modules.RemoteData.SharedMessages.MessageData
 {
+    using System.Linq;
+    using UniGreenModules.UniCore.Runtime.ReflectionUtils;
+
     [Serializable]
-    public abstract class AbstractSharedMessage : ISerializationCallbackReceiver
+    public abstract class AbstractSharedMessage
     {
         /// <summary>
         /// User id отправителя
@@ -18,22 +23,45 @@ namespace RemoteDataModule.SharedMessages.MessageData
         public string MessageType;
 
         [SerializeField]
-        private bool Proceeded;
+        public bool Proceeded;
 
-        public void OnAfterDeserialize()
+        public string FullPath { get; private set; }
+
+        /// <summary>
+        /// TO DO вместо ииспользования этого метода надо настроить
+        /// Newtonsoft.Json чтобы он сериализовал инфу о типе в валидные поля
+        /// </summary>
+        public void AssureType()
         {
-            this.MessageType = this.GetType().Name;
+            MessageType = GetType().Name;
+            FullPath = null;
         }
 
-        public void OnBeforeSerialize()
+        public void SetPath(string path)
         {
-            this.MessageType = this.GetType().Name;
+            FullPath = path;
         }
+        
+        private static Dictionary<string, Type> cacheTypes = new Dictionary<string, Type>();
 
         public static AbstractSharedMessage FromJson(string typeShortName, string data)
         {
-            var typeString = string.Join(".", typeof(AbstractSharedMessage).Namespace, typeShortName);
-            return JsonUtility.FromJson(data, Type.GetType(typeString)) as AbstractSharedMessage;
+            Type GetTypeForDeserialization()
+            {
+                if (cacheTypes.TryGetValue(typeShortName, out var type)) {
+                    return type;
+                }
+                var allImplementations = ReflectionTools.FindAllImplementations(typeof(AbstractSharedMessage));
+                foreach(var candidate in allImplementations)
+                {
+                    if (candidate.Name == typeShortName)
+                        type = candidate;
+                    cacheTypes[candidate.Name] = type;
+                }
+
+                return type;
+            }
+            return (AbstractSharedMessage) JsonConvert.DeserializeObject(data, GetTypeForDeserialization());
         }
     }
 }
