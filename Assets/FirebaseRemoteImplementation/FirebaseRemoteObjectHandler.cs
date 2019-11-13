@@ -36,16 +36,18 @@ namespace RemoteDataImpl
                 _reference.ValueChanged -= RemoteValueChanged;
                 _reference.ValueChanged += RemoteValueChanged;
             }
-
+#if USERDATA_MODULE_DEBUG
             if (Debug.isDebugBuild || Application.isEditor) {
                 Debug.Log("Requesting data on path :: " + _reference.ToString());
             }
-
+#endif
             DataSnapshot data = null;
             data = await _reference.GetValueAsync();
+#if USERDATA_MODULE_DEBUG
             if (Debug.isDebugBuild || Application.isEditor) {
                 Debug.Log("RAW DATA :: " + (data != null ? data.GetRawJsonValue() : string.Empty));
             }
+#endif
             if ((data == null || !data.Exists) && initialDataProvider != null)
             {
                 var initialData = initialDataProvider();
@@ -105,10 +107,12 @@ namespace RemoteDataImpl
             ValueChanged?.Invoke(this);
         }
 
-        private void ParseResult(DataSnapshot dataSnapshot)
-        {
-            Object = JsonConvert.DeserializeObject<T>(dataSnapshot != null ? dataSnapshot.GetRawJsonValue() : string.Empty);
-            ValueChanged?.Invoke(this);
+        private void ParseResult(DataSnapshot dataSnapshot) {
+            var json = dataSnapshot?.GetRawJsonValue();
+            if (json != null) {
+                Object = JsonConvert.DeserializeObject<T>(json);
+                ValueChanged?.Invoke(this);
+            }
         }
 
         /// <summary>

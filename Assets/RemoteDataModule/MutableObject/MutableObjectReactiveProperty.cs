@@ -37,6 +37,10 @@ namespace GBG.Modules.RemoteData.MutableRemoteObjects
         public bool HasValue => true;
 
         T IReadOnlyReactiveProperty<T>.Value => Value;
+        
+        public void ChangeSilentForNetwork(T value) {
+            _changeCommand.Execute(value);
+        }
 
         public IDisposable Subscribe(IObserver<T> observer)
         {
