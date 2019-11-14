@@ -1,12 +1,13 @@
 ﻿using System;
 
-namespace GBG.Modules.Quests
+namespace GBG.Modules.Quests.Data
 {
     [Serializable]
-    public abstract class QuestDef
+    public class QuestDef
     {
         public string Id;
         public string Description;
-        public abstract object ConditionDef { get; }
+        public int Weight = 1;
+        public PlayMakerFSM QuestFsm;
     }
 }

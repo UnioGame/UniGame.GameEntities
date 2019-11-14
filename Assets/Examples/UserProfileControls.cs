@@ -11,6 +11,16 @@ using Random = UnityEngine.Random;
 
 namespace Samples
 {
+    public class AddScoreMessage
+    {
+        public AddScoreMessage(int delta ,string reason = "Undefined")
+        {
+            Delta = delta;
+            Reason = reason;
+        }
+        public string Reason { get; private set; }
+        public int Delta { get; private set; }
+    }
     public class UserProfileControls : MonoBehaviour
     {
         private MutableObjectFactory _factory;
@@ -30,11 +40,25 @@ namespace Samples
         [SerializeField]
         private Button _scoreInputSubmit;
 
+        [Space]
+        [SerializeField]
+        private InputField _goldInput;
+        [SerializeField]
+        private Button _goldInputSubmit;
+
         private string _infoText;
 
         private void Awake()
         {
             _scoreInputSubmit.onClick.AddListener(SubmitScore);
+            _goldInputSubmit.onClick.AddListener(SubmitGold);
+        }
+
+        private void SubmitGold()
+        {
+            var value = int.Parse(_goldInput.text);
+            _ownProfile.ReactiveGold.Value += value;
+            _ownProfile.CommitChanges().ContinueWith((_) => { SetInfoText(); });
         }
 
         private void SubmitScore()
@@ -61,6 +85,7 @@ namespace Samples
         public void FetchUserProfile()
         {
             _ownProfile = _factory.CreateUserProfile(_auth.CurrentUserId);
+            SubscribePlaymakerMaping(_ownProfile);
             _ownProfile.KeyToVal.Subscribe((v) => { KeyToValItemChanged(v); });
             _ownProfile.ReactiveGold.Subscribe((v) => Debug.LogError("VALUE :: " + v.ToString()));
             _ownProfile.SomeList.ObserveReplace().Subscribe((e) => Debug.LogError(string.Format("LIST :: old = {0} :: new = {1} ", e.OldValue, e.NewValue)));
@@ -93,6 +118,19 @@ namespace Samples
 
             }).ContinueWith(_ => SetInfoText());
             StartCoroutine(subsCoroutine());
+        }
+
+        private void SubscribePlaymakerMaping(MutableUserProfile profile)
+        {
+            profile.ReactiveGold.Subscribe((value)=> { PlayMakerGlobals.Instance.Variables.GetFsmInt(nameof(profile.Gold)).Value = value; });
+            profile.ReactiveScore.Subscribe((value)=> { PlayMakerGlobals.Instance.Variables.GetFsmInt(nameof(profile.Score)).Value = value; });
+            profile.ReactiveUserName.Subscribe((value)=> { PlayMakerGlobals.Instance.Variables.GetFsmString(nameof(profile.UserName)).Value = value; });
+
+            MessageBroker.Default.Receive<AddScoreMessage>().Subscribe((message) =>
+            {
+                Debug.Log($"Score increased for :: {message.Delta} because of :: {message.Reason}");
+                profile.ReactiveScore.Value += message.Delta;
+            });
         }
 
         private IEnumerator subsCoroutine()
