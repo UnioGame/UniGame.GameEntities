@@ -33,5 +33,16 @@ namespace GBG.Modules.Quests.Data
             }
             throw new Exception("Unable to generate random quest Id");
         }
+
+        public void OnValidate()
+        {
+            var duplicatedIds = GetAllIds()
+                .GroupBy(id => id)
+                .Where(g => g.Count() > 1)
+                .Select(y => y.Key)
+                .ToArray();
+            if (duplicatedIds.Length > 0)
+                Debug.LogError($"QuestDef \"{this.name}\" contains duplicated ids = [{string.Join(", ", duplicatedIds) }] ");
+        }
     }
 }
