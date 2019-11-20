@@ -12,6 +12,7 @@ namespace GBG.Modules.Quests.FsmParts
         public const string FSM_QUEST_MAX_PROGRESS_NAME = "MaxProgress";
         public const string FSM_QUEST_PROGRESS_NAME = "Progress";
         public const string FSM_QUEST_STATE_NAME = "State";
+        public const string FSM_GIVE_REWARD_EVENT = "AddReward";
     }
 
 }

@@ -117,6 +117,31 @@ namespace GBG.Modules.Quests
             _dataStorage.UpdateQuestData(_questDataId, null);
             Dispose();
         }
+        public void AddReward()
+        {
+            if (this.State != QuestState.RewardAvailable)
+                throw new Exception($"For quest = {QuestDataId} DefId = {QuestDefId} :: Reward not available or already taken");
+            _correspondingFSM.SendEvent(StorageConstants.FSM_GIVE_REWARD_EVENT);
+        }
+        public GameObject GetFsmGameObject()
+        {
+            return _correspondingFSM.gameObject;
+        }
+
+        public string GetFsmName()
+        {
+            return _correspondingFSM.FsmName;
+        }
+
+        public bool TryAddReward()
+        {
+            if (this.State == QuestState.RewardAvailable)
+            {
+                AddReward();
+                return true;
+            }
+            return false;
+        }
 
         public string GetDescription()
         {
